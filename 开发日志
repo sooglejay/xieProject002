@@ -1,0 +1,11 @@
+
+2017-08-17
+1. 首先是把php从56搞到70+
+2. 选择一个优雅的开发框架，并搭建于此相关的环境，快速开发
+3. 设计数据库表结构，以及读写excel的代码
+4. 开始做前端界面
+
+2017-08-23
+vendor/bin/doctrine orm:schema-tool:drop --force
+vendor/bin/doctrine orm:schema-tool:create
+vendor/bin/doctrine orm:schema-tool:update --force
