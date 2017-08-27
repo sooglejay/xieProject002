@@ -2,14 +2,24 @@
  * Created by sooglejay on 17/8/24.
  */
 $(function () {
-    // login();
+    $("#btn-login").click(function () {
+        login();
+    });
 });
 function login() {
-    var userName = $("#userName");
-    var password = $("#password");
+    var userName = $("#userName").val();
+    var password = $("#password").val();
+    if (!userName || userName.length < 1) {
+        box.msg("请输入用户名");
+        return;
+    }
+    if (!password || password.length < 1) {
+        box.msg("请输入密码");
+        return;
+    }
     $.ajax({
         type: 'POST',
-        url: '/ziyan/Login.php',
+        url: 'Login.php',
         data: {userName: userName, password: password},
         dataType: 'json',
         beforeSend: function () {
@@ -17,12 +27,16 @@ function login() {
         },
         success: function (res) {
             layer.closeAll();
-            window.href.location = '/ziyan/index.html';
+            if (res.error) {
+                box.msg(res.message);
+            } else {
+                window.location.href = '/ziyan/index.html';
+            }
         },
         error: function (e) {
+            layer.closeAll();
+            box.msg('登录失败！请联系系统管理员！');
             console.log(e);
-            window.href.location = '/ziyan/index.html';
-
         }
     });
 }

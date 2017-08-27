@@ -1,4 +1,6 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
+require_once 'Shop.php';
 
 /**
  * Created by PhpStorm.
@@ -9,6 +11,7 @@
  */
 class User
 {
+
     /** @Id @Column(type="integer") @GeneratedValue * */
     protected $id;
 
@@ -35,6 +38,24 @@ class User
 
     /** @Column(type="integer") * */
     protected $shop_num;
+    /**
+     * @OneToMany(targetEntity="Shop", mappedBy="shopUser")
+     * @var Shop[] An ArrayCollection of Bug objects.
+     **/
+    protected $assignedShop = null;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->assignedShop = new ArrayCollection();
+    }
+
+    public function assignedToShop(Shop $shop)
+    {
+        $this->assignedShop[] = $shop;
+    }
 
     /**
      * @return mixed
@@ -181,8 +202,8 @@ class User
             "area_name" => $this->area_name,
             "grid_name" => $this->grid_name,
             "account_name" => $this->account_name,
-            "shop_num" => $this->shop_num,
-            );
+            "shop_num" =>$this->assignedShop->count(),
+        );
     }
 
 }

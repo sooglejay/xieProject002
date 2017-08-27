@@ -100,106 +100,117 @@ $(function () {
         var shop_landline = $.trim($('#shop_landline').val());
         var shop_operator = $.trim($('#shop_operator').val());
 
-        // 验证商铺名称不能为空
-        if (shop_name == '') {
-            box.msg('请输入商铺名称！');
-            return false;
-        }
+        // // 验证商铺名称不能为空
+        // if (shop_name == '') {
+        //     box.msg('请输入商铺名称！');
+        //     return false;
+        // }
+        //
+        // // 验证商铺地址不能为空
+        // if (shop_addr == '') {
+        //     box.msg('请输入商铺地址！');
+        //     return false;
+        // }
+        //
+        // // 验证商铺所在街道不能为空
+        // if (shop_street == '') {
+        //     box.msg('请输入商铺所在街道名称！');
+        //     return false;
+        // }
+        //
+        // // 验证商铺联系方式1不能为空
+        // if (shop_contact1 == '') {
+        //     box.msg('请输入商铺联系方式1！');
+        //     return false;
+        // }
+        //
+        // // 必须输入手机号码
+        // /*if (!/^1\d{10}$/.test(shop_contact1)) {
+        //  box.msg('请输入正确手机号码！');
+        //  return false;
+        //  }*/
+        // if (shop_contact1.length != 11 || isNaN(shop_contact1)) {
+        //     box.msg('商铺联系方式1的长度为11位！');
+        //     return false;
+        // }
+        //
+        // // 如果联系方式二不为空，验证格式
+        // if (shop_contact2 != '') {
+        //     if (isNaN(shop_contact2)) {
+        //         box.msg('请输入数字！');
+        //         return false;
+        //     }
+        // }
+        //
+        // // 验证商铺类型必选
+        // if (shop_type == '') {
+        //     box.msg('请选择商铺行业类别！');
+        //     return false;
+        // }
+        //
+        // // 判断280代码为10位
+        // if (shop_280 != '') {
+        //     if (shop_280.length != 10 || isNaN(shop_280)) {
+        //         box.msg('请输入10位数的280代码！');
+        //         return false;
+        //     }
+        // }
+        //
+        // // 验证是否完成组网
+        // if (shop_group_net == '') {
+        //     box.msg('请选择是否完成集团组网！');
+        //     return false;
+        // }
+        //
+        // // 集团成员数量
+        // if (shop_mem_num == '') {
+        //     box.msg('请输入集团成员数量！');
+        //     return false;
+        // }
+        //
+        // // 判断集团数量是否为数字或正数
+        // if (isNaN(shop_mem_num) || shop_mem_num < 0) {
+        //     box.msg('请输入大于或等于0的数字！');
+        //     return false;
+        // }
+        //
+        // // 判断209代码为11位
+        // if (shop_209 != '') {
+        //     if (shop_209.length != 11 || isNaN(shop_209)) {
+        //         box.msg('请输入11位数的209代码！');
+        //         return false;
+        //     }
+        // }
+        //
+        // // 验证宽带是否覆盖
+        // if (shop_broadband_cover == '') {
+        //     box.msg('请选择移动宽带资源是否覆盖！');
+        //     return false;
+        // }
+        //
+        // // 验证是否选择运行商
+        // if (shop_operator == '') {
+        //     box.msg('请选择宽带使用运营商！');
+        //     return false;
+        // }
 
-        // 验证商铺地址不能为空
-        if (shop_addr == '') {
-            box.msg('请输入商铺地址！');
-            return false;
-        }
-
-        // 验证商铺所在街道不能为空
-        if (shop_street == '') {
-            box.msg('请输入商铺所在街道名称！');
-            return false;
-        }
-
-        // 验证商铺联系方式1不能为空
-        if (shop_contact1 == '') {
-            box.msg('请输入商铺联系方式1！');
-            return false;
-        }
-
-        // 必须输入手机号码
-        /*if (!/^1\d{10}$/.test(shop_contact1)) {
-         box.msg('请输入正确手机号码！');
-         return false;
-         }*/
-        if (shop_contact1.length != 11 || isNaN(shop_contact1)) {
-            box.msg('商铺联系方式1的长度为11位！');
-            return false;
-        }
-
-        // 如果联系方式二不为空，验证格式
-        if (shop_contact2 != '') {
-            if (isNaN(shop_contact2)) {
-                box.msg('请输入数字！');
-                return false;
-            }
-        }
-
-        // 验证商铺类型必选
-        if (shop_type == '') {
-            box.msg('请选择商铺行业类别！');
-            return false;
-        }
-
-        // 判断280代码为10位
-        if (shop_280 != '') {
-            if (shop_280.length != 10 || isNaN(shop_280)) {
-                box.msg('请输入10位数的280代码！');
-                return false;
-            }
-        }
-
-        // 验证是否完成组网
-        if (shop_group_net == '') {
-            box.msg('请选择是否完成集团组网！');
-            return false;
-        }
-
-        // 集团成员数量
-        if (shop_mem_num == '') {
-            box.msg('请输入集团成员数量！');
-            return false;
-        }
-
-        // 判断集团数量是否为数字或正数
-        if (isNaN(shop_mem_num) || shop_mem_num < 0) {
-            box.msg('请输入大于或等于0的数字！');
-            return false;
-        }
-
-        // 判断209代码为11位
-        if (shop_209 != '') {
-            if (shop_209.length != 11 || isNaN(shop_209)) {
-                box.msg('请输入11位数的209代码！');
-                return false;
-            }
-        }
-
-        // 验证宽带是否覆盖
-        if (shop_broadband_cover == '') {
-            box.msg('请选择移动宽带资源是否覆盖！');
-            return false;
-        }
-
-        // 验证是否选择运行商
-        if (shop_operator == '') {
-            box.msg('请选择宽带使用运营商！');
-            return false;
-        }
-
+        console.log(shop_name);
+        console.log(shop_addr);
+        console.log(shop_street);
+        console.log(shop_contact1);
+        console.log(shop_contact2);
+        console.log(shop_type);
+        console.log(shop_280);
+        console.log(shop_group_net);
+        console.log(shop_mem_num);
+        console.log(shop_209);
+        console.log(shop_broadband_cover);
+        console.log(shop_landline);
 
         $.ajax({
-            type: 'post',
-            url: '/ziyan/MainApp.php',
+            type: 'POST',
+            url: 'MainApp.php',
             dataType: 'json',
-            async: false,
             data: {
                 action: 'save_shop',
                 shop_name: shop_name,
@@ -214,34 +225,29 @@ $(function () {
                 shop_209: shop_209,
                 shop_broadband_cover: shop_broadband_cover,
                 shop_landline: shop_landline,
-                shop_operator: shop_operator,
-                lng: $('#lng').val(),
-                lat: $('#lat').val(),
-                btn_type: $('#btn_type').val(),
-                sid: $('#sid').val(),
+                shop_operator: shop_operator
             },
             beforeSend: function () {
                 box.loadding('正在添加,请稍后...');
             },
             success: function (res) {
                 layer.closeAll();
-                if (res.errcode == 0) {
-                    box.msg(res.message); // 添加成功具体操作看要求，是跳转还是提示
-
-                    box.confirm(res.message, ['继续添加', '返回首页'], function (index) {
-                        window.location.reload();
-                        layer.close(index);
-                        return false;
-                    }, function () {
-                        window.location.href="/ziyan/index.html"
-                    });
-                    // setTimeout(function(){
-                    //     window.location.href = res.url;
-                    // }, 2000);
-                    //window.location.href="http://www.johnxu.net";
-                } else {
-                    box.msg(res.message);
+                if (res.error) {
+                    console.log(res.error); // 添加成功具体操作看要求，是跳转还是提示
+                    return;
                 }
+                box.confirm(res.message, ['继续添加', '返回首页'], function (index) {
+                    window.location.reload();
+                    layer.close(index);
+                    return false;
+                }, function () {
+                    window.location.href = "index.html"
+                });
+            },
+            error: function (e) {
+                layer.closeAll();
+                box.msg("添加失败，请确认输入的信息是否合法！");
+                console.log(e);
             }
         });
     });
@@ -301,4 +307,3 @@ $(function () {
     });
 
 });
-

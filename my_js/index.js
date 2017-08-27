@@ -7,14 +7,18 @@ $(function () {
 function loadData() {
     $.ajax({
         type: 'POST',
-        url: '/ziyan/Search.php',
-        data: {action: "INDEX"},
+        url: 'MainApp.php',
+        data: {action: "index"},
         dataType: 'json',
         beforeSend: function () {
-//                box.loadding('加载中...');
+            box.loadding('加载中...');
         },
         success: function (res) {
             layer.closeAll();
+            if (res.error) {
+                window.location.href = "login.html";
+                return;
+            }
             $('#county').text(res["county"]);
             $('#area_name').text(res["area_name"]);
             $('#grid_name').text(res["grid_name"]);
@@ -22,7 +26,8 @@ function loadData() {
             $('#selling_area_name').text(res["selling_area_name"]);
             $('#shop_num').text(res["shop_num"]);
         },
-        error:function (e) {
+        error: function (e) {
+            layer.closeAll();
             console.log(e);
         }
     });

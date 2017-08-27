@@ -1,4 +1,5 @@
 <?php
+require_once 'User.php';
 
 /**
  * Created by PhpStorm.
@@ -52,10 +53,6 @@ class Shop
     /** @Column(type="string") * */
     protected $shop_operator;
 
-    /** @Column(type="decimal") * */
-    protected $lng;
-    /** @Column(type="decimal") * */
-    protected $lat;
 
     /**
      * @return mixed
@@ -218,10 +215,23 @@ class Shop
     }
 
     /**
-     * @ManyToOne(targetEntity="user")
-     * @JoinColumn(referencedColumnName="id")
+     * @ManyToOne(targetEntity="User", inversedBy="assignedShop")
+     **/
+    protected $shopUser;
+
+    public function setShopUser(User $user)
+    {
+        $user->assignedToShop($this);
+        $this->shopUser = $user;
+    }
+
+    /**
+     * @return mixed
      */
-    private $account_name_id;
+    public function getShopUser()
+    {
+        return $this->shopUser;
+    }
 
     /**
      * @return mixed
@@ -287,38 +297,6 @@ class Shop
         $this->shop_operator = $shop_operator;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLng()
-    {
-        return $this->lng;
-    }
-
-    /**
-     * @param mixed $lng
-     */
-    public function setLng($lng)
-    {
-        $this->lng = $lng;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLat()
-    {
-        return $this->lat;
-    }
-
-    /**
-     * @param mixed $lat
-     */
-    public function setLat($lat)
-    {
-        $this->lat = $lat;
-    }
-
     public function toArray()
     {
         return array(
@@ -333,9 +311,7 @@ class Shop
             "shop_209" => $this->shop_209,
             "shop_mem_num" => $this->shop_mem_num,
             "shop_street" => $this->shop_street,
-            "shop_operator" => $this->shop_operator,
-            "lat" => $this->lat,
-            "lng" => $this->lng
+            "shop_operator" => $this->shop_operator
         );
     }
 

@@ -18,13 +18,13 @@
                     <form role="form">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="请输入账号" name="userName" type="text" autofocus>
+                                <input class="form-control" placeholder="请输入账号" id="userName" name="userName" type="text" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="请输入密码" name="password" type="password" value="">
+                                <input class="form-control" placeholder="请输入密码" id="password" name="password" type="password" value="">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <button type="button" class="btn btn-success btn-block" onsubmit="login();">Login</button>
+                            <button id="btn-login" type="button" class="btn btn-success btn-block">登录</button>
                         </fieldset>
                     </form>
                 </div>
@@ -32,10 +32,11 @@
         </div>
     </div>
 </div>
-<script src="js/jquery-3.2.0.min.js"></script>
-<script src="js/bootstrap_3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+
+<script type="text/javascript" src="js/bootstrap_3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/layer.js"></script>
-<script type="text/javascript" src=my_js/login.js"></script>
+<script type="text/javascript" src="my_js/login.js"></script>
 
 </body>
 </html>
