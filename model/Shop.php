@@ -303,6 +303,7 @@ class Shop
     public function toArray()
     {
         return array(
+            "id" => $this->getId(),
             "shop_name" => $this->shop_name,
             "shop_addr" => $this->shop_addr,
             "shop_contact1" => $this->shop_contact1,
@@ -311,6 +312,7 @@ class Shop
             "shop_group_net" => $this->shop_group_net,
             "shop_landline" => $this->shop_landline,
             "shop_280" => $this->shop_280,
+            "shop_type" => $this->shop_type,
             "shop_209" => $this->shop_209,
             "shop_mem_num" => $this->shop_mem_num,
             "shop_street" => $this->shop_street,

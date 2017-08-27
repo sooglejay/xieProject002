@@ -14,6 +14,8 @@ class MainApp extends App
     public static $INDEX = "index";
     public static $SEARCH = "search";
     public static $SAVE_SHOP = "save_shop";
+    public static $EDIT = "edit";
+    public static $VIEW = "view";
 
     private $userRepo;
     private $shopRepo;
@@ -52,10 +54,26 @@ class MainApp extends App
             }
 
         } else if ($actionName == MainApp::$SEARCH) {
-            $retArr = [];
-            $keyWord = $_REQUEST['keyWord'];
+            $keyWord = $_REQUEST['search'];
+            $shopArr = $this->shopRepo->findAll();
+            $retArr = array();
+            foreach ($shopArr as $shop) {
+                if ($shop instanceof Shop) {
+                    $st = similar_text($shop->getShopName(), $keyWord);
+                    if ($st > 0) {
+                        $retArr[] = $shop->toArray();
+                    }
+                }
+            }
+            echo json_encode($retArr);
         } else if ($actionName == MainApp::$SAVE_SHOP) {
             $this->actionSaveShop();
+        } else if ($actionName == MainApp::$EDIT || $actionName == MainApp::$VIEW) {
+            $id = $_REQUEST['id'];
+            $shopEntity = $this->shopRepo->find($id);
+            if ($shopEntity instanceof Shop) {
+                echo json_encode($shopEntity->toArray());
+            }
         }
     }
 
