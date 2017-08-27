@@ -5,14 +5,17 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 require_once "vendor/autoload.php";
+
 class App
 {
     private $isDevMode = true;
-    private $config;
 // database configuration parameters
     private $conn = array(
-        'driver' => 'pdo_sqlite',
-        'path' => __DIR__ . '/db.sqlite',
+        'dbname' => 'ziyan',
+        'user' => 'jiangwei_test',
+        'password' => 'jiangwei_test',
+        'host' => 'localhost:3307',
+        'driver' => 'pdo_mysql',
     );
     public $entityManager;
 
@@ -21,8 +24,8 @@ class App
      */
     public function __construct()
     {
-        $this->config = Setup::createAnnotationMetadataConfiguration(array(__DIR__ . "/model"), $this->isDevMode);
-        $this->entityManager = EntityManager::create($this->conn, $this->config);
+        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__ . "/model"), $this->isDevMode,__DIR__ . "/proxy");
+        $this->entityManager = EntityManager::create($this->conn, $config);
     }
 
 }

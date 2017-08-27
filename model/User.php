@@ -40,9 +40,9 @@ class User
     protected $shop_num;
     /**
      * @OneToMany(targetEntity="Shop", mappedBy="shopUser")
-     * @var Shop[] An ArrayCollection of Bug objects.
+     * @var Shop[] An ArrayCollection of Shop objects.
      **/
-    protected $assignedShop = null;
+    protected $assignedShop;
 
     /**
      * User constructor.

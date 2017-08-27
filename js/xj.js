@@ -99,7 +99,7 @@ $(function () {
         var shop_broadband_cover = $.trim($('#shop_broadband_cover').val());
         var shop_landline = $.trim($('#shop_landline').val());
         var shop_operator = $.trim($('#shop_operator').val());
-
+        //
         // // 验证商铺名称不能为空
         // if (shop_name == '') {
         //     box.msg('请输入商铺名称！');
@@ -206,7 +206,6 @@ $(function () {
         console.log(shop_209);
         console.log(shop_broadband_cover);
         console.log(shop_landline);
-
         $.ajax({
             type: 'POST',
             url: 'MainApp.php',
@@ -232,16 +231,18 @@ $(function () {
             },
             success: function (res) {
                 layer.closeAll();
-                if (res.error) {
-                    console.log(res.error); // 添加成功具体操作看要求，是跳转还是提示
+                var isError = (res.hasOwnProperty("error"));
+                if (isError) {
+                    box.msg(res.message);
+
                     return;
                 }
-                box.confirm(res.message, ['继续添加', '返回首页'], function (index) {
-                    window.location.reload();
+                box.confirm(res.message, ['继续添加', '取消'], function (index) {
                     layer.close(index);
+                    window.location.reload();
                     return false;
                 }, function () {
-                    window.location.href = "index.html"
+                    alert("12121");
                 });
             },
             error: function (e) {

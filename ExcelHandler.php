@@ -77,6 +77,7 @@ class ExcelHandler extends App
     {
 
         $dataArray = $this->getSheetData();
+
         if (count($dataArray) > 0) {//若有需要导入，就先清空数据库
             $existsArr = $this->userRepo->findAll();
             foreach ($existsArr as $entity) {
@@ -108,6 +109,9 @@ class ExcelHandler extends App
                 $this->entityManager->flush();
                 $i = 0;
             }
+        }
+        if ($i > 0) {
+            $this->entityManager->flush();
         }
         $userArr = $this->userRepo->findAll();
         echo "\n size = " . count($userArr) . "\n";

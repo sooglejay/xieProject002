@@ -8,7 +8,6 @@
  */
 require_once "bootstrap.php";
 require_once "model/User.php";
-require_once "model/Shop.php";
 
 class MainApp extends App
 {
@@ -20,7 +19,6 @@ class MainApp extends App
     private $shopRepo;
     private $loginUserName;
     private $loginUserId;
-    private $loginUserModel;
 
     /**
      * MainApp constructor.
@@ -33,7 +31,6 @@ class MainApp extends App
         if (isset($_SESSION) && isset($_SESSION['userName'])) {
             $this->loginUserName = $_SESSION['userName'];
             $this->loginUserId = $_SESSION['userId'];
-            $this->loginUserModel = $this->userRepo->find($this->loginUserId);
         } else {
             $this->returnWithMessage("请先登录", "error");
             return;
@@ -58,10 +55,6 @@ class MainApp extends App
             $retArr = [];
             $keyWord = $_REQUEST['keyWord'];
         } else if ($actionName == MainApp::$SAVE_SHOP) {
-            if (is_null($this->loginUserId)) {
-                $this->returnWithMessage("请先登录再完成操作", "请先登录再完成操作");
-                return;
-            }
             $this->actionSaveShop();
         }
     }
@@ -77,8 +70,7 @@ class MainApp extends App
 
     private function actionSaveShop()
     {
-
-        $shopName = $_REQUEST['shop_name'];
+        $shopName = $_POST['shop_name'];
         $shops = $this->shopRepo->findAll();
         foreach ($shops as $addedShop) {
             if ($addedShop instanceof Shop) {
@@ -88,36 +80,20 @@ class MainApp extends App
                 }
             }
         }
-        $shop = new Shop();
-        $resFlag = true;
-        $retArr = array();
-
+        $userObj = $this->userRepo->find($this->loginUserId);
         try {
-            $shop->setShopName($_POST['shop_name']);
-            $shop->setShopAddr($_POST['shop_addr']);
-            $shop->setShopStreet($_POST['shop_street']);
-            $shop->setShopContact1($_POST['shop_contact1']);
-            $shop->setShopContact2($_POST['shop_contact2']);
-            $shop->setShopType($_POST['shop_type']);
-            $shop->setShop280($_POST['shop_280']);
-            $shop->setShopGroupNet($_POST['shop_group_net']);
-            $shop->setShopMemNum(isset($_REQUEST['shop_mem_num']) ? $_REQUEST['shop_mem_num'] : "");
-            $shop->setShop209(isset($_REQUEST['shop_209']) ? $_REQUEST['shop_209'] : "");
-            $shop->setShopBroadbandCover(isset($_REQUEST['shop_broadband_cover']) ? $_REQUEST['shop_broadband_cover'] : "");
-            $shop->setShopLandline(isset($_REQUEST['shop_landline']) ? $_REQUEST['shop_landline'] : "");
-            $shop->setShopOperator(isset($_REQUEST['shop_operator']) ? $_REQUEST['shop_operator'] : "");
-            $shop->setShopUser($this->loginUserModel);
-            $this->entityManager->persist($shop);
-            $this->entityManager->flush();
+            $shopRep = $this->entityManager->getRepository("Shop");
+            if ($shopRep instanceof ShopRepository) {
+                $shopRep->addShop($shopRep->getShopArrayFromRequest($_REQUEST), $userObj);
+            } else {
+                die("jiangwei");
+            }
         } catch (Exception $e) {
-            $resFlag = false;
-            $retArr = array("message" => "添加失败!", "error" => $e);
+            die($e->getMessage());
         }
-        if ($resFlag) {
-            $retArr = array("message" => "添加成功!");
-        }
-        echo json_encode($retArr);
+        echo json_encode(array("message" => "添加成功!"));
     }
 }
 
 new MainApp();
+

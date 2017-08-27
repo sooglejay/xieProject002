@@ -1,4 +1,6 @@
 <?php
+use Doctrine\ORM\EntityRepository;
+
 require_once 'User.php';
 
 /**
@@ -6,11 +8,12 @@ require_once 'User.php';
  * User: sooglejay
  * Date: 17/8/23
  * Time: 22:34
- * @Entity @Table(name="shop")
+ * @Entity(repositoryClass="ShopRepository")
+ * @Table(name="shop")
  */
 class Shop
 {
-    /** @Id @Column(type="integer") @GeneratedValue * */
+    /** @Id @GeneratedValue @Column(type="integer") */
     protected $id;
 
     /** @Column(type="string") * */
@@ -44,7 +47,7 @@ class Shop
     protected $shop_209;
 
 
-    /** @Column(type="integer") * */
+    /** @Column(type="string") * */
     protected $shop_broadband_cover;
 
     /** @Column(type="string") * */
@@ -315,4 +318,48 @@ class Shop
         );
     }
 
+}
+
+class ShopRepository extends EntityRepository
+{
+    public function addShop($shopObj, $userObj)
+    {
+        $sh = new Shop();
+        $sh->setShopUser($userObj);
+        $sh->setShop209($shopObj['shop209']);
+        $sh->setShopName($shopObj['shopName']);
+        $sh->setShopLandline($shopObj['shopLandLine']);
+        $sh->setShop280($shopObj['shop280']);
+        $sh->setShopAddr($shopObj['shopAddress']);
+        $sh->setShopBroadbandCover($shopObj['shopBroadbandCover']);
+        $sh->setShopContact1($shopObj['shopContact1']);
+        $sh->setShopContact2($shopObj['shopContact2']);
+        $sh->setShopMemNum($shopObj['shopMemNum']);
+        $sh->setShopGroupNet($shopObj['shopGroupNet']);
+        $sh->setShopOperator($shopObj['shopOperator']);
+        $sh->setShopStreet($shopObj['shopStreet']);
+        $sh->setShopType($shopObj['shopType']);
+        $this->getEntityManager()->persist($sh);
+        $this->getEntityManager()->flush();
+        return $sh->getId();
+    }
+
+    public function getShopArrayFromRequest($requestArr)
+    {
+        return array(
+            "shop209"=> $requestArr['shop_209'],
+            "shop280"=> $requestArr['shop_280'],
+            "shopName"=> $requestArr['shop_name'],
+            "shopLandLine"=> $requestArr['shop_landline'],
+            "shopAddress"=> $requestArr['shop_addr'],
+            "shopType"=> $requestArr['shop_type'],
+            "shopMemNum"=> $requestArr['shop_mem_num'],
+            "shopOperator"=> $requestArr['shop_operator'],
+            "shopContact2"=> $requestArr['shop_contact2'],
+            "shopContact1"=> $requestArr['shop_contact1'],
+            "shopGroupNet"=> $requestArr['shop_group_net'],
+            "shopStreet"=> $requestArr['shop_street'],
+            "shopBroadbandCover"=> $requestArr['shop_broadband_cover']
+        );
+    }
 }
