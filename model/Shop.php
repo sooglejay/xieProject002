@@ -218,6 +218,12 @@ class Shop
     }
 
     /**
+     * @ManyToOne(targetEntity="user")
+     * @JoinColumn(referencedColumnName="id")
+     */
+    private $account_name_id;
+
+    /**
      * @return mixed
      */
     public function getShop209()

@@ -27,8 +27,6 @@ class Search extends App
         $this->userRepo = $this->entityManager->getRepository('User');
         $this->shopRepo = $this->entityManager->getRepository('Shop');
         $actionName = $_REQUEST['action'];
-
-
         if ($actionName == Search::$INDEX) {
             $userModels = $this->userRepo->findAll();
             if (count($userModels) > 0) {
@@ -53,7 +51,7 @@ class Search extends App
         foreach ($shops as $addedShop) {
             assert($addedShop instanceof Shop);
             if ($addedShop->getShopName() == $shopName) {
-                echo json_encode(array("message"=>"店铺名已经存在，请重新输入！"));
+                echo json_encode(array("message" => "店铺名已经存在，请重新输入！"));
                 return;
             }
         }
@@ -75,7 +73,8 @@ class Search extends App
         $shop->setLat(isset($_REQUEST['lat']) ? $_REQUEST['lat'] : "");
         $this->entityManager->persist($shop);
         $this->entityManager->flush();
-        echo json_encode(array("errcode"=>0,"message"=>"添加成功！"));
+        echo json_encode(array("errcode" => 0, "message" => "添加成功！"));
     }
 }
+
 $s = new Search();
