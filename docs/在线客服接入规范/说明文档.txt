@@ -1,0 +1,11 @@
+1.DesUtil类中encode方法是对入参进行加密的方法。请查看其逻辑并用你们的语言翻译。
+2.加密以后还需要用URLCodec类封装一下，生成接入在线客服链接的一部分。其示例如下：
+String c = new URLCodec()
+            .encode(DesUtil
+                    .encode("userPhone=15982836182&accessName=&position=&habit=&hobby="));
+3.生产完整示例链接如下：
+http://223.87.14.70:16500/ocsfront/ocsfront/html5/webChat.jsp?channel=segwx&token=YcC1xwJ9z9Om4W1UVfDWK4PsPbUOHnnyc6UXb5i1x807%2Bd4Bttko%2B4We9GqfKPubwrgIOc6bMY0j%0AgDjGtzjLJUsKloxb9%2Fxm
+前2步生成的字符串为token的值，用于替换“token=”后面的字符串。
+channel的值需要拼接成你们接入“在线客服”的渠道编码，"广元移动4G"微信号接入在线客服渠道channel编码值：gyyd4gwx，"资阳移动微生活"微信号接入在线客服渠道channel编码值：zyydwshwx，"四川移动新生活遂宁"微信号接入在线客服渠道channel编码值：scydxshsn。
+其余部分都相同，如不清楚，请电话联系雷发银（18380460509）。
+
