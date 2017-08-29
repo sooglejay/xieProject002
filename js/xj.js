@@ -145,7 +145,7 @@ $(function () {
         } else {
             doView(id);
         }
-    }else{
+    } else {
         var searchWord = getURLParameter("search");
         if (searchWord) {
             $('#shop_name').val(searchWord);
@@ -172,6 +172,10 @@ function doSearch() {
         },
         success: function (res) {
             layer.closeAll();
+            if (!res.error) {
+                box.msg(res.message);
+                return;
+            }
             // if (res.errcode == 0) {
             var list = '';
             $.each(res, function (i, item) {
@@ -195,6 +199,7 @@ function doSearch() {
             // }
         },
         error: function (e) {
+            layer.closeAll();
             console.log(e);
         }
     });

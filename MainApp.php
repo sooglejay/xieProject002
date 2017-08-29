@@ -56,6 +56,10 @@ class MainApp extends App
         } else if ($actionName == MainApp::$SEARCH) {
             $keyWord = $_REQUEST['search'];
             $shopArr = $this->shopRepo->findAll();
+            if (count($shopArr) < 1) {
+                echo json_encode(array("message" => "没有找到符合条件的结果", "error" => "error"));
+                return;
+            }
             $retArr = array();
             foreach ($shopArr as $shop) {
                 if ($shop instanceof Shop) {
