@@ -14,7 +14,7 @@
     <script type="text/javascript">
         var verifyUrl = window.location.href.replace(window.location.hash, '');
         var sdkScript = document.createElement('script');
-        sdkScript.src = 'http://example.com/signature.php?url=' + encodeURIComponent(verifyUrl) + '&callback=jssdkCallback';
+        sdkScript.src = 'http://test.sighub.com/ziyan/signature.php?url=' + encodeURIComponent(verifyUrl) + '&callback=jssdkCallback';
         document.getElementsByTagName('head')[0].appendChild(sdkScript);
 
         window.jssdkCallback = function (res) {
