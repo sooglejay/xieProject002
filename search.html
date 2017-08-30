@@ -15,49 +15,9 @@
         ::-webkit-input-placeholder { color:#fff;}
         :-ms-input-placeholder { color:#fff;}
     </style>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
-    <script type="text/javascript">
-
-        wx.config({
-            debug: false,
-            appId: 'wxb76c5258ffa59386',
-            timestamp: '1504081796',
-            nonceStr: '4k07o2MsR7JeTO1R',
-            signature: 'dc88999d30ac908f260a987aeb825d757f9e2401',
-            jsApiList: [
-                'checkJsApi',
-                'onMenuShareTimeline',
-                'onMenuShareAppMessage',
-                'hideAllNonBaseMenuItem',
-                'hideMenuItems',
-                'showMenuItems',
-                'hideOptionMenu',
-                'showOptionMenu'
-            ]
-        });
-        /**
-         * =============================================================================================================
-         * 修改以下内容即可
-         * =============================================================================================================
-         */
-        var wxData = {
-            title: '资阳移动微生活',
-            desc: '',
-            link: "",
-            imgUrl: ""
-        };
-        /**
-         * =============================================================================================================
-         * 修改以上内容即可
-         * =============================================================================================================
-         */
-        wx.ready(function () {
-            wx.hideAllNonBaseMenuItem();    //隐藏所有非基础按钮接口
-            wx.showMenuItems({
-                menuList: []    //要显示的菜单项
-            })
-        });
-    </script>
+    <script type="text/javascript" src="my_js/wx.js"></script>
 </head>
 <body>
 <div class="page main">
@@ -6014,7 +5974,6 @@
     <img src="images/pic02.png" alt="" class="copyright">
 </div>
 </body>
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/layer.js"></script>
 <script type="text/javascript" src="js/Cmanage.js"></script>
 <script type="text/javascript" src="js/xj.js"></script>
