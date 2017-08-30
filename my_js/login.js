@@ -2,7 +2,7 @@
  * Created by sooglejay on 17/8/24.
  */
 $(function () {
-    $("#btn-login").click(function () {
+    $("#btnLogin").click(function () {
         login();
     });
 });
