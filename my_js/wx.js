@@ -21,7 +21,7 @@ function getWxInfo() {
                 console.log(e);
             }
             if (obj != -1) {
-                wxConfig(res);
+                wxConfig(obj);
             }
         },
         error: function (e) {
