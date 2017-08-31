@@ -7,6 +7,9 @@ $(function () {
     });
 });
 function login() {
+    alert("openid = " + request('openid'));
+    alert("appid=" + request('appid'));
+    return;
     var userName = $("#userName").val();
     var password = $("#password").val();
     if (!userName || userName.length < 1) {
@@ -20,7 +23,11 @@ function login() {
     $.ajax({
         type: 'POST',
         url: 'Login.php',
-        data: {userName: userName, password: password},
+        data: {
+            userName: userName, password: password,
+            openid: request('openid'),
+            appid: request('appid')
+        },
         dataType: 'json',
         beforeSend: function () {
             box.loadding('加载中...');
