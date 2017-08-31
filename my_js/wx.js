@@ -30,7 +30,7 @@ function getWxInfo() {
 }
 function wxConfig(res) {
     wx.config({
-        debug: true,
+        debug: false,
         appId: "wxb76c5258ffa59386",
         timestamp: res.timestamp,
         nonceStr: res.noncestr,
