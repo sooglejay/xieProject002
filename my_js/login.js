@@ -15,7 +15,7 @@ $(function () {
 
 function getCode() {
     var appId = 'wxb76c5258ffa59386';
-    var callback = 'http://test.sighub.com/ziyan/login.html';
+    var callback = 'http://test.sighub.com/';
     var scope = 'snsapi_base';
 //$scope='snsapi_userinfo';//需要授权
     window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appId + '&redirect_uri=' + callback + '&response_type=code&scope=' + scope + '&state=1#wechat_redirect';
