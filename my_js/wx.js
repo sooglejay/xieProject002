@@ -21,7 +21,7 @@ function getWxInfo() {
 }
 function wxConfig(res) {
     wx.config({
-        debug: false,
+        debug: true,
         appId: res.appId,
         timestamp: res.timestamp,
         nonceStr: res.nonceStr,
