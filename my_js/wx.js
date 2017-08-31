@@ -13,22 +13,25 @@ function getWxInfo() {
         data: {url: encodeURIComponent(verifyUrl)},
         dataType: 'json',
         success: function (res) {
-            wxConfig(res);
+            var obj = -1;
+            try {
+                obj = JSON.parse(res);
+            }
+            catch (e) {
+                console.log(e);
+            }
+            if (obj != -1) {
+                wxConfig(res);
+            }
         },
         error: function (e) {
         }
     });
-    // wxConfig({
-    //     appId:"wxb76c5258ffa59386",
-    //     timestamp:1504180036,
-    //     nonceStr:"e2f6e861a7364492",
-    //     signature:"7ed8f338d5638b86f643a982487dbc3632328cba"
-    // });
 }
 function wxConfig(res) {
     wx.config({
         debug: true,
-        appId: res.appId,
+        appId: "wxb76c5258ffa59386",
         timestamp: res.timestamp,
         nonceStr: res.nonceStr,
         signature: res.signature,
