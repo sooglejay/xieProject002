@@ -6,24 +6,24 @@ $(function () {
     getWxInfo();
 });
 function getWxInfo() {
-    // var verifyUrl = window.location.href.replace(window.location.hash, '');
-    // $.ajax({
-    //     type: 'GET',
-    //     url: 'signature.php',
-    //     data: {url: encodeURIComponent(verifyUrl)},
-    //     dataType: 'json',
-    //     success: function (res) {
-    //         wxConfig(res);
-    //     },
-    //     error: function (e) {
-    //     }
-    // });
-    wxConfig({
-        appId:"wxb76c5258ffa59386",
-        timestamp:1504180036,
-        nonceStr:"e2f6e861a7364492",
-        signature:"7ed8f338d5638b86f643a982487dbc3632328cba"
+    var verifyUrl = $(location).attr('href');
+    $.ajax({
+        type: 'GET',
+        url: 'signature.php',
+        data: {url: encodeURIComponent(verifyUrl)},
+        dataType: 'json',
+        success: function (res) {
+            wxConfig(res);
+        },
+        error: function (e) {
+        }
     });
+    // wxConfig({
+    //     appId:"wxb76c5258ffa59386",
+    //     timestamp:1504180036,
+    //     nonceStr:"e2f6e861a7364492",
+    //     signature:"7ed8f338d5638b86f643a982487dbc3632328cba"
+    // });
 }
 function wxConfig(res) {
     wx.config({
