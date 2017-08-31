@@ -11,6 +11,7 @@ function getWxInfo() {
         type: 'GET',
         url: 'signature.php',
         data: {url: verifyUrl},
+        async: false,
         dataType: 'json',
         success: function (res) {
             var obj = -1;
