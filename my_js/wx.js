@@ -10,7 +10,7 @@ function getWxInfo() {
     $.ajax({
         type: 'GET',
         url: 'signature.php',
-        data: {url: encodeURIComponent(verifyUrl)},
+        data: {url: verifyUrl},
         dataType: 'json',
         success: function (res) {
             var obj = -1;
