@@ -33,7 +33,7 @@ function wxConfig(res) {
         debug: true,
         appId: "wxb76c5258ffa59386",
         timestamp: res.timestamp,
-        nonceStr: res.nonceStr,
+        nonceStr: res.noncestr,
         signature: res.signature,
         jsApiList: [
             'checkJsApi',
