@@ -57,6 +57,10 @@ class MainApp extends App
         } else if ($actionName == MainApp::$SEARCH) {
             $keyWord = $_REQUEST['search'];
             $shopArr = $this->shopRepo->findAll();
+            if (is_null($shopArr) || count($shopArr) < 1) {
+                echo json_encode(array("message" => "没有符合搜索的结果", "errorCode" => 100));
+                return;
+            }
             $retArr = array();
             foreach ($shopArr as $shop) {
                 if ($shop instanceof Shop) {
@@ -76,7 +80,8 @@ class MainApp extends App
                 echo json_encode($shopEntity->toArray());
             }
         } else if ($actionName == MainApp::$EDIT_SAVE) {
-            $this->actionEditShop();
+            $this->actionEditShop($_REQUEST['id']);
+
         }
     }
 

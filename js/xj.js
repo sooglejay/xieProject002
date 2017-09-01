@@ -177,12 +177,10 @@ function doSearch() {
         },
         success: function (res) {
             layer.closeAll();
-            if (res == undefined || res.length < 1) {
-                box.msg("没有符合条件的结果");
+            if (res.hasOwnProperty("errorCode")) {
+                box.msg(res.message);
                 return;
             }
-            // if (res.errcode == 0) {
-
             var list = '';
             $.each(res, function (i, item) {
                 var content = '<div class="search-list">';
