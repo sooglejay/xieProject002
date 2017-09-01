@@ -6,7 +6,6 @@ $(function () {
         login();
     });
 });
-
 function login() {
     var userName = $("#userName").val();
     var password = $("#password").val();
@@ -27,7 +26,9 @@ function login() {
         dataType: 'json',
         beforeSend: function () {
             box.loadding('加载中...');
-        },
+        }
+
+        ,
         success: function (res) {
             layer.closeAll();
             if (res.error) {
@@ -35,11 +36,13 @@ function login() {
             } else {
                 window.location.href = '/ziyan/index.html';
             }
-        },
+        }
+        ,
         error: function (e) {
             layer.closeAll();
             box.msg('登录失败！请联系系统管理员！');
             console.log(e);
         }
-    });
+    })
+    ;
 }

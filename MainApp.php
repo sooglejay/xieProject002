@@ -15,6 +15,7 @@ class MainApp extends App
     public static $SEARCH = "search";
     public static $SAVE_SHOP = "save_shop";
     public static $EDIT = "edit";
+    public static $EDIT_SAVE = "edit_save_shop";
     public static $VIEW = "view";
 
     private $userRepo;
@@ -74,6 +75,8 @@ class MainApp extends App
             if ($shopEntity instanceof Shop) {
                 echo json_encode($shopEntity->toArray());
             }
+        } else if ($actionName == MainApp::$EDIT_SAVE) {
+            $this->actionEditShop();
         }
     }
 
@@ -99,17 +102,53 @@ class MainApp extends App
             }
         }
         $userObj = $this->userRepo->find($this->loginUserId);
+        $ret = false;
         try {
             $shopRep = $this->entityManager->getRepository("Shop");
             if ($shopRep instanceof ShopRepository) {
                 $shopRep->addShop($shopRep->getShopArrayFromRequest($_REQUEST), $userObj);
-            } else {
-                die("jiangwei");
+            }
+            $ret = true;
+        } catch (Exception $e) {
+            $ret = false;
+            echo json_encode(array("message" => $e->getMessage(), "error" => "error"));
+        }
+        if ($ret) {
+            echo json_encode(array("message" => "添加成功!"));
+        }
+    }
+
+    private function actionEditShop($id)
+    {
+        try {
+            $shopRep = $this->entityManager->getRepository("Shop");
+            if ($shopRep instanceof ShopRepository) {
+                $shopObj = $shopRep->getShopArrayFromRequest($_REQUEST);
+                $shopEntity = $shopRep->find($id);
+                $shopEntity->setShop209($shopObj['shop209']);
+                $shopEntity->setShopName($shopObj['shopName']);
+                $shopEntity->setShopLandline($shopObj['shopLandLine']);
+                $shopEntity->setShop280($shopObj['shop280']);
+                $shopEntity->setShopAddr($shopObj['shopAddress']);
+                $shopEntity->setShopBroadbandCover($shopObj['shopBroadbandCover']);
+                $shopEntity->setShopContact1($shopObj['shopContact1']);
+                $shopEntity->setShopContact2($shopObj['shopContact2']);
+                $shopEntity->setShopMemNum($shopObj['shopMemNum']);
+                $shopEntity->setShopGroupNet($shopObj['shopGroupNet']);
+                $shopEntity->setShopOperator($shopObj['shopOperator']);
+                $shopEntity->setShopStreet($shopObj['shopStreet']);
+                $shopEntity->setShopType($shopObj['shopType']);
+                $shopEntity->setShopLng($shopObj['shopLng']);
+                $shopEntity->setShopLat($shopObj['shopLat']);
+                $this->entityManager->persist($shopEntity);
+                $this->entityManager->flush();
             }
         } catch (Exception $e) {
-            die($e->getMessage());
+            echo json_encode(array("message" => "保存失败," . $e->getMessage(), "error" => "error"));
         }
-        echo json_encode(array("message" => "添加成功!"));
+        echo json_encode(array("message" => "修改成功！"));
     }
+
 }
+
 new MainApp();

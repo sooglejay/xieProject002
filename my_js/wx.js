@@ -5,6 +5,7 @@
 $(function () {
     getWxInfo();
 });
+
 function getWxInfo() {
     var verifyUrl = $(location).attr('href');
     $.ajax({

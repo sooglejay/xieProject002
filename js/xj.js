@@ -1,6 +1,8 @@
 /**
  * Created by hanke0726 on 2016/7/29.
  */
+
+
 function downUpList(clockNode, selectBox, selectNode) {
     function stopPropagation(e) {
         var e1 = e || event;
@@ -126,8 +128,10 @@ function fillForm(obj, isDisEnable) {
             '#shop_mem_num,' +
             '#shop_operator' +
             '').attr("disabled", "disabled");
+        $("#btn_submit").html("返回");
+    } else {
+        $("#btn_submit").html("保存修改");
     }
-    $("#btn_submit").html("返回");
     var searchWord = getURLParameter("search");
     $("#btn_submit").click(function () {
         window.location.href = "search.html?search=" + searchWord;
@@ -155,6 +159,7 @@ $(function () {
 
 
 });
+
 function doSearch() {
 
     var search = $.trim($('#shop_name').val());
@@ -205,6 +210,8 @@ function doSearch() {
         }
     });
 }
+var LNG, LAT;
+
 $(function () {
     downUpList($(".se-qylb"), $(".select-hangye"), $(".select-hangye ul li"));
     downUpList($(".se-yunying"), $(".select_yunying"), $(".select_yunying ul li"));
@@ -259,7 +266,7 @@ $(function () {
         var shop_type = $.trim($('#shop_type').val());
         var shop_280 = $.trim($('#shop_280').val());
         var shop_group_net = $.trim($('#shop_group_net').val());
-        var shop_mem_num = $.trim($('#shop_mem_num').val());
+        var shop_mem_num = Number($.trim($('#shop_mem_num').val()));
         var shop_209 = $.trim($('#shop_209').val());
         var shop_broadband_cover = $.trim($('#shop_broadband_cover').val());
         var shop_landline = $.trim($('#shop_landline').val());
@@ -359,51 +366,117 @@ $(function () {
             return false;
         }
 
-        $.ajax({
-            type: 'POST',
-            url: 'MainApp.php',
-            dataType: 'json',
-            data: {
-                action: 'save_shop',
-                shop_name: shop_name,
-                shop_addr: shop_addr,
-                shop_street: shop_street,
-                shop_contact1: shop_contact1,
-                shop_contact2: shop_contact2,
-                shop_type: shop_type,
-                shop_280: shop_280,
-                shop_group_net: shop_group_net,
-                shop_mem_num: shop_mem_num,
-                shop_209: shop_209,
-                shop_broadband_cover: shop_broadband_cover,
-                shop_landline: shop_landline,
-                shop_operator: shop_operator
-            },
-            beforeSend: function () {
-                box.loadding('正在添加,请稍后...');
-            },
-            success: function (res) {
-                layer.closeAll();
-                var isError = (res.hasOwnProperty("error"));
-                if (isError) {
-                    box.msg(res.message);
+        var lng = LNG;
+        var lat = LAT;
+        var id = getURLParameter("id");
+        if (lng == null) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        lng = position.coords.longitude;
+                        lat = position.coords.latitude;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'MainApp.php',
+                            dataType: 'json',
+                            data: {
+                                id: id ? id : "",
+                                action: (id == null ? 'save_shop' : 'edit_save_shop'),
+                                shop_name: shop_name,
+                                shop_addr: shop_addr,
+                                shop_street: shop_street,
+                                shop_contact1: shop_contact1,
+                                shop_contact2: shop_contact2,
+                                shop_type: shop_type,
+                                shop_280: shop_280,
+                                shop_group_net: shop_group_net,
+                                shop_mem_num: shop_mem_num,
+                                shop_209: shop_209,
+                                shop_broadband_cover: shop_broadband_cover,
+                                shop_landline: shop_landline,
+                                shop_operator: shop_operator,
+                                shop_lng: lng,
+                                shop_lat: lat
+                            },
+                            beforeSend: function () {
+                                box.loadding('正在添加,请稍后...');
+                            },
+                            success: function (res) {
+                                layer.closeAll();
+                                var isError = (res.hasOwnProperty("error"));
+                                if (isError) {
+                                    box.msg(res.message);
 
-                    return;
-                }
-                box.confirm(res.message, ['继续添加', '取消'], function (index) {
-                    layer.close(index);
-                    window.location.reload();
-                    return false;
-                }, function () {
-                    alert("12121");
-                });
-            },
-            error: function (e) {
-                layer.closeAll();
-                box.msg("添加失败，请确认输入的信息是否合法！");
-                console.log(e);
+                                    return;
+                                }
+                                box.confirm(res.message, ['继续添加', '取消'], function (index) {
+                                    layer.close(index);
+                                    window.location.reload();
+                                    return false;
+                                }, function () {
+                                    alert("12121");
+                                });
+                            },
+                            error: function (e) {
+                                layer.closeAll();
+                                box.msg("添加失败，请确认输入的信息是否合法！");
+                                console.log(e);
+                            }
+                        });
+                    }
+                )
             }
-        });
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: 'MainApp.php',
+                dataType: 'json',
+                data: {
+                    id: id ? id : "",
+                    action: (id == null ? 'save_shop' : 'edit_save_shop'),
+                    shop_name: shop_name,
+                    shop_addr: shop_addr,
+                    shop_street: shop_street,
+                    shop_contact1: shop_contact1,
+                    shop_contact2: shop_contact2,
+                    shop_type: shop_type,
+                    shop_280: shop_280,
+                    shop_group_net: shop_group_net,
+                    shop_mem_num: shop_mem_num,
+                    shop_209: shop_209,
+                    shop_broadband_cover: shop_broadband_cover,
+                    shop_landline: shop_landline,
+                    shop_operator: shop_operator,
+                    shop_lng: lng,
+                    shop_lat: lat
+                },
+                beforeSend: function () {
+                    box.loadding('正在添加,请稍后...');
+                },
+                success: function (res) {
+                    layer.closeAll();
+                    var isError = (res.hasOwnProperty("error"));
+                    if (isError) {
+                        box.msg(res.message);
+
+                        return;
+                    }
+                    box.confirm(res.message, ['继续添加', '取消'], function (index) {
+                        layer.close(index);
+                        window.location.reload();
+                        return false;
+                    }, function () {
+                        alert("12121");
+                    });
+                },
+                error: function (e) {
+                    layer.closeAll();
+                    box.msg("添加失败，请确认输入的信息是否合法！");
+                    console.log(e);
+                }
+            });
+
+        }
     });
 
     // 搜索

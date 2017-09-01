@@ -56,6 +56,43 @@ class Shop
     /** @Column(type="string") * */
     protected $shop_operator;
 
+    /** @Column(type="string") * */
+    protected $shop_lng;
+
+    /** @Column(type="string") * */
+    protected $shop_lat;
+
+    /**
+     * @return mixed
+     */
+    public function getShopLng()
+    {
+        return $this->shop_lng;
+    }
+
+    /**
+     * @param mixed $shop_lng
+     */
+    public function setShopLng($shop_lng)
+    {
+        $this->shop_lng = $shop_lng;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getShopLat()
+    {
+        return $this->shop_lat;
+    }
+
+    /**
+     * @param mixed $shop_lat
+     */
+    public function setShopLat($shop_lat)
+    {
+        $this->shop_lat = $shop_lat;
+    }
 
     /**
      * @return mixed
@@ -316,7 +353,9 @@ class Shop
             "shop_209" => $this->shop_209,
             "shop_mem_num" => $this->shop_mem_num,
             "shop_street" => $this->shop_street,
-            "shop_operator" => $this->shop_operator
+            "shop_operator" => $this->shop_operator,
+            "shop_lng" => $this->shop_lng,
+            "shop_lat" => $this->shop_lat
         );
     }
 
@@ -341,6 +380,8 @@ class ShopRepository extends EntityRepository
         $sh->setShopOperator($shopObj['shopOperator']);
         $sh->setShopStreet($shopObj['shopStreet']);
         $sh->setShopType($shopObj['shopType']);
+        $sh->setShopLng($shopObj['shopLng']);
+        $sh->setShopLat($shopObj['shopLat']);
         $this->getEntityManager()->persist($sh);
         $this->getEntityManager()->flush();
         return $sh->getId();
@@ -349,19 +390,21 @@ class ShopRepository extends EntityRepository
     public function getShopArrayFromRequest($requestArr)
     {
         return array(
-            "shop209"=> $requestArr['shop_209'],
-            "shop280"=> $requestArr['shop_280'],
-            "shopName"=> $requestArr['shop_name'],
-            "shopLandLine"=> $requestArr['shop_landline'],
-            "shopAddress"=> $requestArr['shop_addr'],
-            "shopType"=> $requestArr['shop_type'],
-            "shopMemNum"=> $requestArr['shop_mem_num'],
-            "shopOperator"=> $requestArr['shop_operator'],
-            "shopContact2"=> $requestArr['shop_contact2'],
-            "shopContact1"=> $requestArr['shop_contact1'],
-            "shopGroupNet"=> $requestArr['shop_group_net'],
-            "shopStreet"=> $requestArr['shop_street'],
-            "shopBroadbandCover"=> $requestArr['shop_broadband_cover']
+            "shopLng" => isset($requestArr['shop_lng']) ? $requestArr['shop_lng']."" : "",
+            "shopLat" => isset($requestArr['shop_lat']) ? $requestArr['shop_lat']."" : "",
+            "shop209" => isset($requestArr['shop_209']) ? $requestArr['shop_209'] : "",
+            "shop280" => isset($requestArr['shop_280']) ? $requestArr['shop_280'] : "",
+            "shopName" => isset($requestArr['shop_name']) ? $requestArr['shop_name'] : "",
+            "shopLandLine" => isset($requestArr['shop_landline']) ? $requestArr['shop_landline'] : "",
+            "shopAddress" => isset($requestArr['shop_addr']) ? $requestArr['shop_addr'] : "",
+            "shopType" => isset($requestArr['shop_type']) ? $requestArr['shop_type'] : "",
+            "shopMemNum" => isset($requestArr['shop_mem_num']) ? $requestArr['shop_mem_num'] : "",
+            "shopOperator" => isset($requestArr['shop_operator']) ? $requestArr['shop_operator'] : "",
+            "shopContact2" => isset($requestArr['shop_contact2']) ? $requestArr['shop_contact2'] : "",
+            "shopContact1" => isset($requestArr['shop_contact1']) ? $requestArr['shop_contact1'] : "",
+            "shopGroupNet" => isset($requestArr['shop_group_net']) ? $requestArr['shop_group_net'] : "",
+            "shopStreet" => isset($requestArr['shop_street']) ? $requestArr['shop_street'] : "",
+            "shopBroadbandCover" => isset($requestArr['shop_broadband_cover']) ? $requestArr['shop_broadband_cover'] : ""
         );
     }
 }
