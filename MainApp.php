@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 
 /**
  * Created by PhpStorm.
@@ -35,7 +36,7 @@ class MainApp extends App
             $this->loginUserName = $_SESSION['userName'];
             $this->loginUserId = $_SESSION['userId'];
         } else {
-            $this->returnWithMessage("请先登录", "error");
+            echo json_encode(array("message" => "请重新登录", "error" => "error"));
             return;
         }
         $actionName = $_REQUEST['action'];
@@ -82,15 +83,6 @@ class MainApp extends App
         } else if ($actionName == MainApp::$EDIT_SAVE) {
             $this->actionEditShop($_REQUEST['id']);
         }
-    }
-
-    private function returnWithMessage($messageStr, $errorStr = null)
-    {
-        $ret = array("message" => $messageStr);
-        if (isset($errorStr)) {
-            $ret["error"] = $errorStr;
-        }
-        echo json_encode($ret);
     }
 
     private function actionSaveShop()
