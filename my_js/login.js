@@ -2,42 +2,11 @@
  * Created by sooglejay on 17/8/24.
  */
 $(function () {
-    var code = getURLParameter("code");
-    if (!code) {
-        getCode();
-    } else {
-        getOpenId(code);
-    }
     $("#btnLogin").click(function () {
         login();
     });
 });
 
-function getCode() {
-    var appId = 'wxb76c5258ffa59386';
-    var callback = 'http://test.sighub.com/';
-    var scope = 'snsapi_base';
-//$scope='snsapi_userinfo';//需要授权
-    window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + appId + '&redirect_uri=' + callback + '&response_type=code&scope=' + scope + '&state=1#wechat_redirect';
-}
-function getOpenId(code) {
-    $.ajax({
-        type: 'POST',
-        url: 'signature.php',
-        data: {
-            code: code
-        },
-        dataType: 'json',
-        success: function (res) {
-
-        },
-        error: function (e) {
-
-            console.log(e);
-        }
-    });
-
-}
 function login() {
     var userName = $("#userName").val();
     var password = $("#password").val();
@@ -53,9 +22,7 @@ function login() {
         type: 'POST',
         url: 'Login.php',
         data: {
-            userName: userName, password: password,
-            openid: request('openid'),
-            appid: request('appid')
+            userName: userName, password: password
         },
         dataType: 'json',
         beforeSend: function () {
