@@ -210,7 +210,6 @@ function doSearch() {
         }
     });
 }
-var LNG, LAT;
 
 $(function () {
     downUpList($(".se-qylb"), $(".select-hangye"), $(".select-hangye ul li"));
@@ -366,8 +365,6 @@ $(function () {
                 return false;
             }
 
-            var lng = LNG;
-            var lat = LAT;
             var id = getURLParameter("id");
 
             $.ajax({
@@ -390,8 +387,8 @@ $(function () {
                     shop_broadband_cover: shop_broadband_cover,
                     shop_landline: shop_landline,
                     shop_operator: shop_operator,
-                    shop_lng: lng,
-                    shop_lat: lat
+                    shop_lng: LocationApp.lng,
+                    shop_lat: LocationApp.lat
                 },
                 beforeSend: function () {
                     box.loadding('正在添加,请稍后...');
