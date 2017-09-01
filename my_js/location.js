@@ -25,7 +25,6 @@ var _LOCATION_APP_ = function () {
         // 这里后面可以写你的后续操作了
         LocationApp.lng = longitude;
         LocationApp.lat = latitude;
-        alert(longitude + "" + latitude);
     };
 //失败时
     this.onError = function (error) {
