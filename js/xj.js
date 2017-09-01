@@ -396,15 +396,12 @@ $(function () {
                     var isError = (res.hasOwnProperty("error"));
                     if (isError) {
                         box.msg(res.message);
-
                         return;
                     }
-                    box.confirm(res.message, ['继续添加', '取消'], function (index) {
+                    box.confirm(res.message, ['返回首页', '取消'], function (index) {
                         layer.close(index);
-                        window.location.reload();
+                        window.location.href = "index.html";
                         return false;
-                    }, function () {
-                        alert("12121");
                     });
                 },
                 error: function (e) {
