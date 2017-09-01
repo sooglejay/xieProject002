@@ -70,4 +70,28 @@ function wxConfig(res) {
         })
     });
 
+    //调用登录接口
+    wx.login({
+        success: function (response) {
+            var code = response.code;
+            wx.getUserInfo({
+                success: function (resp) {
+                    wx.request({
+                        url: 'test.sighub.com',
+                        data: {
+                            code: code,
+                            iv: resp.iv,
+                            encryptedData: resp.encryptedData
+                        },
+                        success: function (res) {
+                            console.log(res.data)
+                        }
+                    })
+                }
+            })
+        },
+        fail:function(){
+        }
+    })
+
 }
