@@ -17,6 +17,7 @@ class App
         'host' => '115.29.204.92',
         'driver' => 'pdo_mysql',
     );
+
 //    private $conn = array(
 //        'dbname' => 'ziyan',
 //        'user' => 'jiangwei_test',

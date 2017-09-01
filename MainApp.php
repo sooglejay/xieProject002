@@ -81,7 +81,6 @@ class MainApp extends App
             }
         } else if ($actionName == MainApp::$EDIT_SAVE) {
             $this->actionEditShop($_REQUEST['id']);
-
         }
     }
 
