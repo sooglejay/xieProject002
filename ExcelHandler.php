@@ -179,7 +179,7 @@ class ExcelHandler extends App
                         ->setCellValue('E' . $row, $userModel->getAreaName())
                         ->setCellValue('F' . $row, $userModel->getGridName())
                         ->setCellValue('G' . $row, $userModel->getAccountName())
-                        ->setCellValue('H' . $row, "123456789")
+                        ->setCellValue('H' . $row, $shop->getId())
                         ->setCellValue('I' . $row, $shop->getShopName())
                         ->setCellValue('J' . $row, $shop->getShopAddr())
                         ->setCellValue('K' . $row, $shop->getShopContact1())
