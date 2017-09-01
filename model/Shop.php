@@ -62,6 +62,9 @@ class Shop
     /** @Column(type="string") * */
     protected $shop_lat;
 
+    /** @Column(type="string") * */
+    protected $time;
+
     /**
      * @return mixed
      */
@@ -324,6 +327,22 @@ class Shop
     /**
      * @return mixed
      */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param mixed $time
+     */
+    public function setTime()
+    {
+        $this->time = date("Y-m-d H:i:s");
+    }
+
+    /**
+     * @return mixed
+     */
     public function getShopOperator()
     {
         return $this->shop_operator;
@@ -366,6 +385,7 @@ class ShopRepository extends EntityRepository
     public function addShop($shopObj, $userObj)
     {
         $sh = new Shop();
+        $sh->setTime();
         $sh->setShopUser($userObj);
         $sh->setShop209($shopObj['shop209']);
         $sh->setShopName($shopObj['shopName']);
@@ -390,8 +410,8 @@ class ShopRepository extends EntityRepository
     public function getShopArrayFromRequest($requestArr)
     {
         return array(
-            "shopLng" => isset($requestArr['shop_lng']) ? $requestArr['shop_lng']."" : "",
-            "shopLat" => isset($requestArr['shop_lat']) ? $requestArr['shop_lat']."" : "",
+            "shopLng" => isset($requestArr['shop_lng']) ? $requestArr['shop_lng'] . "" : "",
+            "shopLat" => isset($requestArr['shop_lat']) ? $requestArr['shop_lat'] . "" : "",
             "shop209" => isset($requestArr['shop_209']) ? $requestArr['shop_209'] : "",
             "shop280" => isset($requestArr['shop_280']) ? $requestArr['shop_280'] : "",
             "shopName" => isset($requestArr['shop_name']) ? $requestArr['shop_name'] : "",

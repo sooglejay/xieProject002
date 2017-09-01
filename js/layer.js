@@ -88,7 +88,7 @@ var box = {
         layer.open({
             shadeClose: false,
             type: 2,
-            content: content,
+            content: content
         })
     },
     confirm: function (content, btn, yes, cancel) {
@@ -96,7 +96,7 @@ var box = {
             content: content,
             btn: btn,
             yes: yes,
-            btn2: cancel
+            no: cancel
         })
     }
 }

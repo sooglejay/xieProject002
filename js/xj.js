@@ -129,13 +129,14 @@ function fillForm(obj, isDisEnable) {
             '#shop_operator' +
             '').attr("disabled", "disabled");
         $("#btn_submit").html("返回");
+        var searchWord = getURLParameter("search");
+        $("#btn_submit").click(function () {
+            window.location.href = "search.html?search=" + searchWord;
+        });
     } else {
         $("#btn_submit").html("保存修改");
     }
-    var searchWord = getURLParameter("search");
-    $("#btn_submit").click(function () {
-        window.location.href = "search.html?search=" + searchWord;
-    });
+
 }
 
 $(function () {
@@ -398,10 +399,28 @@ $(function () {
                         box.msg(res.message);
                         return;
                     }
-                    box.confirm(res.message, ['返回首页', '取消'], function (index) {
-                        layer.close(index);
-                        window.location.href = "index.html";
-                        return false;
+
+                    var searchWord = getURLParameter("search");
+                    $("#btn_submit").click(function () {
+                    });
+
+                    var textLeft = (searchWord != null ? "返回上一级" : "继续添加");
+                    var textRight = "返回首页";
+
+                    layer.open({
+                        content: res.message
+                        , btn: [textLeft, textRight]
+                        , yes: function (index) {
+                            if (searchWord != null) {
+                                window.location.href = "search.html?search=" + searchWord;
+                            } else {
+                                window.location.reload();
+                            }
+                            layer.close(index);
+                        },
+                        no: function (index) {
+                            window.location.href = "index.html";
+                        }
                     });
                 },
                 error: function (e) {
