@@ -10,21 +10,21 @@ class App
 {
     private $isDevMode = true;
 // database configuration parameters
-//    private $conn = array(
-//        'dbname' => 'ziyan',
-//        'user' => 'root',
-//        'password' => '12345678',
-//        'host' => '115.29.204.92',
-//        'driver' => 'pdo_mysql',
-//    );
-
     private $conn = array(
         'dbname' => 'ziyan',
-        'user' => 'jiangwei_test',
-        'password' => 'jiangwei_test',
-        'host' => 'localhost:3307',
+        'user' => 'root',
+        'password' => '12345678',
+        'host' => '115.29.204.92',
         'driver' => 'pdo_mysql',
     );
+
+//    private $conn = array(
+//        'dbname' => 'ziyan',
+//        'user' => 'jiangwei_test',
+//        'password' => 'jiangwei_test',
+//        'host' => 'localhost:3307',
+//        'driver' => 'pdo_mysql',
+//    );
 
     public $entityManager;
 
