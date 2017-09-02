@@ -59,7 +59,7 @@ a {
 .page {
     overflow: hidden;
     margin: 0 auto;
-    align-items:center;
+    align-items: center;
     min-width: 320px;
     max-width: 640px;
     min-height: 100px;
@@ -123,7 +123,7 @@ a {
 
 .btn-nav-blue {
     display: block;
-    width: 56%;
+    width: 70%;
     margin: 0 auto 3% auto;
     background: #5888bf;
     border-radius: 4px;
@@ -222,8 +222,7 @@ a {
 }
 
 .nav-top-activity {
-    width: 80%;
-    margin: 3%;
+    width: 100%;
 }
 
 .nav-top-activity img {
@@ -236,8 +235,6 @@ a {
 
 .nav-top-activity p {
     padding: 3%;
-    margin-left: 3%;
-    margin-right: 3%;
     width: 100%;
     background: #e8eff8;
     text-align: center
@@ -252,7 +249,7 @@ a {
 .input-phone {
     display: block;
     width: 70%;
-    margin: 4% auto 0 auto;
+    margin: 3% auto 3% auto;
     text-align: center;
     border-radius: 4px;
     background: #dcdcdc;
