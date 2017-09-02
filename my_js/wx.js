@@ -16,7 +16,7 @@ function getWxInfo() {
     var verifyUrl = $(location).attr('href');
     $.ajax({
         type: 'GET',
-        url: 'signature.php',
+        url: '/ziyan/signature.php',
         data: {url: verifyUrl},
         async: false,
         dataType: 'json',
