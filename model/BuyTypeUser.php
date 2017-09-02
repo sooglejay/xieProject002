@@ -129,6 +129,25 @@ class BuyTypeUser
         return $this->gender;
     }
 
+    /** @Column(type="string") * */
+    protected $time;
+
+    /**
+     * @return mixed
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     *
+     */
+    public function setTime()
+    {
+        $this->time = date("Y-m-d H:i:s");
+    }
+
     /**
      * @param mixed $gender
      */

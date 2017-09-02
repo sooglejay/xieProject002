@@ -65,6 +65,7 @@ class PHPActivity extends App
             $buyTypeEntity->setGender($gender);
             $buyTypeEntity->setType158(0);
             $buyTypeEntity->setType238(0);
+            $buyTypeEntity->setTime();
             $buyTypeEntity->setType138(0);
             $buyTypeEntity->setType88(0);
             if ($type == "88") {

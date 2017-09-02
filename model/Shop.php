@@ -333,7 +333,7 @@ class Shop
     }
 
     /**
-     * @param mixed $time
+     *
      */
     public function setTime()
     {

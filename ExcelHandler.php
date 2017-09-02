@@ -11,6 +11,7 @@ require_once 'lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
 
 require_once "bootstrap.php";
 require_once "model/User.php";
+require_once "model/BuyTypeUser.php";
 require_once "model/ActivitySepUser.php";
 ini_set('memory_limit', '-1');
 
@@ -22,6 +23,12 @@ class ExcelHandler extends App
     private $objReader;
     private $objPHPExcel;
     private $userRepo;
+
+    public static $ACTION_INIT = "init";
+    public static $ACTION_DOWNLOAD = "download";
+
+    public static $ACTION_INIT_DOWNLOAD_SEP = "init_download_sep";
+    public static $ACTION_DOWNLOAD_SEP = "download_sep";
 
     public function __construct($path, $xlsSheetName, $flag)
     {
@@ -38,10 +45,14 @@ class ExcelHandler extends App
             throw new \Exception("Excel Create Reader Exception: " . $ex->getMessage());
         }
 
-        if ($flag == "init") {
-            $this->doExportActivity();
-        } else if ($flag == "download") {
+        if ($flag == ExcelHandler::$ACTION_INIT) {//初始化 账户信息，比如
+            $this->doExport();
+        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//导出商铺信息
             $this->doDownload();
+        } else if ($flag == ExcelHandler::$ACTION_INIT_DOWNLOAD_SEP) {//初始化 9月活动 用户数据
+            $this->doExportActivity();
+        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) { //导出9月活动用户信息
+            $this->doDownloadActivity();
         }
     }
 
@@ -252,14 +263,73 @@ class ExcelHandler extends App
         $objWriter->save('php://output');
 
     }
+
+    public function doDownloadActivity()
+    {
+        $objPHPExcel = new PHPExcel();
+
+        /*以下是一些设置 ，什么作者  标题啊之类的*/
+        $objPHPExcel->getProperties()->setCreator("蒋维")
+            ->setLastModifiedBy("蒋维")
+            ->setTitle("预约活动信息")
+            ->setSubject("预约活动信息")
+            ->setDescription("备份数据")
+            ->setKeywords("预约活动信息")
+            ->setCategory("result file");
+
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A1', "姓名")
+            ->setCellValue('B1', "性别")
+            ->setCellValue('C1', "手机号码")
+            ->setCellValue('D1', "地址")
+            ->setCellValue('E1', "预定套餐")
+            ->setCellValue('F1', "预定时间");
+
+        $buyRepo = $this->entityManager->getRepository("BuyTypeUser");
+        $buyers = $buyRepo->findAll();
+        $row = 2;
+        foreach ($buyers as $buyer) {
+            if ($buyer instanceof BuyTypeUser) {
+                $type = "88";
+                if ($buyer->getType88()) {
+                    $type = "88";
+                } else if ($buyer->getType138()) {
+                    $type = "138";
+                } else if ($buyer->getType158()) {
+                    $type = "158";
+                } else if ($buyer->getType238()) {
+                    $type = "238";
+                }
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A' . $row, $buyer->getUserName())
+                    ->setCellValue('B' . $row, $buyer->getGender())
+                    ->setCellValue('C' . $row, $buyer->getMobileNumber())
+                    ->setCellValue('D' . $row, $buyer->getAddress())
+                    ->setCellValue('E' . $row, $type)
+                    ->setCellValue('F' . $row, $buyer->getTime());
+                $row++;
+            }
+
+        }
+        $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '预约套餐用户信息');
+        $objPHPExcel->setActiveSheetIndex(0);
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="预约套餐用户信息.xls"');
+        header('Cache-Control: max-age=0');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+
+    }
 }
 
-$flag = "init";
-//$flag = "download";
+$flag = ExcelHandler::$ACTION_INIT;
 if (isset($_REQUEST["flag"])) {
     $flag = $_REQUEST["flag"];
 }
-//$excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
-$excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
+if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {
+    $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
+} else if ($flag == ExcelHandler::$ACTION_INIT || $flag == ExcelHandler::$ACTION_DOWNLOAD) {
+    $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
+}
 
 
