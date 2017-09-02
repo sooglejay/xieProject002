@@ -27,3 +27,5 @@
 #/vendors/*
 
 !phpmyadmin
+
+bootstrap.php
