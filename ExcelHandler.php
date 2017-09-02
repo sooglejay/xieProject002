@@ -11,6 +11,9 @@ require_once 'lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
 
 require_once "bootstrap.php";
 require_once "model/User.php";
+require_once "model/ActivitySepUser.php";
+ini_set('memory_limit', '-1');
+
 
 class ExcelHandler extends App
 {
@@ -36,7 +39,7 @@ class ExcelHandler extends App
         }
 
         if ($flag == "init") {
-            $this->doExport();
+            $this->doExportActivity();
         } else if ($flag == "download") {
             $this->doDownload();
         }
@@ -124,6 +127,47 @@ class ExcelHandler extends App
         echo "\n size = " . count($userArr) . "\n";
     }
 
+    public function doExportActivity()
+    {
+        $dataArray = $this->getSheetData();
+        $activitySepRepo = $this->entityManager->getRepository("ActivitySepUser");
+
+        if (count($dataArray) > 0) {//若有需要导入，就先清空数据库
+            $existsArr = $activitySepRepo->findAll();
+            foreach ($existsArr as $entity) {
+                assert($entity instanceof ActivitySepUser);
+                $this->entityManager->remove($entity);
+            }
+            $this->entityManager->flush();
+        }
+        $i = 0;
+        $firstItem = true;
+        foreach ($dataArray as $index => $row) {
+            if ($firstItem) {
+                $firstItem = false;
+                continue;
+            }
+
+            $i++;
+            $user = new ActivitySepUser();
+            $user->setMobileNumber($row['A']);
+            $user->setType88($row['B'] == "是");
+            $user->setType138($row['C'] == "是");
+            $user->setType158($row['D'] == "是");
+            $user->setType238($row['E'] == "是");
+            $this->entityManager->persist($user);
+            if ($i % 20 == 0) {
+                $this->entityManager->flush();
+                $i = 0;
+            }
+        }
+        if ($i > 0) {
+            $this->entityManager->flush();
+        }
+        $userArr = $this->userRepo->findAll();
+        echo "\n size = " . count($userArr) . "\n";
+    }
+
     public function doDownload()
     {
         $objPHPExcel = new PHPExcel();
@@ -170,7 +214,6 @@ class ExcelHandler extends App
             if ($shop instanceof Shop) {
                 $userModel = $shop->getShopUser();
                 if ($userModel instanceof User) {
-                    $date = date($shop->getTime());
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('A' . $row, $userModel->getCity())
                         ->setCellValue('B' . $row, $userModel->getCounty())
@@ -216,6 +259,7 @@ $flag = "init";
 if (isset($_REQUEST["flag"])) {
     $flag = $_REQUEST["flag"];
 }
-$excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
+//$excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
+$excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
 
 
