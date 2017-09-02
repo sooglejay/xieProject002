@@ -203,7 +203,7 @@ class ExcelHandler extends App
         $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '商铺录入信息');
         $objPHPExcel->setActiveSheetIndex(0);
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="jiangwei.xls"');
+        header('Content-Disposition: attachment;filename="商铺信息.xls"');
         header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
