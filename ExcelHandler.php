@@ -326,7 +326,7 @@ $flag = ExcelHandler::$ACTION_INIT;
 if (isset($_REQUEST["flag"])) {
     $flag = $_REQUEST["flag"];
 }
-if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {
+if ($flag == ExcelHandler::$ACTION_INIT_DOWNLOAD_SEP || $flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {
     $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
 } else if ($flag == ExcelHandler::$ACTION_INIT || $flag == ExcelHandler::$ACTION_DOWNLOAD) {
     $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
