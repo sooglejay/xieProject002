@@ -153,6 +153,7 @@ class ExcelHandler extends App
         }
         $i = 0;
         $firstItem = true;
+        $len = 0;
         foreach ($dataArray as $index => $row) {
             if ($firstItem) {
                 $firstItem = false;
@@ -171,12 +172,12 @@ class ExcelHandler extends App
                 $this->entityManager->flush();
                 $i = 0;
             }
+            $len++;
         }
         if ($i > 0) {
             $this->entityManager->flush();
         }
-        $userArr = $this->userRepo->findAll();
-        echo "\n size = " . count($userArr) . "\n";
+        echo "\n size = " . $len . "\n";
     }
 
     public function doDownload()
