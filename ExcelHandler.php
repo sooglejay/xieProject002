@@ -323,7 +323,7 @@ class ExcelHandler extends App
     }
 }
 
-$flag = ExcelHandler::$ACTION_INIT;
+$flag = ExcelHandler::$ACTION_INIT_DOWNLOAD_SEP;
 if (isset($_REQUEST["flag"])) {
     $flag = $_REQUEST["flag"];
 }

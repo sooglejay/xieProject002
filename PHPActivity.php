@@ -44,6 +44,18 @@ class PHPActivity extends App
         if (is_null($entity)) {
             echo json_encode(array("message" => "对不起，您的号码不符合办理条件", "error" => "error"));
         }
+
+        $buyerRepo = $this->entityManager->getRepository("BuyTypeUser");
+        $allSigned = $buyerRepo->findAll();
+        foreach ($allSigned as $buyerEntity) {
+            if ($buyerEntity instanceof BuyTypeUser) {
+                if ($buyerEntity->getMobileNumber() == $mobile) {
+                    echo json_encode(array("message" => "您已经登记成功！请无重复登记！", "error" => "error"));
+                    return;
+                }
+            }
+        }
+
         if ($entity instanceof ActivitySepUser) echo json_encode($entity->toArray());
 
     }
