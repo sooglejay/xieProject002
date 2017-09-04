@@ -50,7 +50,7 @@ class PHPActivity extends App
         foreach ($allSigned as $buyerEntity) {
             if ($buyerEntity instanceof BuyTypeUser) {
                 if ($buyerEntity->getMobileNumber() == $mobile) {
-                    echo json_encode(array("message" => "您已经登记成功！请无重复登记！", "error" => "error"));
+                    echo json_encode(array("message" => "您已经登记成功！请勿重复登记！", "error" => "error"));
                     return;
                 }
             }
@@ -77,7 +77,7 @@ class PHPActivity extends App
             foreach ($allSigned as $buyerEntity) {
                 if ($buyerEntity instanceof BuyTypeUser) {
                     if ($buyerEntity->getMobileNumber() == $mobile) {
-                        echo json_encode(array("message" => "您已经登记成功！请无重复登记！", "error" => "error"));
+                        echo json_encode(array("message" => "您已经登记成功！请勿重复登记！", "error" => "error"));
                         return;
                     }
                 }
