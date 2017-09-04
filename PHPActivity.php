@@ -62,6 +62,7 @@ class PHPActivity extends App
 
     private function doSave()
     {
+
         $ret = false;
         $errorMsg = "";
         try {
@@ -70,6 +71,18 @@ class PHPActivity extends App
             $type = $_REQUEST["type"];
             $gender = $_REQUEST["gender"];
             $mobile = $_REQUEST["mobile"];
+
+            $buyerRepo = $this->entityManager->getRepository("BuyTypeUser");
+            $allSigned = $buyerRepo->findAll();
+            foreach ($allSigned as $buyerEntity) {
+                if ($buyerEntity instanceof BuyTypeUser) {
+                    if ($buyerEntity->getMobileNumber() == $mobile) {
+                        echo json_encode(array("message" => "您已经登记成功！请无重复登记！", "error" => "error"));
+                        return;
+                    }
+                }
+            }
+
             $buyTypeEntity = new BuyTypeUser();
             $buyTypeEntity->setMobileNumber($mobile);
             $buyTypeEntity->setUserName($userName);
