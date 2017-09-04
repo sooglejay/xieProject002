@@ -24,10 +24,7 @@ class ExcelHandler extends App
     private $objPHPExcel;
     private $userRepo;
 
-    public static $ACTION_INIT = "init";
     public static $ACTION_DOWNLOAD = "download";
-
-    public static $ACTION_INIT_DOWNLOAD_SEP = "init_download_sep";
     public static $ACTION_DOWNLOAD_SEP = "download_sep";
 
     public function __construct($path, $xlsSheetName, $flag)
@@ -45,11 +42,11 @@ class ExcelHandler extends App
             throw new \Exception("Excel Create Reader Exception: " . $ex->getMessage());
         }
 
-        if ($flag == ExcelHandler::$ACTION_INIT) {//初始化 账户信息，比如
+        if ($flag == "init") {//初始化 账户信息，比如
             $this->doExport();
         } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//导出商铺信息
             $this->doDownload();
-        } else if ($flag == ExcelHandler::$ACTION_INIT_DOWNLOAD_SEP) {//初始化 9月活动 用户数据
+        } else if ($flag == "init_download_sep") {//初始化 9月活动 用户数据
             $this->doExportActivity();
         } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) { //导出9月活动用户信息
             $this->doDownloadActivity();
@@ -323,14 +320,24 @@ class ExcelHandler extends App
     }
 }
 
-$flag = ExcelHandler::$ACTION_INIT_DOWNLOAD_SEP;
+
+$flag = "";
 if (isset($_REQUEST["flag"])) {
     $flag = $_REQUEST["flag"];
 }
-if ($flag == ExcelHandler::$ACTION_INIT_DOWNLOAD_SEP || $flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {
+if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
     $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
-} else if ($flag == ExcelHandler::$ACTION_INIT || $flag == ExcelHandler::$ACTION_DOWNLOAD) {
+} else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
     $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
 }
+
+if ($argc > 1 || $flag == "jiangwei") {
+    shell_exec("vendor/bin/doctrine orm:schema-tool:drop --force");
+    shell_exec("vendor/bin/doctrine orm:schema-tool:create");
+    new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', "init");
+    new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', "init_download_sep");
+}
+
+
 
 

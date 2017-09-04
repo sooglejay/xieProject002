@@ -1,5 +1,6 @@
 <?php
 use Doctrine\Common\Collections\ArrayCollection;
+
 require_once 'Shop.php';
 
 /**
@@ -55,6 +56,15 @@ class User
     public function assignedToShop(Shop $shop)
     {
         $this->assignedShop[] = $shop;
+        $this->shop_num++;
+    }
+
+    /**
+     * @return Shop[]
+     */
+    public function getAssignedShop()
+    {
+        return $this->assignedShop;
     }
 
     /**
@@ -202,7 +212,7 @@ class User
             "area_name" => $this->area_name,
             "grid_name" => $this->grid_name,
             "account_name" => $this->account_name,
-            "shop_num" =>$this->assignedShop->count(),
+            "shop_num" => $this->shop_num,
         );
     }
 

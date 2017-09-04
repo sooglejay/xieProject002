@@ -187,6 +187,17 @@ class User extends \User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getAssignedShop()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAssignedShop', []);
+
+        return parent::getAssignedShop();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getShopNum()
     {
 

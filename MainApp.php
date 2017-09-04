@@ -46,14 +46,34 @@ class MainApp extends App
                 $allShopsFromAll = $this->shopRepo->findAll();
                 if ($userModel instanceof User) $userModel->setShopNum(count($allShopsFromAll));
             } else if ($this->loginUserName == "yanjiang") {
-                $allShopsFromYanJiang = $this->shopRepo->findBy(array("city" => "雁江"));
-                if ($userModel instanceof User) $userModel->setShopNum(count($allShopsFromYanJiang));
+
+                $users = $this->userRepo->findBy(array("county" => "雁江"));
+                $num = 0;
+                foreach ($users as $u) {
+                    if ($u instanceof User) {
+                        $num += $u->getShopNum();
+                    }
+                }
+                if ($userModel instanceof User) $userModel->setShopNum($num);
+
             } else if ($this->loginUserName == "anyue") {
-                $allShopsFromAnYue = $this->shopRepo->findBy(array("city" => "安岳"));
-                if ($userModel instanceof User) $userModel->setShopNum(count($allShopsFromAnYue));
+                $users = $this->userRepo->findBy(array("county" => "安岳"));
+                $num = 0;
+                foreach ($users as $u) {
+                    if ($u instanceof User) {
+                        $num += $u->getShopNum();
+                    }
+                }
+                if ($userModel instanceof User) $userModel->setShopNum($num);
             } else if ($this->loginUserName == "lezhi") {
-                $allShopsFromLeZhi = $this->shopRepo->findBy(array("city" => "乐至"));
-                if ($userModel instanceof User) $userModel->setShopNum(count($allShopsFromLeZhi));
+                $users = $this->userRepo->findBy(array("county" => "乐至"));
+                $num = 0;
+                foreach ($users as $u) {
+                    if ($u instanceof User) {
+                        $num += $u->getShopNum();
+                    }
+                }
+                if ($userModel instanceof User) $userModel->setShopNum($num);
             }
             if ($userModel instanceof User) {
                 echo json_encode($userModel->toArray());
@@ -76,16 +96,49 @@ class MainApp extends App
                     }
                 }
             } else {
-                foreach ($shopArr as $shop) {
-                    if ($shop instanceof Shop) {
-                        $st = similar_text($shop->getShopName(), $keyWord);
-                        if ($st > 0) {
-                            $userModel = $shop->getShopUser();
-                            if ($userModel instanceof User && $userModel->getAccountName() == $this->loginUserName) {
-                                $retArr[] = $shop->toArray();
+
+                if ($this->loginUserName == "yanjiang") {
+                    $users = $this->userRepo->findBy(array("county" => "雁江"));
+                    foreach ($users as $u) {
+                        if ($u instanceof User) {
+                            $a = $u->getAssignedShop();
+                            foreach ($a as $sh) {
+                                $retArr [] = $sh->toArray();
                             }
                         }
+                    }
+                } else if ($this->loginUserName == "anyue") {
+                    $users = $this->userRepo->findBy(array("county" => "安岳"));
+                    foreach ($users as $u) {
+                        if ($u instanceof User) {
+                            $a = $u->getAssignedShop();
+                            foreach ($a as $sh) {
+                                $retArr [] = $sh->toArray();
+                            }
+                        }
+                    }
+                } else if ($this->loginUserName == "lezhi") {
+                    $users = $this->userRepo->findBy(array("county" => "乐至"));
+                    foreach ($users as $u) {
+                        if ($u instanceof User) {
+                            $a = $u->getAssignedShop();
+                            foreach ($a as $sh) {
+                                $retArr [] = $sh->toArray();
+                            }
+                        }
+                    }
+                } else {
+                    foreach ($shopArr as $shop) {
+                        if ($shop instanceof Shop) {
+                            $st = similar_text($shop->getShopName(), $keyWord);
+                            if ($st > 0) {
+                                $userModel = $shop->getShopUser();
+                                if ($userModel instanceof User && $userModel->getAccountName() == $this->loginUserName) {
+                                    $retArr[] = $shop->toArray();
+                                }
+                            }
 
+                        }
                     }
                 }
             }
