@@ -134,6 +134,18 @@ a {
     box-shadow: 1px 1px 2px #b0b0b0;
 }
 
+.btn-ckxq-without {
+    display: block;
+    width: 30%;
+    margin: 3% 3% 3% 12%;
+    background: #22ac38;
+    border-radius: 4px;
+    padding: 1.6% 0;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
 .btn-ckxq, .btn-xgzl {
     display: block;
     float: left;

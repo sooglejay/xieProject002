@@ -113,6 +113,7 @@ function fillForm(obj, isDisEnable) {
     $('#shop_operator').val(obj['shop_operator']);
     $('#shop_landline').val(obj['shop_landline']);
     $('#shop_mem_num').val(obj['shop_mem_num']);
+
     if (isDisEnable) {
         $('#shop_name,' +
             '#shop_addr,' +
@@ -184,17 +185,27 @@ function doSearch() {
             }
             var list = '';
             $.each(res, function (i, item) {
+                var editText = '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="btn-xgzl">修改资料</a>';
+                var classSee = "btn-ckxq";
+                if (item.hasOwnProperty("owner")) {
+                    var owner = item["owner"];
+                    if (!owner) {
+                        editText = '';
+                        classSee = "btn-ckxq-without";
+                    }
+                }
                 var content = '<div class="search-list">';
                 content += '<h2>' + item.shop_name + '</h2>';
                 content += '<ul>';
                 content += '<li>企业类别：<span>' + item.shop_type + '</span></li>';
                 content += '<li>商铺所在地址：<span>' + item.shop_addr + item.shop_street + '</span></li>';
                 content += '</ul>';
-                content += '<div class="clearfix">';
-                content += '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="btn-ckxq">查看详情</a>';
-                content += '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="btn-xgzl">修改资料</a>';
+                content += '<div class="clearfix" align="center">';
+                content += '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="' + classSee + '">查看详情</a>';
+                content += editText;
                 content += '</div></div>';
                 list += content;
+
             });
             $('#result').show();
             $('#result').html(list);

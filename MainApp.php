@@ -87,11 +87,30 @@ class MainApp extends App
             }
             $retArr = array();
             if ($this->loginUserName == "88888888") {
+
+                $adminUser = $this->userRepo->findOneBy(array("account_name" => "88888888"));
+                if ($adminUser instanceof User) {
+                    $shops = $adminUser->getAssignedShop();
+                    foreach ($shops as $shop) {
+                        if ($shop instanceof Shop) {
+                            $st = similar_text($shop->getShopName(), $keyWord);
+                            if ($st > 0) {
+                                $item = $shop->toArray();
+                                $item["owner"] = 1;
+                                $retArr[] = $item;
+                            }
+                        }
+                    }
+                }
                 foreach ($shopArr as $shop) {
                     if ($shop instanceof Shop) {
+                        $u = $shop->getShopUser();
+                        if ($u instanceof User && $u->getAccountName() == "88888888") continue;
                         $st = similar_text($shop->getShopName(), $keyWord);
                         if ($st > 0) {
-                            $retArr[] = $shop->toArray();
+                            $item = $shop->toArray();
+                            $item["owner"] = 0;
+                            $retArr[] = $item;
                         }
                     }
                 }
