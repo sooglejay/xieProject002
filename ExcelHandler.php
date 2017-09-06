@@ -5,6 +5,7 @@
  * Date: 17/8/23
  * Time: 23:05
  */
+date_default_timezone_set("PRC");
 
 require_once 'lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
 require_once 'lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
