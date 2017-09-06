@@ -1,4 +1,6 @@
 <?php
+ini_set('date.timezone','Asia/Shanghai');
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 require_once 'Shop.php';
