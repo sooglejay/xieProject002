@@ -1,5 +1,5 @@
 <?php
-ini_set('date.timezone','Asia/Shanghai');
+ini_set('date.timezone', 'Asia/Shanghai');
 
 use Doctrine\ORM\EntityRepository;
 
@@ -23,6 +23,26 @@ class Shop
 
     /** @Column(type="string") * */
     protected $shop_addr;
+
+    /** @Column(type="string") * */
+    protected $shop_unique_code;
+
+    /**
+     * @return mixed
+     */
+    public function getShopUniqueCode()
+    {
+        return $this->shop_unique_code;
+    }
+
+    /**
+     * @param mixed $shop_unique_code
+     */
+    public function setShopUniqueCode($shop_unique_code)
+    {
+        $this->shop_unique_code = $shop_unique_code;
+    }
+
 
     /** @Column(type="string") * */
     protected $shop_street;
@@ -335,11 +355,15 @@ class Shop
     }
 
     /**
-     *
+     * @param $t
      */
-    public function setTime()
+    public function setTime($t)
     {
-        $this->time = date("Y-m-d H:i:s");
+        if(isset($t)){
+            $this->time = $t;
+        }else{
+            $this->time = date("Y-m-d H:i:s");
+        }
     }
 
     /**
@@ -404,6 +428,11 @@ class ShopRepository extends EntityRepository
         $sh->setShopType($shopObj['shopType']);
         $sh->setShopLng($shopObj['shopLng']);
         $sh->setShopLat($shopObj['shopLat']);
+        $code = '';
+        for ($i = 0; $i < 7; $i++) {
+            $code .= range('a', 'z')[random_int(0, 25)];
+        }
+        $sh->setShopUniqueCode($code);
         $this->getEntityManager()->persist($sh);
         $this->getEntityManager()->flush();
         return $sh->getId();

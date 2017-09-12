@@ -187,6 +187,17 @@ class User extends \User implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function clearShops()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'clearShops', []);
+
+        return parent::clearShops();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getAssignedShop()
     {
 

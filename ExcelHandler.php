@@ -232,7 +232,7 @@ class ExcelHandler extends App
                         ->setCellValue('E' . $row, $userModel->getAreaName())
                         ->setCellValue('F' . $row, $userModel->getGridName())
                         ->setCellValue('G' . $row, $userModel->getAccountName())
-                        ->setCellValue('H' . $row, "a2b".$shop->getId())
+                        ->setCellValue('H' . $row, $shop->getShopUniqueCode())
                         ->setCellValue('I' . $row, $shop->getShopName())
                         ->setCellValue('J' . $row, $shop->getShopAddr())
                         ->setCellValue('K' . $row, $shop->getShopContact1())
@@ -338,6 +338,7 @@ if ($argc > 1 || $flag == "jiangwei") {
     new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', "init");
     new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', "init_download_sep");
 }
+
 
 
 

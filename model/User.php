@@ -60,6 +60,12 @@ class User
         $this->assignedShop[] = $shop;
         $this->shop_num++;
     }
+    public function clearShops()
+    {
+        $this->assignedShop = new ArrayCollection();
+        $this->shop_num = 0;
+    }
+
 
     /**
      * @return Shop[]
