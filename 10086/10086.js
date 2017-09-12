@@ -4,10 +4,17 @@
 
 
 $(function () {
+
+   $("#btnLogin").click(function () {
+       do10086();
+   });
+});
+function do10086() {
+    var userPhone = $("#userPhone").val();
     $.ajax({
         type: 'POST',
         url: '10086.php',
-        data: {action: "index"},
+        data: {action: "index", userPhone: userPhone},
         dataType: 'json',
         beforeSend: function () {
             box.loadding('加载中...');
@@ -21,4 +28,4 @@ $(function () {
             console.log(e);
         }
     });
-});
+}
