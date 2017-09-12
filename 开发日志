@@ -6,8 +6,15 @@
 4. 开始做前端界面
 
 2017-08-23
+
+//全部删除
 vendor/bin/doctrine orm:schema-tool:drop --force
+
+//新建数据库
 vendor/bin/doctrine orm:schema-tool:create
+
+//更新数据库表
 vendor/bin/doctrine orm:schema-tool:update --force
 
+//参考地址
 https://pkg.phpcomposer.com
