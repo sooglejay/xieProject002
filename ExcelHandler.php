@@ -15,6 +15,7 @@ require_once "model/User.php";
 require_once "model/BuyTypeUser.php";
 require_once "model/ActivitySepUser.php";
 ini_set('memory_limit', '800M');
+ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
 class ExcelHandler extends App
 {
@@ -70,11 +71,16 @@ class ExcelHandler extends App
     private function setupCache()
     {
         try {
+            $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_discISAM;
+            $cacheSettings = array(
+                'dir' => './tmp'
+            );
+            PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
+
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
             $cacheSettings = array(
                 'memoryCacheSize' => '700MB'
             );
-
             if (!PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings)) {
                 $responseToAjaxCall['error'] = $cacheMethod . " caching method is not available";
                 die(json_encode($responseToAjaxCall));
