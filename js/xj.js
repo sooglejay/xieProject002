@@ -178,10 +178,15 @@ function doSearch() {
             box.loadding('正在搜索,请稍等...');
         },
         success: function (res) {
+
             layer.closeAll();
             if (res.hasOwnProperty("errorCode")) {
                 box.msg(res.message);
                 return;
+            }
+            if(res.length<1){
+                box.msg("没有搜索到任何有关"+search+"的结果");
+                return ;
             }
             var list = '';
             $.each(res, function (i, item) {
