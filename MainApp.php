@@ -1,6 +1,8 @@
 <?php
+use Doctrine\ORM\Query\ResultSetMapping;
+
 ini_set('display_errors', 1);
-ini_set('date.timezone','Asia/Shanghai');
+ini_set('date.timezone', 'Asia/Shanghai');
 
 /**
  * Created by PhpStorm.
@@ -10,6 +12,7 @@ ini_set('date.timezone','Asia/Shanghai');
  */
 require_once "bootstrap.php";
 require_once "model/User.php";
+
 class MainApp extends App
 {
     public static $INDEX = "index";
@@ -80,102 +83,50 @@ class MainApp extends App
             }
         } else if ($actionName == MainApp::$SEARCH) {
             $keyWord = $_REQUEST['search'];
-            $shopArr = $this->shopRepo->findAll();
-            if (is_null($shopArr) || count($shopArr) < 1) {
-                echo json_encode(array("message" => "没有符合搜索的结果", "errorCode" => 100));
-                return;
-            }
+            $searchResultArr = $this->searchKeyWord($keyWord);
+            $adminUser = $this->userRepo->findOneBy(array("account_name" => $this->loginUserName));
             $retArr = array();
             if ($this->loginUserName == "88888888") {
-
-                $adminUser = $this->userRepo->findOneBy(array("account_name" => "88888888"));
                 if ($adminUser instanceof User) {
-                    $shops = $adminUser->getAssignedShop();
-                    foreach ($shops as $shop) {
-                        if ($shop instanceof Shop) {
-                            $st = similar_text($shop->getShopName(), $keyWord);
-                            if ($st > 0) {
-                                $item = $shop->toArray();
-                                $item["owner"] = 1;
-                                $retArr[] = $item;
-                            }
-                        }
-                    }
-                }
-                foreach ($shopArr as $shop) {
-                    if ($shop instanceof Shop) {
-                        $u = $shop->getShopUser();
-                        if ($u instanceof User && $u->getAccountName() == "88888888") continue;
-                        $st = similar_text($shop->getShopName(), $keyWord);
-                        if ($st > 0) {
-                            $item = $shop->toArray();
-                            $item["owner"] = 0;
-                            $retArr[] = $item;
-                        }
+                    foreach ($searchResultArr as $shop) {
+                        $shop["owner"] = ($shop["shopUser_id"] == $adminUser->getId());
+                        $retArr[] = $shop;
                     }
                 }
             } else {
-
-                if ($this->loginUserName == "yanjiang") {
-                    $users = $this->userRepo->findBy(array("county" => "雁江"));
-                    foreach ($users as $u) {
-                        if ($u instanceof User) {
-                            $a = $u->getAssignedShop();
-                            foreach ($a as $sh) {
-                                $retArr [] = $sh->toArray();
-                            }
-                        }
-                    }
-                } else if ($this->loginUserName == "anyue") {
-                    $users = $this->userRepo->findBy(array("county" => "安岳"));
-                    foreach ($users as $u) {
-                        if ($u instanceof User) {
-                            $a = $u->getAssignedShop();
-                            foreach ($a as $sh) {
-                                $retArr [] = $sh->toArray();
-                            }
-                        }
-                    }
-                } else if ($this->loginUserName == "lezhi") {
-                    $users = $this->userRepo->findBy(array("county" => "乐至"));
-                    foreach ($users as $u) {
-                        if ($u instanceof User) {
-                            $a = $u->getAssignedShop();
-                            foreach ($a as $sh) {
-                                $retArr [] = $sh->toArray();
-                            }
-                        }
+                $ar = array("yanjiang" => "雁江", "anyue" => "安岳", "lezhi" => "乐至");
+                if (isset($ar[$this->loginUserName])) {
+                    foreach ($searchResultArr as $shop) {
+                        $user = $this->userRepo->find($shop["shopUser_id"]);
+                        if ($user instanceof User && $user->getCounty() == $ar[$this->loginUserName])
+                            $retArr[] = $shop;
                     }
                 } else {
-                    foreach ($shopArr as $shop) {
-                        if ($shop instanceof Shop) {
-                            $st = similar_text($shop->getShopName(), $keyWord);
-                            if ($st > 0) {
-                                $userModel = $shop->getShopUser();
-                                if ($userModel instanceof User && $userModel->getAccountName() == $this->loginUserName) {
-                                    $retArr[] = $shop->toArray();
-                                }
+                    if ($adminUser instanceof User)
+                        foreach ($searchResultArr as $shop) {
+                            if ($adminUser->getId() == $shop["shopUser_id"]) {
+                                $retArr[] = $shop;
                             }
-
                         }
-                    }
                 }
             }
             echo json_encode($retArr);
-        } else if ($actionName == MainApp::$SAVE_SHOP) {
-            $this->actionSaveShop();
-        } else if ($actionName == MainApp::$EDIT || $actionName == MainApp::$VIEW) {
-            $id = $_REQUEST['id'];
-            $shopEntity = $this->shopRepo->find($id);
-            if ($shopEntity instanceof Shop) {
-                echo json_encode($shopEntity->toArray());
+        } else
+            if ($actionName == MainApp::$SAVE_SHOP) {
+                $this->actionSaveShop();
+            } else if ($actionName == MainApp::$EDIT || $actionName == MainApp::$VIEW) {
+                $id = $_REQUEST['id'];
+                $shopEntity = $this->shopRepo->find($id);
+                if ($shopEntity instanceof Shop) {
+                    echo json_encode($shopEntity->toArray());
+                }
+            } else if ($actionName == MainApp::$EDIT_SAVE) {
+                $this->actionEditShop($_REQUEST['id']);
             }
-        } else if ($actionName == MainApp::$EDIT_SAVE) {
-            $this->actionEditShop($_REQUEST['id']);
-        }
     }
 
-    private function actionSaveShop()
+    private
+    function actionSaveShop()
     {
         $shopName = $_POST['shop_name'];
         $shops = $this->shopRepo->findAll();
@@ -204,7 +155,17 @@ class MainApp extends App
         }
     }
 
-    private function actionEditShop($id)
+    private
+    function searchKeyWord($keyWord)
+    {
+        $a = "SELECT * FROM shop WHERE  shop_name LIKE  '%" . $keyWord . "%'";
+        $stmt = $this->entityManager->getConnection()->prepare($a);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    private
+    function actionEditShop($id)
     {
         try {
             $shopRep = $this->entityManager->getRepository("Shop");
