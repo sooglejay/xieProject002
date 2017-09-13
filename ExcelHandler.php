@@ -14,7 +14,7 @@ require_once "bootstrap.php";
 require_once "model/User.php";
 require_once "model/BuyTypeUser.php";
 require_once "model/ActivitySepUser.php";
-ini_set('memory_limit', '-1');
+ini_set('memory_limit', '800M');
 
 class ExcelHandler extends App
 {
@@ -70,8 +70,12 @@ class ExcelHandler extends App
     private function setupCache()
     {
         try {
-            $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
-            if (!\PHPExcel_Settings::setCacheStorageMethod($cacheMethod)) {
+            $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
+            $cacheSettings = array(
+                'memoryCacheSize' => '700MB'
+            );
+
+            if (!PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings)) {
                 $responseToAjaxCall['error'] = $cacheMethod . " caching method is not available";
                 die(json_encode($responseToAjaxCall));
             }
@@ -257,7 +261,7 @@ class ExcelHandler extends App
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="商铺信息.xls"');
         header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save('php://output');
 
     }
@@ -314,7 +318,7 @@ class ExcelHandler extends App
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="预约套餐用户信息.xls"');
         header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save('php://output');
 
     }
