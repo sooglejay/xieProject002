@@ -16,7 +16,6 @@ require_once "model/BuyTypeUser.php";
 require_once "model/ActivitySepUser.php";
 ini_set('memory_limit', '-1');
 
-PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
 class ExcelHandler extends App
 {
     private $xlsFile;
@@ -71,7 +70,7 @@ class ExcelHandler extends App
     private function setupCache()
     {
         try {
-            $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_phpTemp;
+            $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_in_memory_serialized;
             if (!\PHPExcel_Settings::setCacheStorageMethod($cacheMethod)) {
                 $responseToAjaxCall['error'] = $cacheMethod . " caching method is not available";
                 die(json_encode($responseToAjaxCall));
