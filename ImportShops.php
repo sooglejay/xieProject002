@@ -14,8 +14,8 @@ require_once "bootstrap.php";
 require_once "model/User.php";
 require_once "model/BuyTypeUser.php";
 require_once "model/ActivitySepUser.php";
-ini_set('memory_limit', '800M');
-ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', 300000); //300 seconds = 5 minutes
 
 
 class ImportShops extends App
