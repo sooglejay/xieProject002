@@ -112,30 +112,30 @@ class ImportShops extends App
                 continue;
             }
             $userName = $row['G'];
-            $userEntity = $this->userRepo->findOneBy(array("account_name"=>$userName));
+            $userEntity = $this->userRepo->findOneBy(array("account_name" => $userName));
 
             $i++;
             $shop = new Shop();
-            $shop->setShopUniqueCode(isset($row['H'])?$row['H']:"");
-            $shop->setShopName(isset($row['I'])?$row['I']:"");
-            $shop->setShopAddr(isset($row['J'])?$row['J']:"");
-            $shop->setShopContact1(isset($row['K'])?$row['K']:"");
-            $shop->setShopContact2(isset($row['L'])?$row['L']:"");
-            $shop->setShopType(isset($row['M'])?$row['M']:"");
-            $shop->setShopStreet(isset($row['N'])?$row['N']:"");
-            $shop->setShopLng(isset($row['O'])?$row['O']:"");
-            $shop->setShopLat(isset($row['P'])?$row['P']:"");
-            $shop->setShop280(isset($row['Q'])?$row['Q']:"");
-            $shop->setShop209(isset($row['R'])?$row['R']:"");
-            $shop->setShopGroupNet(isset($row['S'])?$row['S']:"");
-            $shop->setShopMemNum(isset($row['T'])?$row['T']:"");
-            $shop->setShopBroadbandCover(isset($row['U'])?$row['U']:"");
-            $shop->setShopLandline(isset($row['V'])?$row['V']:"");
-            $shop->setShopOperator(isset($row['W'])?$row['W']:"");
-            $shop->setTime(strtotime(isset($row['X'])?$row['X']:date("m/d/Y H:i:s").""));
+            $shop->setShopUniqueCode(isset($row['H']) ? $row['H'] : "");
+            $shop->setShopName(isset($row['I']) ? $row['I'] : "");
+            $shop->setShopAddr(isset($row['J']) ? $row['J'] : "");
+            $shop->setShopContact1(isset($row['K']) ? $row['K'] : "");
+            $shop->setShopContact2(isset($row['L']) ? $row['L'] : "");
+            $shop->setShopType(isset($row['M']) ? $row['M'] : "");
+            $shop->setShopStreet(isset($row['N']) ? $row['N'] : "");
+            $shop->setShopLng(isset($row['O']) ? $row['O'] : "");
+            $shop->setShopLat(isset($row['P']) ? $row['P'] : "");
+            $shop->setShop280(isset($row['Q']) ? $row['Q'] : "");
+            $shop->setShop209(isset($row['R']) ? $row['R'] : "");
+            $shop->setShopGroupNet(isset($row['S']) ? $row['S'] : "");
+            $shop->setShopMemNum(isset($row['T']) ? $row['T'] : "");
+            $shop->setShopBroadbandCover(isset($row['U']) ? $row['U'] : "");
+            $shop->setShopLandline(isset($row['V']) ? $row['V'] : "");
+            $shop->setShopOperator(isset($row['W']) ? $row['W'] : "");
+            $shop->setTime(strtotime(isset($row['X']) ? $row['X'] : date("m/d/Y H:i:s") . ""));
             $shop->setShopUser($userEntity);
             $this->entityManager->persist($shop);
-            if ($i % 100 == 0) {
+            if ($i % 20 == 0) {
                 $this->entityManager->flush();
                 $i = 0;
             }
