@@ -70,7 +70,7 @@ class ExcelHandler extends App
     private function setupCache()
     {
         try {
-            $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_in_memory_serialized;
+            $cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
             if (!\PHPExcel_Settings::setCacheStorageMethod($cacheMethod)) {
                 $responseToAjaxCall['error'] = $cacheMethod . " caching method is not available";
                 die(json_encode($responseToAjaxCall));
