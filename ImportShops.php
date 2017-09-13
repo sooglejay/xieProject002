@@ -14,7 +14,8 @@ require_once "bootstrap.php";
 require_once "model/User.php";
 require_once "model/BuyTypeUser.php";
 require_once "model/ActivitySepUser.php";
-ini_set('memory_limit', '-1');
+ini_set('memory_limit', '800M');
+ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
 
 class ImportShops extends App
@@ -134,7 +135,7 @@ class ImportShops extends App
             $shop->setTime(strtotime(isset($row['X'])?$row['X']:date("m/d/Y H:i:s").""));
             $shop->setShopUser($userEntity);
             $this->entityManager->persist($shop);
-            if ($i % 20 == 0) {
+            if ($i % 100 == 0) {
                 $this->entityManager->flush();
                 $i = 0;
             }
