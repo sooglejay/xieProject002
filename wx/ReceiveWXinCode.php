@@ -23,9 +23,13 @@ class ReceiveWXinCode
 
         $code = -1;
         $state = -1;
-        if (isset($_REQUEST['code'])) $code = $_REQUEST['code'];
-        if (isset($_REQUEST['state'])) $state = $_REQUEST['state'];
-        $this->w($code . "-", $state);
+        if (isset($_REQUEST['code'])) {
+            $code = $_REQUEST['code'];
+        }
+        if (isset($_REQUEST['state'])) {
+            $state = $_REQUEST['state'];
+        }
+        $this->w($code . "-" . $state);
     }
 }
 
