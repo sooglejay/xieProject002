@@ -9,7 +9,7 @@
 class ReceiveWXinCode
 {
     private function w($text){
-        $myfile = fopen("test.txt", "w") or die("Unable to open file!");
+        $myfile = fopen("/ziyan/wx/test.txt", "w") or die("Unable to open file!");
         fwrite($myfile, $text);
         fclose($myfile);
     }
