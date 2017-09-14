@@ -8,8 +8,9 @@
  */
 class ReceiveWXinCode
 {
-    private function w($text){
-        $myfile = fopen("/ziyan/wx/test.txt", "w") or die("Unable to open file!");
+    private function w($text)
+    {
+        $myfile = fopen("./test.txt", "w") or die("Unable to open file!");
         fwrite($myfile, $text);
         fclose($myfile);
     }
@@ -19,9 +20,12 @@ class ReceiveWXinCode
      */
     public function __construct()
     {
-        $code = $_REQUEST['code'];
-        $state = $_REQUEST['state'];
-        $this->w($code."-",$state);
+
+        $code = -1;
+        $state = -1;
+        if (isset($_REQUEST['code'])) $code = $_REQUEST['code'];
+        if (isset($_REQUEST['state'])) $state = $_REQUEST['state'];
+        $this->w($code . "-", $state);
     }
 }
 
