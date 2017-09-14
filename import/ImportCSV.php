@@ -6,6 +6,10 @@
  * Time: 10:47
  */
 
+// 这个是导入当前目录下 9_12.csv文件这里面的shop数据 到shop表
+// 我发现使用CSV之后快了不止一点点，比Excel快了将近20倍，内存使用减少20倍
+
+
 date_default_timezone_set("PRC");
 
 require_once './../lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';

@@ -16,7 +16,7 @@ function loadData() {
         success: function (res) {
             layer.closeAll();
             if (res.error) {
-                window.location.href = "login.html";
+                window.location.href = "index.html";
                 return;
             }
             $('#county').text(res["county"]);
