@@ -62,7 +62,7 @@ class Shop
     /** @Column(type="string") * */
     protected $shop_group_net;
 
-    /** @Column(type="integer") * */
+    /** @Column(type="bigint") * */
     protected $shop_mem_num;
 
     /** @Column(type="string") * */

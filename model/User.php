@@ -39,7 +39,7 @@ class User
     /** @Column(type="string") * */
     protected $account_name;
 
-    /** @Column(type="integer") * */
+    /** @Column(type="bigint") * */
     protected $shop_num;
     /**
      * @OneToMany(targetEntity="Shop", mappedBy="shopUser")
