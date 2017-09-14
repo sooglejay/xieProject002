@@ -394,7 +394,7 @@ a {
 .search-list {
     width: 90%;
     margin: 3% 0 0 5%;
-    background: #eee url("../images/pic12.png") no-repeat center top;
+    background: #eee url("../images/bj01.png") no-repeat center top;
     background-size: 100% auto;
     border-radius: 4px;
     padding: 8% 0 2% 0;
@@ -527,7 +527,6 @@ a {
         max-width: 640px
     }
 }
-
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: gray;

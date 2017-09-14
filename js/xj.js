@@ -453,7 +453,7 @@ $(function () {
     $('#btn_search').on('click', doSearch);
 
 // 查看详情
-    $('#result').delegate('.btn-ckxq', 'click', function () {
+    $('#result').delegate('.btn-ckxq,.btn-ckxq-without', 'click', function () {
         var id = $(this).data('id');
         var searchWord = $(this).data('search');
         window.location.href = 'fill_info.html?id=' + id + "&action=view&search=" + searchWord;
