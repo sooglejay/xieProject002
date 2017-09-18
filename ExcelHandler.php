@@ -7,13 +7,13 @@
  */
 date_default_timezone_set("PRC");
 
-require_once 'lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
-require_once 'lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
+require_once dirname(__FILE__) . '/lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
 
-require_once "bootstrap.php";
-require_once "model/User.php";
-require_once "model/BuyTypeUser.php";
-require_once "model/ActivitySepUser.php";
+require_once dirname(__FILE__) . "/bootstrap.php";
+require_once dirname(__FILE__) . "/model/User.php";
+require_once dirname(__FILE__) . "/model/BuyTypeUser.php";
+require_once dirname(__FILE__) . "/model/ActivitySepUser.php";
 ini_set('memory_limit', '800M');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 

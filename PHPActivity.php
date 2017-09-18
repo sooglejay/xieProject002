@@ -5,9 +5,9 @@
  * Date: 17/9/2
  * Time: 12:01
  */
-require_once "bootstrap.php";
-require_once "model/ActivitySepUser.php";
-require_once "model/BuyTypeUser.php";
+require_once dirname(__FILE__)."/bootstrap.php";
+require_once dirname(__FILE__)."/model/ActivitySepUser.php";
+require_once dirname(__FILE__)."/model/BuyTypeUser.php";
 
 class PHPActivity extends App
 {

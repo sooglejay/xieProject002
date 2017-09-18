@@ -7,10 +7,10 @@ ini_set('date.timezone', 'Asia/Shanghai');
  * Date: 17/8/27
  * Time: 09:59
  */
-require_once "bootstrap.php";
-require_once "model/User.php";
-require_once "model/Shop.php";
-require_once "wx/ReceiveWXinCode.php";
+require_once dirname(__FILE__)."/bootstrap.php";
+require_once dirname(__FILE__)."/model/User.php";
+require_once dirname(__FILE__)."/model/Shop.php";
+require_once dirname(__FILE__)."/wx/ReceiveWXinCode.php";
 
 class Login extends App
 {

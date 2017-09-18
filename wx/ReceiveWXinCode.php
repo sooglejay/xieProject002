@@ -6,7 +6,7 @@
  * Date: 17/9/14
  * Time: 20:09
  */
-require_once dirname(__FILE__).'./../vendor/curl/curl/src/Curl/Curl.php';
+require_once dirname(__FILE__).'/../vendor/curl/curl/src/Curl/Curl.php';
 
 class ReceiveWXinCode
 {
