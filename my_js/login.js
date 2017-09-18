@@ -28,7 +28,6 @@ function checkLogin() {
         },
         error: function (e) {
             layer.closeAll();
-            box.msg('校验失败！请联系系统管理员！');
             console.log(e);
         }
     });
