@@ -51,7 +51,6 @@ class Login extends App
             return;
         }
 
-
         $this->userRepo = $this->entityManager->getRepository('User');
         if (!isset($_REQUEST['userName']) || !isset($_REQUEST['password'])) {
             echo json_encode(array("message" => "请输入用户名或密码登录！", "error" => "error"));
