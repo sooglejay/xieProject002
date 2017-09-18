@@ -1,24 +1,20 @@
 /**
  * Created by sooglejay on 17/8/24.
  */
+
 $(function () {
+    checkLogin();
     $("#btnLogin").click(function () {
         login();
     });
-    checkLogin();
 });
-function getOpenId() {
 
-
-}
 function checkLogin() {
-    var openId = getOpenId();
     $.ajax({
         type: 'POST',
         url: 'Login.php',
         data: {
-            openId:openId,
-            action:"checkUserIsLogin"
+            action: "checkUserIsLogin"
         },
         dataType: 'json',
         beforeSend: function () {
@@ -32,11 +28,10 @@ function checkLogin() {
         },
         error: function (e) {
             layer.closeAll();
-            box.msg('登录失败！请联系系统管理员！');
+            box.msg('校验失败！请联系系统管理员！');
             console.log(e);
         }
     });
-
 }
 function login() {
     var userName = $("#userName").val();

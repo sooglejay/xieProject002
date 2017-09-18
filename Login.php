@@ -10,29 +10,27 @@ ini_set('date.timezone', 'Asia/Shanghai');
 require_once "bootstrap.php";
 require_once "model/User.php";
 require_once "model/Shop.php";
+require_once "wx/ReceiveWXinCode.php";
 
 class Login extends App
 {
     private $userRepo;
 
-    private function checkUser($openId)
+    private function checkUser()
     {
-        if (!isset($openId)) {
-            return false;
-        }
-        if (strlen($openId) < 1) {
-            return false;
-        }
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
+        $wxObj = new ReceiveWXinCode();
+        $openId = $wxObj->getOpenIdAndRefreshToken();
         $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
-        if ($userEntity instanceof User) {
+        $isLogined = false;
+        if ($userEntity instanceof User && strlen($openId) > 0) {
             $_SESSION['userName'] = $userEntity->getAccountName();
             $_SESSION['userId'] = $userEntity->getId();
-            return true;
+            $isLogined = true;
         }
-        return false;
+        return array("isLogined" => $isLogined, "openId" => $openId);
     }
 
     /**
@@ -41,19 +39,19 @@ class Login extends App
     public function __construct()
     {
         parent::__construct();
-        $openId = "";
-        if (isset($_REQUEST["openId"])) {
-            $openId = $_REQUEST["openId"];
-        }
+        $resArr = $this->checkUser();
+        $openId = $resArr["openId"];
         // 用 一个标志位来 代表，当前微信用户openid 是否登录！如果登录了，就直接返回，没登录，也不做任何事情返回！
         if (isset($_REQUEST["action"])) {
-            if ($this->checkUser($openId)) {
+            if ($resArr["isLogined"]) {
                 echo json_encode(array("code" => 200));
             } else {
                 echo json_encode(array("code" => 201));
             }
             return;
         }
+
+
         $this->userRepo = $this->entityManager->getRepository('User');
         if (!isset($_REQUEST['userName']) || !isset($_REQUEST['password'])) {
             echo json_encode(array("message" => "请输入用户名或密码登录！", "error" => "error"));
