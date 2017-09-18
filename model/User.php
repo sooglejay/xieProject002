@@ -28,6 +28,9 @@ class User
     protected $code;
 
     /** @Column(type="string") * */
+    protected $openId;
+
+    /** @Column(type="string") * */
     protected $selling_area_name;
 
     /** @Column(type="string") * */
@@ -53,6 +56,22 @@ class User
     public function __construct()
     {
         $this->assignedShop = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOpenId()
+    {
+        return $this->openId;
+    }
+
+    /**
+     * @param mixed $openId
+     */
+    public function setOpenId($openId)
+    {
+        $this->openId = $openId;
     }
 
     public function assignedToShop(Shop $shop)
@@ -219,6 +238,7 @@ class User
             "selling_area_name" => $this->selling_area_name,
             "area_name" => $this->area_name,
             "grid_name" => $this->grid_name,
+            "open_id" => $this->openId,
             "account_name" => $this->account_name,
             "shop_num" => $this->shop_num,
         );

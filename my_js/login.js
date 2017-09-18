@@ -5,7 +5,39 @@ $(function () {
     $("#btnLogin").click(function () {
         login();
     });
+    checkLogin();
 });
+function getOpenId() {
+
+
+}
+function checkLogin() {
+    var openId = getOpenId();
+    $.ajax({
+        type: 'POST',
+        url: 'Login.php',
+        data: {
+            openId:openId,
+            action:"checkUserIsLogin"
+        },
+        dataType: 'json',
+        beforeSend: function () {
+            box.loadding('加载中...');
+        },
+        success: function (res) {
+            layer.closeAll();
+            if (res.code == 200) {
+                window.location.href = '/ziyan/home.html';
+            }
+        },
+        error: function (e) {
+            layer.closeAll();
+            box.msg('登录失败！请联系系统管理员！');
+            console.log(e);
+        }
+    });
+
+}
 function login() {
     var userName = $("#userName").val();
     var password = $("#password").val();
@@ -43,6 +75,5 @@ function login() {
             box.msg('登录失败！请联系系统管理员！');
             console.log(e);
         }
-    })
-    ;
+    });
 }

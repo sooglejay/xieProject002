@@ -1,5 +1,5 @@
 <?php
-ini_set('date.timezone','Asia/Shanghai');
+ini_set('date.timezone', 'Asia/Shanghai');
 
 /**
  * Created by PhpStorm.
@@ -15,12 +15,45 @@ class Login extends App
 {
     private $userRepo;
 
+    private function checkUser($openId)
+    {
+        if (!isset($openId)) {
+            return false;
+        }
+        if (strlen($openId) < 1) {
+            return false;
+        }
+        if (is_null($this->userRepo)) {
+            $this->userRepo = $this->entityManager->getRepository('User');
+        }
+        $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
+        if ($userEntity instanceof User) {
+            $_SESSION['userName'] = $userEntity->getAccountName();
+            $_SESSION['userId'] = $userEntity->getId();
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Login constructor.
      */
     public function __construct()
     {
         parent::__construct();
+        $openId = "";
+        if (isset($_REQUEST["openId"])) {
+            $openId = $_REQUEST["openId"];
+        }
+        // 用 一个标志位来 代表，当前微信用户openid 是否登录！如果登录了，就直接返回，没登录，也不做任何事情返回！
+        if (isset($_REQUEST["action"])) {
+            if ($this->checkUser($openId)) {
+                echo json_encode(array("code" => 200));
+            } else {
+                echo json_encode(array("code" => 201));
+            }
+            return;
+        }
         $this->userRepo = $this->entityManager->getRepository('User');
         if (!isset($_REQUEST['userName']) || !isset($_REQUEST['password'])) {
             echo json_encode(array("message" => "请输入用户名或密码登录！", "error" => "error"));
@@ -45,12 +78,18 @@ class Login extends App
         if ($loginRes) {
             $_SESSION['userName'] = $userName;
             $_SESSION['userId'] = $loginUserEntity->getId();
+            if ($loginUserEntity instanceof User) {
+                $loginUserEntity->setOpenId($openId);
+                $this->entityManager->persist($loginUserEntity);
+                $this->entityManager->flush();
+            }
             $resArr = array("message" => "登录成功！");
         } else {
-            $resArr = array("message" => "登录失败，用户名或密码不正确！","error"=>"error");
+            $resArr = array("message" => "登录失败，用户名或密码不正确！", "error" => "error");
         }
         echo json_encode($resArr);
     }
 }
+
 
 new Login();
