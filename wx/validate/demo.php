@@ -101,7 +101,11 @@ class demo
      */
     public function __construct()
     {
-        $this->checkSignature();
+        if (isset($_GET["signature"])) {
+            $this->checkSignature();
+        } else {
+            $this->responseMsg();
+        }
     }
 }
 
