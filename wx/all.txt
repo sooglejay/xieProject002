@@ -1,12 +1,68 @@
 Array
 (
-    [access_token] => 41931a51-c117-4a0c-a70c-79d245b83c5d748
-    [token_type] => bearer
-    [refresh_token] => 796018ea-8af9-4ce4-a647-60056188cfbf748
-    [refresh_token_expires_in] => 604657
-    [expires_in] => 7199
-    [scope] => default
-    [weimobUserId] => 56022748_oAvF9wil_W5wV9ZGGblKAK-skFwA
-    [weimobOpenId] => oAvF9wil_W5wV9ZGGblKAK-skFwA
-    [openId] => 
+    [_GET] => Array
+        (
+        )
+
+    [_POST] => Array
+        (
+        )
+
+    [_COOKIE] => Array
+        (
+        )
+
+    [_FILES] => Array
+        (
+        )
+
+    [argv] => Array
+        (
+            [0] => demo.php
+        )
+
+    [argc] => 1
+    [_SERVER] => Array
+        (
+            [ANDROID_HOME] => /usr/local/Cellar/android-sdk
+            [TERM] => xterm-256color
+            [SHELL] => /bin/bash
+            [TMPDIR] => /var/folders/ml/rtx17bjx49sf_kr63xqs07300000gn/T/
+            [GRADLE_HOME] => /usr/local/Cellar/android-sdk/gradle-2.4/bin
+            [Apple_PubSub_Socket_Render] => /private/tmp/com.apple.launchd.36bLDpHDEb/Render
+            [OLDPWD] => /Applications/XAMPP/xamppfiles/htdocs/ziyan
+            [USER] => sooglejay
+            [CLASS_PATH] => /Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/lib:/Users/sooglejay/jnetpcap/jnetpcap_1.3.0/jnetpcap.jar
+            [SSH_AUTH_SOCK] => /private/tmp/com.apple.launchd.D5PDHBZ987/Listeners
+            [__CF_USER_TEXT_ENCODING] => 0x1F5:0x19:0x34
+            [PATH] => /Library/Frameworks/Python.framework/Versions/2.7/bin:/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/bin:/Users/sooglejay/.composer/vendor/bin://anaconda/bin:/Users/sooglejay/.rbenv/bin:/Users/sooglejay/.rbenv/shims:/usr/local/Cellar/android-sdk/tools:/usr/local/Cellar/android-sdk/platform-tools:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
+            [JNETPCAP_HOME] => /Users/sooglejay/jnetpcap/jnetpcap_1.3.0
+            [PWD] => /Applications/XAMPP/xamppfiles/htdocs/ziyan/wx/validate
+            [JAVA_HOME] => /Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home
+            [XPC_FLAGS] => 0x0
+            [RBENV_SHELL] => bash
+            [XPC_SERVICE_NAME] => 0
+            [SHLVL] => 1
+            [HOME] => /Users/sooglejay
+            [LOGNAME] => sooglejay
+            [LC_CTYPE] => zh_CN.UTF-8
+            [MYSQL_HOME_] => /usr/local/mysql/bin/mysql
+            [_] => /usr/local/bin/php
+            [PHP_SELF] => demo.php
+            [SCRIPT_NAME] => demo.php
+            [SCRIPT_FILENAME] => demo.php
+            [PATH_TRANSLATED] => demo.php
+            [DOCUMENT_ROOT] => 
+            [REQUEST_TIME_FLOAT] => 1505808327.4178
+            [REQUEST_TIME] => 1505808327
+            [argv] => Array
+                (
+                    [0] => demo.php
+                )
+
+            [argc] => 1
+        )
+
+    [GLOBALS] => Array
+ *RECURSION*
 )

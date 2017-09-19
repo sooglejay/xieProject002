@@ -31,6 +31,10 @@ class demo
         获得请求时POST:XML字符串
         不能用$_POST获取，因为没有key
          */
+        if (!isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
+            echo "没有收到微信发送过来的消息！";
+            return;
+        }
         $xml_str = $GLOBALS['HTTP_RAW_POST_DATA'];
         file_put_contents(dirname(__FILE__) . '/../all.txt', print_r($GLOBALS, true));
 
