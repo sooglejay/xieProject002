@@ -1,7 +1,5 @@
 <?php
 
-include_once dirname(__FILE__) . "/wxBizMsgCrypt.php";
-
 class demo
 {
 
@@ -32,12 +30,11 @@ class demo
         不能用$_POST获取，因为没有key
          */
         if (!isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
-            echo "没有收到微信发送过来的消息！";
             return;
         }
         $xml_str = $GLOBALS['HTTP_RAW_POST_DATA'];
         if (empty($xml_str)) {
-            die('');
+            return;
         }
         if (!empty($xml_str)) {
             // 解析该xml字符串，利用simpleXML
@@ -98,11 +95,14 @@ class demo
      */
     public function __construct()
     {
-        file_put_contents(dirname(__FILE__) . '/../all.txt', print_r($GLOBALS, true));
+        file_put_contents(dirname(__FILE__) . '/../all.txt', print_r(array("mm" => "1234"), true));
         if (isset($_GET["signature"])) {
+            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r(array("1234"), true));
             $this->checkSignature();
         } else {
+            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r(array("5678"), true));
             $this->responseMsg();
+            echo "success";
         }
     }
 }
