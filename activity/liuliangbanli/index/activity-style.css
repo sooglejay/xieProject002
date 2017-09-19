@@ -1,0 +1,36 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+	font: 14px/1.5 Microsoft YaHei, Helvitica, Verdana, Arial, san-serif;
+}
+body{
+	background-color: #FFFFFF;
+}
+.main{
+	min-width:320px;
+	margin:0 auto;
+	max-width:640px;
+	position: relative;
+}
+.full{width: 100%;}
+.llaxb{
+	position: absolute;
+	width:32%;
+	left:38%;
+	top: 39%;
+	margin-top:1%;
+}
+.sxb30{
+	position: absolute;
+	width:32%;
+	left:38%;
+	top: 49%;
+	margin-top:1%;
+}
+.sxb70{
+	position: absolute;
+	width:32%;
+	left:38%;
+	top: 51%;
+	margin-top:2%;
+}

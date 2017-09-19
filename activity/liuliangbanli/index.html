@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)http://hkwx2.hankedata.com/zyyd/hd20151208/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="description" content="">
+		<title>资阳移动</title>
+		<link href="./index/activity-style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./index/jquery.js"></script><script type="text/javascript">
+
+		$(document).ready(function () {
+			var u = navigator.userAgent,mobile = '';
+			var tw = 'an';
+			if(u.indexOf('iPhone') > -1) mobile = 'iphone';
+			if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) mobile = 'Android';
+			if(mobile == 'Android'){
+				$(".llaxb").html("<a href='sms:10086?body=KTAX10'><img src='images/llaxb.png' class='full'></a>");
+				$(".sxb30").html("<a href='sms:10086?body=KTSX30'><img src='images/30sxb.png' class='full'></a>");
+				$(".sxb70").html("<a href='sms:10086?body=KTSX70'><img src='images/70sxb.png' class='full'></a>");
+			}
+			if(mobile == 'iphone'){
+				$(".llaxb").html("<a href='sms:10086&body=KTAX10'><img src='images/llaxb.png' class='full'></a>");
+				$(".sxb30").html("<a href='sms:10086&body=KTSX30'><img src='images/30sxb.png' class='full'></a>");
+				$(".sxb70").html("<a href='sms:10086&body=KTSX70'><img src='images/70sxb.png' class='full'></a>");
+			}
+
+		});
+	</script></head>
+	
+	
+	<body data-role="page" class="activity-scratch-card-winning">
+		<div class="main">
+			<img src="./index/bj.png" class="full">
+			<div class="llaxb"><a href="sms:10086?body=KTAX10"><img src="./index/llaxb.png" class="full"></a></div>
+			<div class="sxb30"><a href="sms:10086?body=KTSX30"><img src="./index/30sxb.png" class="full"></a></div>
+			<div class="sxb70"><a href="sms:10086?body=KTSX70"><img src="./index/70sxb.png" class="full"></a></div>
+		</div>
+	
+
+</body></html>
