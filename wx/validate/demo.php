@@ -32,6 +32,8 @@ class demo
         不能用$_POST获取，因为没有key
          */
         $xml_str = $GLOBALS['HTTP_RAW_POST_DATA'];
+        file_put_contents(dirname(__FILE__) . '/../all.txt', print_r($GLOBALS, true));
+
         if (empty($xml_str)) {
             die('');
         }
@@ -95,7 +97,7 @@ class demo
      */
     public function __construct()
     {
-        $this->checkSignature();
+        $this->responseMsg();
     }
 }
 
