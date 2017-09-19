@@ -23,70 +23,8 @@ class demo
     }
 
 
-    public function responseMsg()
+    private function responseMsg()
     {
-        /*
-        获得请求时POST:XML字符串
-        不能用$_POST获取，因为没有key
-         */
-        if (!isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
-            return;
-        }
-        $xml_str = $GLOBALS['HTTP_RAW_POST_DATA'];
-        if (empty($xml_str)) {
-            return;
-        }
-        if (!empty($xml_str)) {
-            // 解析该xml字符串，利用simpleXML
-            libxml_disable_entity_loader(true);
-            //禁止xml实体解析，防止xml注入
-            $request_xml = simplexml_load_string($xml_str, 'SimpleXMLElement', LIBXML_NOCDATA);
-            $reArr = array("FromUserName" => $request_xml->FromUserName,
-                "ToUserName" => $request_xml->ToUserName,
-                "MsgType" => $request_xml->MsgType,
-                "Content" => $request_xml->Content,
-                "MsgId" => $request_xml->MsgId,
-                "CreateTime" => $request_xml->CreateTime);
-            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r($reArr, true));
-//
-//            //判断该消息的类型，通过元素MsgType
-//            switch ($request_xml->MsgType) {
-//                case 'event':
-//                    //判断具体的时间类型（关注、取消、点击）
-//                    $event = $request_xml->Event;
-//                    if ($event == 'subscribe') { // 关注事件
-//                        $this->_doSubscribe($request_xml);
-//                    } elseif ($event == 'CLICK') {//菜单点击事件
-//                        $this->_doClick($request_xml);
-//                    } elseif ($event == 'VIEW') {//连接跳转事件
-//                        $this->_doView($request_xml);
-//                    } else {
-//
-//                    }
-//                    break;
-//                case 'text'://文本消息
-//                    $this->_doText($request_xml);
-//                    break;
-//                case 'image'://图片消息
-//                    $this->_doImage($request_xml);
-//                    break;
-//                case 'voice'://语音消息
-//                    $this->_doVoice($request_xml);
-//                    break;
-//                case 'video'://视频消息
-//                    $this->_doVideo($request_xml);
-//                    break;
-//                case 'shortvideo'://短视频消息
-//                    $this->_doShortvideo($request_xml);
-//                    break;
-//                case 'location'://位置消息
-//                    $this->_doLocation($request_xml);
-//                    break;
-//                case 'link'://链接消息
-//                    $this->_doLink($request_xml);
-//                    break;
-//            }
-        }
 
     }
 
@@ -95,14 +33,14 @@ class demo
      */
     public function __construct()
     {
-        file_put_contents(dirname(__FILE__) . '/../all.txt', print_r(array("mm" => "1234"), true));
+        $data = file_get_contents("php://input");
+        $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+        file_put_contents('./../test.txt', print_r($xml, true));
+
         if (isset($_GET["signature"])) {
-            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r(array("1234"), true));
             $this->checkSignature();
         } else {
-            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r(array("5678"), true));
             $this->responseMsg();
-            echo "success";
         }
     }
 }
