@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://wx.hankedata.com/wx_case/22/hd20151207/?part=tstd -->
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>资阳移动微生活</title>
+
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- ios私有属性 添加至主屏幕打开为全屏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- ios私有属性 主屏幕打开后顶部电量显示部份颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- ios私有属性 手机号码显示为拨号链接 -->
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript" src="./second/jQuery.js"></script>
+    <script type="text/javascript" src="./second/layer.m.js"></script>
+    <link href="./second/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+    <script type="text/javascript" src="./second/Cmanage.js"></script>
+    <link rel="stylesheet" type="text/css" href="./second/activity-style.css">
+    <script src="./second/zy.js"></script>
+</head>
+<body data-role="page" class="activity-scratch-card-winning">
+<script type="text/javascript">$(function () {
+    if (typeof WeixinJSBridge == "undefined") {
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+        }
+    } else {
+        onBridgeReady()
+    }
+    function onBridgeReady() {
+        WeixinJSBridge.call('hideOptionMenu')
+    }
+
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true
+    } else {
+//        window.location.href = "http://hkwx2.cdhot.net/commonfile/404.html"
+    }
+});</script>
+
+<div class="main">
+    <img src="./second/tstd.png" class="full">
+    <div>
+        <div class="gr-div1">客户姓名<br><input type="text" id="khxm" class="input-text"></div>
+        <div class="gr-div2">客户电话<br><input type="text" id="khdh" class="input-text"></div>
+        <div class="gr-div3">联系电话<br><input type="text" id="lxdh" class="input-text"></div>
+        <div class="gr-div4">投诉内容<br><textarea id="tsnr" class="txt"></textarea></div>
+        <div class="ly"><input type="button" id="sub" class="btn" value="马 上 提 交"></div>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+	font: 14px/1.5 Microsoft YaHei, Helvitica, Verdana, Arial, san-serif;
+}
+body{
+	background-color: #00bffe;
+}
+.main{
+	min-width:320px;
+	margin:0 auto;
+	max-width:640px;
+	position: relative;
+}
+.full{width: 100%;}
+.isub{
+	position: absolute;
+	width:13%;
+	left:76%;
+	top: 56%;
+}
+.gr-div1{
+	position: absolute;
+	font-size:18px;
+	width:91%;
+	left:9%;
+	top: 20%;
+}
+.gr-div2{
+	position: absolute;
+	font-size:18px;
+	width:91%;
+	left:9%;
+	top: 30%;
+}
+.gr-div3{
+	position: absolute;
+	font-size:18px;
+	width:91%;
+	left:9%;
+	top: 40%;
+}
+.gr-div4{
+	position: absolute;
+	font-size:18px;
+	width:91%;
+	left:9%;
+	top: 50%;
+}
+.ly{
+	position: absolute;
+	width:91%;
+	left:9%;
+	top: 76%;
+}
+.input-text{
+	height:31px;
+	width:88%;
+	border: 2px solid #a6df44;
+    -moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;   /* Webkit browsers */
+    border-radius:5px;            /* W3C syntax */
+}
+.txt{
+	height:100px;
+	width:88%;
+	border: 2px solid #a6df44;
+    -moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;   /* Webkit browsers */
+    border-radius:5px;            /* W3C syntax */
+}
+.btn{
+	width:88%;
+	height:45px;
+	font-size:18px;
+	color:#FFFFFF;
+	background-color:#a6df44;
+	border: 2px solid #a6df44;
+    -moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;   /* Webkit browsers */
+    border-radius:5px;            /* W3C syntax */
+}
