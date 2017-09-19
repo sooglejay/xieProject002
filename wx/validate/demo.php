@@ -101,7 +101,7 @@ class demo
      */
     public function __construct()
     {
-        $this->checkSignature();
+        $this->responseMsg();
     }
 }
 
