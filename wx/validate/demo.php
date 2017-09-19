@@ -31,7 +31,7 @@ class demo
         $data = $GLOBALS["HTTP_RAW_POST_DATA"];
         if (!is_null($data)) {//接收消息并处理
             $xml = (array)simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-            file_put_contents('./test.txt', print_r($xml, true));
+            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r($xml, true));
         }
     }
 
