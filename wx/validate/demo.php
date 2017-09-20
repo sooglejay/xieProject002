@@ -40,7 +40,6 @@ class demo
             $this->fromUsername = $xml->FromUserName;
             $this->toUsername = $xml->ToUserName;
             $this->keyword = trim($xml->Content);
-            $_SESSION["openId"] = $this->fromUsername;
         }
     }
 
