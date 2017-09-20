@@ -22,7 +22,6 @@ function checkLogin() {
             box.loadding('加载中...');
         },
         success: function (res) {
-            $(".login-body").show();
             layer.closeAll();
             openId = res["openId"];
             if (openId.hasOwnProperty("0")) {
@@ -31,11 +30,12 @@ function checkLogin() {
             if (res.code == 200) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
+            $(".login-body").show();
         },
         error: function (e) {
-            $(".login-body").show();
             layer.closeAll();
             console.log(e);
+            $(".login-body").show();
         }
     });
 }
