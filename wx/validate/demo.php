@@ -7,6 +7,7 @@
  */
 class demo
 {
+    private $fileCachePath;
     private $fromUsername;
     private $toUsername;
     private $keyword;
@@ -30,32 +31,45 @@ class demo
         }
     }
 
-
-    private function responseMsg()
-    {
-
-    }
-
-    /**
+    /***
      * demo constructor.
+     * @param bool $isNotFromWinXin
      */
-    public function __construct()
+    public function __construct($isNotFromWinXin=false)
     {
+        $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
+        if($isNotFromWinXin){
+            return;//类之间的调用，不需要 下面的微信认证代码
+        }
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-        file_put_contents(dirname(__FILE__) . '/../test.txt', print_r($xml, true));
-        if (isset($xml)) {
+        if (isset($xml) &&
+            isset($xml->FromUserName) &&
+            isset($xml->ToUserName) &&
+            isset($xml->Content)
+        ) {
             $this->fromUsername = $xml->FromUserName;
             $this->toUsername = $xml->ToUserName;
             $this->keyword = trim($xml->Content);
-            $_SESSION["openId"] = $this->fromUsername;
+            $arr = array(
+                "openId" => $this->fromUsername
+            );
+            $this->writeArrayToFile($arr);
         }
         if (isset($_GET["signature"])) {
             $this->checkSignature();
-        } else {
-            $this->responseMsg();
         }
+    }
+
+    public function writeArrayToFile($arr)
+    {
+        file_put_contents($this->fileCachePath, json_encode($arr));
+    }
+
+    public function getArrayFromFile()
+    {
+        return json_decode(file_get_contents($this->fileCachePath), true);
     }
 }
 
-new demo();
+$r = new demo();

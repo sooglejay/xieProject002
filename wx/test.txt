@@ -1,13 +1,9 @@
-Array
+SimpleXMLElement Object
 (
-    [access_token] => 59842c5f-55d5-4eec-83e0-d7fb3e908e7a748
-    [token_type] => bearer
-    [refresh_token] => 796018ea-8af9-4ce4-a647-60056188cfbf748
-    [refresh_token_expires_in] => 462673
-    [expires_in] => 7199
-    [scope] => default
-    [weimobUserId] => 56022748_oAvF9wil_W5wV9ZGGblKAK-skFwA
-    [weimobOpenId] => oAvF9wil_W5wV9ZGGblKAK-skFwA
-    [openId] => 
-    [jiangwei] => shide,wo shi jiangwei
+    [ToUserName] => gh_e936d5e58bcf
+    [FromUserName] => ozqW7t8IDJVBVAEJCpQv6oZC_ofQ
+    [CreateTime] => 1505892607
+    [MsgType] => text
+    [Content] => 你好
+    [MsgId] => 6467759498793029374
 )

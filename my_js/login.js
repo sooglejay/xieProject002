@@ -23,7 +23,7 @@ function checkLogin() {
         success: function (res) {
             layer.closeAll();
             if (res.code == 200) {
-                window.location.href = '/ziyan/home.html';
+                window.location.href = '/ziyan/home.html?openId='+res["openId"];
             }
         },
         error: function (e) {
