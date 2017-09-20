@@ -3,7 +3,7 @@
  */
 var openId = "";
 $(function () {
-    $("body").hide();
+    $(".login-body").hide();
     checkLogin();
     $("#btnLogin").click(function () {
         login();
@@ -22,10 +22,10 @@ function checkLogin() {
             box.loadding('加载中...');
         },
         success: function (res) {
-            $("body").show();
+            $(".login-body").show();
             layer.closeAll();
             openId = res["openId"];
-            if(openId.hasOwnProperty("0")){
+            if (openId.hasOwnProperty("0")) {
                 openId = openId["0"];
             }
             if (res.code == 200) {
@@ -33,7 +33,7 @@ function checkLogin() {
             }
         },
         error: function (e) {
-            $("body").show();
+            $(".login-body").show();
             layer.closeAll();
             console.log(e);
         }
@@ -51,7 +51,7 @@ function login() {
         return;
     }
     if (!openId || openId.length < 1) {
-        box.msg("微信openId为空，请联系管理员！");
+        box.msg("微信openId为空，请在微信中使用！");
         return;
     }
     $.ajax({

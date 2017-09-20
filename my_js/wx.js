@@ -73,11 +73,9 @@ function wxConfig(res) {
      * =============================================================================================================
      */
     wx.ready(function () {
-        // wx.hideAllNonBaseMenuItem();    //隐藏所有非基础按钮接口
+        wx.hideAllNonBaseMenuItem();    //隐藏所有非基础按钮接口
         wx.showMenuItems({
-            // menuList: []    //要显示的菜单项
-            menuList: ["menuItem:share:appMessage", "menuItem:share:timeline"]    //要显示的菜单项
-
+            menuList: []    //要显示的菜单项
         });
         wx.checkJsApi({
             jsApiList: [
