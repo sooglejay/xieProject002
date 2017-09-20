@@ -38,29 +38,15 @@ class Login extends App
         return array("isLogined" => $isLogined, "openId" => $openId);
     }
 
-    /**
-     * Login constructor.
-     */
-    public function __construct()
+    public function doLogin()
     {
-        parent::__construct();
-        $resArr = $this->checkUser();
-        $openId = $resArr["openId"];
-        // 用 一个标志位来 代表，当前微信用户openid 是否登录！如果登录了，就直接返回，没登录，也不做任何事情返回！
-        if (isset($_REQUEST["action"])) {
-            if ($resArr["isLogined"]) {
-                echo json_encode(array("code" => 200, "openId" => $openId));
-            } else {
-                echo json_encode(array("code" => 201));
-            }
-            return;
-        }
         if (!isset($_REQUEST['userName']) || !isset($_REQUEST['password'])) {
             echo json_encode(array("message" => "请输入用户名或密码登录！", "error" => "error"));
             return;
         }
         $userName = $_REQUEST['userName'];
         $password = $_REQUEST['password'];
+        $openId = $_REQUEST['password'];
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
@@ -91,6 +77,31 @@ class Login extends App
             $resArr = array("message" => "登录失败，用户名或密码不正确！", "error" => "error");
         }
         echo json_encode($resArr);
+    }
+
+    public function doCheckOpenId()
+    {
+        $resArr = $this->checkUser();
+        $openId = $resArr["openId"];
+        if ($resArr["isLogined"]) {
+            echo json_encode(array("code" => 200, "openId" => $openId));
+        } else {
+            echo json_encode(array("code" => 201, "openId" => $openId));
+        }
+    }
+
+    /**
+     * Login constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        if (isset($_REQUEST["openId"])) {
+            $this->doLogin();
+        } else if (isset($_REQUEST["action"])) {
+            // 用 一个标志位来 代表，当前微信用户openid 是否登录！如果登录了，就直接返回，没登录，也不做任何事情返回！
+            $this->doCheckOpenId();
+        }
     }
 }
 

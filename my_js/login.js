@@ -1,7 +1,7 @@
 /**
  * Created by sooglejay on 17/8/24.
  */
-
+var openId = "";
 $(function () {
     checkLogin();
     $("#btnLogin").click(function () {
@@ -22,8 +22,9 @@ function checkLogin() {
         },
         success: function (res) {
             layer.closeAll();
+            openId = res["openId"];
             if (res.code == 200) {
-                window.location.href = '/ziyan/home.html?openId='+res["openId"];
+                window.location.href = '/ziyan/home.html?openId=' + openId;
             }
         },
         error: function (e) {
@@ -43,27 +44,28 @@ function login() {
         box.msg("请输入密码");
         return;
     }
+    if (!openId || openId.length < 1) {
+        box.msg("微信openId为空，请联系管理员！");
+        return;
+    }
     $.ajax({
         type: 'POST',
         url: 'Login.php',
         data: {
-            userName: userName, password: password
+            userName: userName, password: password, openId: openId
         },
         dataType: 'json',
         beforeSend: function () {
             box.loadding('加载中...');
-        }
-
-        ,
+        },
         success: function (res) {
             layer.closeAll();
             if (res.error) {
                 box.msg(res.message);
             } else {
-                window.location.href = '/ziyan/home.html';
+                window.location.href = '/ziyan/home.html?openId=' + openId;
             }
-        }
-        ,
+        },
         error: function (e) {
             layer.closeAll();
             box.msg('登录失败！请联系系统管理员！');
