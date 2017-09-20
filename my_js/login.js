@@ -23,6 +23,9 @@ function checkLogin() {
         success: function (res) {
             layer.closeAll();
             openId = res["openId"];
+            if(openId.hasOwnProperty("0")){
+                openId = openId["0"];
+            }
             if (res.code == 200) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
