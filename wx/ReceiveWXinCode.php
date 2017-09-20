@@ -33,8 +33,6 @@ class ReceiveWXinCode
         $curl->post($url);
         $bb = $curl->response;
         $array = json_decode($bb, true);
-        $array["jiangwei"]="shide,wo shi jiangwei";
-        $this->w($array);
         return $array["openId"];
     }
 
