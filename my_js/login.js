@@ -3,7 +3,7 @@
  */
 var openId = "";
 $(function () {
-    $(".login-body").hide();
+    box.loadding('加载中...');
     checkLogin();
     $("#btnLogin").click(function () {
         login();
@@ -18,11 +18,7 @@ function checkLogin() {
             action: "checkUserIsLogin"
         },
         dataType: 'json',
-        beforeSend: function () {
-            box.loadding('加载中...');
-        },
         success: function (res) {
-            layer.closeAll();
             openId = res["openId"];
             if (openId.hasOwnProperty("0")) {
                 openId = openId["0"];
@@ -30,12 +26,11 @@ function checkLogin() {
             if (res.code == 200) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
-            $(".login-body").show();
+            layer.closeAll();
         },
         error: function (e) {
-            layer.closeAll();
             console.log(e);
-            $(".login-body").show();
+            layer.closeAll();
         }
     });
 }
