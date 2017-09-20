@@ -435,7 +435,7 @@ $(function () {
                             layer.close(index);
                         },
                         no: function (index) {
-                            window.location.href = "index.html";
+                            window.location.href = "home.html";
                         }
                     });
                 },
