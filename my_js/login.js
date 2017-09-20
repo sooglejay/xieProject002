@@ -3,6 +3,7 @@
  */
 var openId = "";
 $(function () {
+    $("body").hide();
     checkLogin();
     $("#btnLogin").click(function () {
         login();
@@ -21,6 +22,7 @@ function checkLogin() {
             box.loadding('加载中...');
         },
         success: function (res) {
+            $("body").show();
             layer.closeAll();
             openId = res["openId"];
             if(openId.hasOwnProperty("0")){
@@ -31,6 +33,7 @@ function checkLogin() {
             }
         },
         error: function (e) {
+            $("body").show();
             layer.closeAll();
             console.log(e);
         }
