@@ -31,6 +31,7 @@ class Login extends App
             if ($userEntity instanceof User && strlen($openId) > 0) {
                 $_SESSION['userName'] = $userEntity->getAccountName();
                 $_SESSION['userId'] = $userEntity->getId();
+                $_SESSION['openId'] = $openId;
                 $isLogined = true;
             }
         }
@@ -45,7 +46,7 @@ class Login extends App
         }
         $userName = $_REQUEST['userName'];
         $password = $_REQUEST['password'];
-        $openId = $_REQUEST['password'];
+        $openId = $_REQUEST['openId'];
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
@@ -65,6 +66,7 @@ class Login extends App
         }
         if ($loginRes) {
             $_SESSION['userName'] = $userName;
+            $_SESSION['openId'] = $openId;
             $_SESSION['userId'] = $loginUserEntity->getId();
             if ($loginUserEntity instanceof User) {
                 $loginUserEntity->setOpenId($openId);
@@ -95,9 +97,9 @@ class Login extends App
     public function __construct()
     {
         parent::__construct();
-        if (isset($_SESSION["userName"])) {
+        if (isset($_SESSION["openId"])) {
             //如果没有失效，就直接跳转到主页了
-            header("http://test.sighub.com/ziyan/home.html");
+            echo json_encode(array("code" => 200, "openId" => $_SESSION["openId"]));
             return;
         }
         if (isset($_REQUEST["openId"])) {
