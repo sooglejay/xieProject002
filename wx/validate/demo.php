@@ -33,6 +33,14 @@ class demo
 
     private function responseMsg()
     {
+
+    }
+
+    /**
+     * demo constructor.
+     */
+    public function __construct()
+    {
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
         file_put_contents(dirname(__FILE__) . '/../test.txt', print_r($xml, true));
@@ -41,13 +49,6 @@ class demo
             $this->toUsername = $xml->ToUserName;
             $this->keyword = trim($xml->Content);
         }
-    }
-
-    /**
-     * demo constructor.
-     */
-    public function __construct()
-    {
         if (isset($_GET["signature"])) {
             $this->checkSignature();
         } else {
