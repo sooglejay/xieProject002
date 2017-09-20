@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- saved from url=(0113)http://wx.hankedata.com/wx_case/22/hd20160722/index.php?lx=1&part=hm&appid=22&openid=ozqW7twe1QNLQg26GgvjOXGMPtmg -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>靓号随心选</title>
+	
+	<!-- 优先使用 IE 最新版本和 Chrome -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<!-- ios私有属性 添加至主屏幕打开为全屏 -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- ios私有属性 主屏幕打开后顶部电量显示部份颜色 -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- ios私有属性 手机号码显示为拨号链接 -->
+	<meta name="format-detection" content="telephone=no">
+
+	<script type="text/javascript" src="./index_c_1/jQuery.js"></script>
+    <script type="text/javascript" src="./index_c_1/layer.m.js"></script><link href="./index_c_1/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+    <script type="text/javascript" src="./index_c_1/Cmanage.js"></script>
+    <script type="text/javascript" src="./index_c_1/Cmanage(1).js"></script>
+	<link href="./index_c_1/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="./index_c_1/jQuery(1).js"></script>
+    <script type="text/javascript" src="./index_c_1/xj.js"></script>
+</head>
+<body>
+
+
+
+<script type="text/javascript">$(function(){if(typeof WeixinJSBridge=="undefined"){if(document.addEventListener){document.addEventListener('WeixinJSBridgeReady',onBridgeReady,false)}else if(document.attachEvent){document.attachEvent('WeixinJSBridgeReady',onBridgeReady);document.attachEvent('onWeixinJSBridgeReady',onBridgeReady)}}else{onBridgeReady()}function onBridgeReady(){WeixinJSBridge.call('hideOptionMenu')}var ua=navigator.userAgent.toLowerCase();if(ua.match(/MicroMessenger/i)=="micromessenger"){return true}else{window.location.href="http://hkwx2.cdhot.net/commonfile/404.html"}
+});</script>
+<script src="./index_c_1/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        wx_share();
+        function wx_share() {
+            /*
+            * 注意：
+            * 1. 所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。
+            * 2. 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+            * 3. 完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+            *
+            * 如有问题请通过以下渠道反馈：
+            * 邮箱地址：weixin-open@qq.com
+            * 邮件主题：【微信JS-SDK反馈】具体问题
+            * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
+            */
+            wx.config({
+                debug: false,
+                appId: 'wxb76c5258ffa59386',
+                timestamp: '1505900033',
+                nonceStr: 'i38rS7N6ai4R6PD6',
+                signature: 'e4a26ff08938981ed29aa69219909fdefe7ea9e1',
+                jsApiList: [
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'hideAllNonBaseMenuItem',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideOptionMenu',
+                    'showOptionMenu'
+                ]
+            });
+            var wxData = {
+                title: '靓号预登记',
+                desc: '资阳移动微生活',
+                link: "http://wx.hankedata.com/wx_case/22/hd20160722/?part=fx&appid="+request('appid')+"&openid="+request('openid'),
+                imgUrl: "http://wx.hankedata.com/wx_case/22/hd20160722/images/fxbjt.png",
+                //http://wx.hankedata.com/wx_case/7/hd20150811/wb_share.html
+                //http://hkwx1.cdhot.net/wx_case/22/hd20151215/?part=ph&appid=22&openid=ozqW7t6Kbtdu1NC4KS8iVelwEpr0
+            };
+            wx.ready(function () {
+                wx.hideAllNonBaseMenuItem();    //隐藏所有非基础按钮接口
+                wx.showMenuItems({
+                    menuList: ["menuItem:share:appMessage","menuItem:share:timeline"]    //要显示的菜单项
+                });
+                //分享给朋友
+                wx.onMenuShareAppMessage({
+                  title: wxData.title,
+                  desc: wxData.desc,
+                  imgUrl: wxData.imgUrl,
+                  link: wxData.link,
+                  success: function (res) {
+                    /*分享成功*/
+                    //share_ajax();
+                  }
+                });
+                //分享到朋友圈
+                wx.onMenuShareTimeline({
+                  title: wxData.title,
+                  desc: wxData.desc,
+                  imgUrl: wxData.imgUrl,
+                  link: wxData.link,
+                  success: function (res) {
+                    /*分享成功*/
+                    //share_ajax();
+                  }
+                });
+            });
+        }
+
+        function share_ajax() {
+            $.ajax({type: "post",
+                url: "index.php",
+                dataType: 'json',
+                data: {"part": 'fx','openid':request("openid"), 'appid':request("appid")},
+                success: function (data) {
+                if(data.errcode==0){
+                        setboxM(data.result);
+                    } else {
+                        setboxM(data.result);
+                    }
+                }
+            });
+        }
+</script>
+<div class="page xzhm" style="min-height: 868px;">
+    <img src="./index_c_1/pic01.png" alt="" class="img-top">
+    <div class="lx">
+        <img src="./index_c_1/pic21.png" alt="">
+    </div>
+    <div class="hm">
+        <div class="hm-top"><img src="./index_c_1/pic03.png" alt=""></div>
+        <div class="hm-con">
+            <ul>
+                                     <li><span>13518359799</span><a onclick="select_telphone(13518359799); " href="http://wx.hankedata.com/wx_case/22/hd20160722/index.php?hm=13518359799&amp;part=xxsj&amp;appid=22&amp;openid=ozqW7twe1QNLQg26GgvjOXGMPtmg"><label>选择号码</label></a></li>
+                                      <li><span>13550679922</span><a onclick="select_telphone(13550679922); " href="http://wx.hankedata.com/wx_case/22/hd20160722/index.php?hm=13550679922&amp;part=xxsj&amp;appid=22&amp;openid=ozqW7twe1QNLQg26GgvjOXGMPtmg"><label>选择号码</label></a></li>
+                             </ul>
+        </div>
+        <div class="hm-buttom"><img src="./index_c_1/pic05.png" alt=""></div>
+    </div>
+</div>
+
+
+
+
+
+
+</body></html>

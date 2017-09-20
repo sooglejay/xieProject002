@@ -77,7 +77,7 @@ $(function(){
                alert(data.result);
             }
         });
-    });
+    })
 
 	$("#fhzy").click(function(){
         document.location.href="index.php?part=index&openid="+request('openid')+"&appid="+request('appid');
