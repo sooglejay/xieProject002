@@ -32,7 +32,6 @@ class Login extends App
                 $_SESSION['userName'] = $userEntity->getAccountName();
                 $_SESSION['userId'] = $userEntity->getId();
                 $isLogined = true;
-                $wxObj->writeArrayToFile(null);
             }
         }
         return array("isLogined" => $isLogined, "openId" => $openId);
@@ -96,6 +95,11 @@ class Login extends App
     public function __construct()
     {
         parent::__construct();
+        if (isset($_SESSION["userName"])) {
+            //如果没有失效，就直接跳转到主页了
+            header("http://test.sighub.com/ziyan/home.html");
+            return;
+        }
         if (isset($_REQUEST["openId"])) {
             $this->doLogin();
         } else if (isset($_REQUEST["action"])) {
