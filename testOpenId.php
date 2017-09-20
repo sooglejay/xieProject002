@@ -21,6 +21,7 @@ class testOpenId extends App
     public function __construct()
     {
         parent::__construct();
+        echo "come ...";
         echo json_decode($_SESSION, true);
     }
 }
