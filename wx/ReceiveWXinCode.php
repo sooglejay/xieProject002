@@ -5,6 +5,9 @@
  * User: sooglejay
  * Date: 17/9/14
  * Time: 20:09
+ * 这个类是给微盟做对接的，比如获取access_token后，刷新access_token
+ * 其实并没有什么卵用，因为获取不到openid
+ *
  */
 require_once dirname(__FILE__).'/../vendor/curl/curl/src/Curl/Curl.php';
 
