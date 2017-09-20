@@ -2,6 +2,9 @@
 
 class demo
 {
+    private $fromUsername;
+    private $toUsername;
+    private $keyword;
 
     /**
      * 次方法只是用于微信的接入验证，验证过后，就不用了。
@@ -25,7 +28,15 @@ class demo
 
     private function responseMsg()
     {
-
+        $data = file_get_contents("php://input");
+        $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
+        file_put_contents('./../test.txt', print_r($xml, true));
+        if (isset($xml)) {
+            $this->fromUsername = $xml->FromUserName;
+            $this->toUsername = $xml->ToUserName;
+            $this->keyword = trim($xml->Content);
+            $_SESSION["openId"] = $this->fromUsername;
+        }
     }
 
     /**
@@ -33,10 +44,6 @@ class demo
      */
     public function __construct()
     {
-        $data = file_get_contents("php://input");
-        $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-        file_put_contents('./../test.txt', print_r($xml, true));
-
         if (isset($_GET["signature"])) {
             $this->checkSignature();
         } else {
