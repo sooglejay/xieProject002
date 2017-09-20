@@ -41,7 +41,7 @@ class demo
             $this->toUsername = $xml->ToUserName;
             $this->keyword = trim($xml->Content);
             $_SESSION["openId"] = $this->fromUsername;
-            file_put_contents(dirname(__FILE__) . '/../test.txt', $_SESSION["openId"]);
+            file_put_contents(dirname(__FILE__) . '/../test.txt', print_r($_SESSION,true));
 
         }
     }
