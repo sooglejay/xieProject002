@@ -64,7 +64,7 @@ class ReceiveWXinCode
 
     private function w($resArr)
     {
-        file_put_contents('./test.txt', print_r($resArr, true));
+        file_put_contents(dirname(__FILE__).'/test.txt', print_r($resArr, true));
     }
 
     private function set($name, &$value, &$res)

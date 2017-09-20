@@ -30,7 +30,7 @@ class demo
     {
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-        file_put_contents('./../test.txt', print_r($xml, true));
+        file_put_contents(dirname(__FILE__).'/../test.txt', print_r($xml, true));
         if (isset($xml)) {
             $this->fromUsername = $xml->FromUserName;
             $this->toUsername = $xml->ToUserName;
