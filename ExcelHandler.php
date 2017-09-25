@@ -331,10 +331,11 @@ class ExcelHandler extends App
 }
 
 
-$flag = "";
-if (isset($_REQUEST["flag"])) {
-    $flag = $_REQUEST["flag"];
-}
+$flag = "download";
+
+//if (isset($_REQUEST["flag"])) {
+//    $flag = $_REQUEST["flag"];
+//}
 if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
     $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
 } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
