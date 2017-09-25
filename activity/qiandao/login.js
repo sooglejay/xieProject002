@@ -3,13 +3,34 @@
  */
 var openId = "";
 $(function () {
-    box.loadding('加载中...');
     checkLogin();
     $("#submit").click(function () {
-
+        doQianDao();
     });
 });
+function checkIsQianDaoed() {
+    $.ajax({
+        type: 'POST',
+        url: 'QianDao.php',
+        data: {
+            check: "checkUserIsQianDaoed",
+            openId: openId
+        },
+        dataType: 'json',
 
+        success: function (res) {
+            if (res.code == 200) {
+                doQianDao(true);
+            }
+            layer.closeAll();
+        },
+        error: function (e) {
+            console.log(e);
+            layer.closeAll();
+        }
+    });
+
+}
 function checkLogin() {
     $.ajax({
         type: 'POST',
@@ -18,12 +39,16 @@ function checkLogin() {
             action: "checkUserIsLogin"
         },
         dataType: 'json',
+        beforeSend: function () {
+            box.loadding('正在验证用户合法性...');
+        },
         success: function (res) {
             openId = res["openId"];
             if (openId.hasOwnProperty("0")) {
                 openId = openId["0"];
             }
             if (res.code == 200) {
+                checkIsQianDaoed();
             }
             layer.closeAll();
         },
@@ -33,22 +58,21 @@ function checkLogin() {
         }
     });
 }
-function submit() {
+function doQianDao(isQianDaoed) {
     var mobilePhone = $("#mobile_phone").val();
-    if (!mobilePhone || mobilePhone.length < 1) {
+    if ((!mobilePhone || mobilePhone.length < 1) && !isQianDaoed) {
         box.msg("请输入手机号码");
         return;
     }
-
     $.ajax({
         type: 'POST',
-        url: 'testQiandao.php',
+        url: 'QianDao.php',
         data: {
-            mobilePhone: mobilePhone,  openId: openId
+            mobilePhone: mobilePhone, openId: openId
         },
         dataType: 'json',
         beforeSend: function () {
-            box.loadding('加载中...');
+            box.loadding('正在签到...');
         },
         success: function (res) {
             layer.closeAll();
