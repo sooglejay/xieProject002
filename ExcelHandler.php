@@ -233,6 +233,10 @@ class ExcelHandler extends App
             if ($shop instanceof Shop) {
                 $userModel = $shop->getShopUser();
                 if ($userModel instanceof User) {
+                    $timeStr = $shop->getTime();
+                    if(strlen($timeStr)<=11){
+                        $timeStr = date("Y-m-d H:i:s",$timeStr);
+                    }
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('A' . $row, $userModel->getCity())
                         ->setCellValue('B' . $row, $userModel->getCounty())
@@ -257,7 +261,7 @@ class ExcelHandler extends App
                         ->setCellValue('U' . $row, $shop->getShopBroadbandCover())
                         ->setCellValue('V' . $row, $shop->getShopLandline())
                         ->setCellValue('W' . $row, $shop->getShopOperator())
-                        ->setCellValue('X' . $row, $shop->getTime());
+                        ->setCellValue('X' . $row,$timeStr);
                     $row++;
                 }
             }
@@ -331,7 +335,7 @@ class ExcelHandler extends App
 }
 
 
-$flag = "download";
+$flag = ExcelHandler::$ACTION_DOWNLOAD;
 
 //if (isset($_REQUEST["flag"])) {
 //    $flag = $_REQUEST["flag"];
