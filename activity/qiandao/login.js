@@ -34,7 +34,7 @@ function checkIsQianDaoed() {
 function checkLogin() {
     $.ajax({
         type: 'POST',
-        url: 'Login.php',
+        url: '/ziyan/Login.php',
         data: {
             action: "checkUserIsLogin"
         },
