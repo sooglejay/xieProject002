@@ -20,6 +20,7 @@ function checkLogin() {
         dataType: 'json',
         success: function (res) {
             openId = res["openId"];
+            console.log("jiangwei says:"+res);
             if (openId.hasOwnProperty("0")) {
                 openId = openId["0"];
             }
