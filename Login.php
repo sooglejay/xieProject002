@@ -23,7 +23,6 @@ class Login extends App
         }
         $wxObj = new demo(true);
         $arr = $wxObj->getArrayFromFile();
-        echo json_encode($arr);
         $isLogined = false;
         $openId = "";
         if (!is_null($arr) && isset($arr["openId"])) {
@@ -70,13 +69,12 @@ class Login extends App
     public function doCheckOpenId()
     {
         $resArr = $this->checkUser();
-//        echo json_encode($resArr);
-//        $openId = $resArr["openId"];
-//        if ($resArr["isLogined"]) {
-//            echo json_encode(array("code" => 200, "openId" => $openId));
-//        } else {
-//            echo json_encode(array("code" => 201, "openId" => $openId));
-//        }
+        $openId = $resArr["openId"];
+        if ($resArr["isLogined"]) {
+            echo json_encode(array("code" => 200, "openId" => $openId));
+        } else {
+            echo json_encode(array("code" => 201, "openId" => $openId));
+        }
     }
 
     /**
