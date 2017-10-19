@@ -26,7 +26,7 @@ class Login extends App
         $isLogined = false;
         $openId = "";
         if (!is_null($arr) && isset($arr["openId"])) {
-            $openId = $arr["openId"][0];
+            $openId = $arr["openId"][0];//这个bug，困扰了好久，这个是一个数组类型
             $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
             if (!is_null($userEntity) && strlen($openId) > 0) {
                 $_SESSION['userName'] = $userEntity->getAccountName();
