@@ -31,7 +31,7 @@ class Login extends App
         echo json_encode($arr);
         $isLogined = false;
         $openId = "";
-        if (!is_null($arr) && isset($ar["openId"])) {
+        if (!is_null($arr) && isset($arr["openId"])) {
             $openId = $arr["openId"];
             $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
             if (!is_null($userEntity) && strlen($openId) > 0) {
