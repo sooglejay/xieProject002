@@ -23,8 +23,12 @@ class Login extends App
         }
         $wxObj = new demo(true);
         $arr = $wxObj->getArrayFromFile();
+        if(isset($arr)&&isset($arr[0])){
+            $arr = $arr[0];
+        }else{
+            return array("isLogined" => false, "openId" => "","error"=>"error");
+        }
         echo json_encode($arr);
-
         $isLogined = false;
         $openId = "";
         if (!is_null($arr) && isset($ar["openId"])) {
