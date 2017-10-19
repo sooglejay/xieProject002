@@ -23,9 +23,10 @@ class Login extends App
         }
         $wxObj = new demo(true);
         $arr = $wxObj->getArrayFromFile();
-        $isLogined = false;
-        $openId = "";
-        echo $arr;
+        echo json_encode($arr);
+
+//        $isLogined = false;
+//        $openId = "";
 //        if (!is_null($arr) && isset($arr["openId"])) {
 //            $openId = $arr["openId"];
 //            $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
@@ -36,7 +37,7 @@ class Login extends App
 //                $isLogined = true;
 //            }
 //        }
-        return array("isLogined" => $isLogined, "openId" => $openId);
+//        return array("isLogined" => $isLogined, "openId" => $openId);
     }
 
     public function doLogin($openId, $userName, $psw)
@@ -70,6 +71,7 @@ class Login extends App
     public function doCheckOpenId()
     {
         $resArr = $this->checkUser();
+//        echo json_encode($resArr);
 //        $openId = $resArr["openId"];
 //        if ($resArr["isLogined"]) {
 //            echo json_encode(array("code" => 200, "openId" => $openId));
