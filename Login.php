@@ -25,19 +25,19 @@ class Login extends App
         $arr = $wxObj->getArrayFromFile();
         echo json_encode($arr);
 
-//        $isLogined = false;
-//        $openId = "";
-//        if (!is_null($arr) && isset($arr["openId"])) {
-//            $openId = $arr["openId"];
-//            $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
-//            if (!is_null($userEntity) && strlen($openId) > 0) {
-//                $_SESSION['userName'] = $userEntity->getAccountName();
-//                $_SESSION['userId'] = $userEntity->getId();
-//                $_SESSION['openId'] = $openId;
-//                $isLogined = true;
-//            }
-//        }
-//        return array("isLogined" => $isLogined, "openId" => $openId);
+        $isLogined = false;
+        $openId = "";
+        if (!is_null($arr) && isset($ar["openId"])) {
+            $openId = $arr["openId"];
+            $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
+            if (!is_null($userEntity) && strlen($openId) > 0) {
+                $_SESSION['userName'] = $userEntity->getAccountName();
+                $_SESSION['userId'] = $userEntity->getId();
+                $_SESSION['openId'] = $openId;
+                $isLogined = true;
+            }
+        }
+        return array("isLogined" => $isLogined, "openId" => $openId);
     }
 
     public function doLogin($openId, $userName, $psw)

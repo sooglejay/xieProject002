@@ -52,7 +52,7 @@ class demo
             $this->toUsername = $xml->ToUserName;
             $this->keyword = trim($xml->Content);
             $arr = array(
-                "openId" => $this->fromUsername
+                "openId" => $this->fromUsername[0]
             );
             $this->writeArrayToFile($arr);
         }
