@@ -25,54 +25,41 @@ class Login extends App
         $arr = $wxObj->getArrayFromFile();
         $isLogined = false;
         $openId = "";
-        if (!is_null($arr) && isset($arr["openId"])) {
-            $openId = $arr["openId"];
-            $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
-            if ($userEntity instanceof User && strlen($openId) > 0) {
-                $_SESSION['userName'] = $userEntity->getAccountName();
-                $_SESSION['userId'] = $userEntity->getId();
-                $_SESSION['openId'] = $openId;
-                $isLogined = true;
-            }
-        }
+        echo $arr;
+//        if (!is_null($arr) && isset($arr["openId"])) {
+//            $openId = $arr["openId"];
+//            $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
+//            if (!is_null($userEntity) && strlen($openId) > 0) {
+//                $_SESSION['userName'] = $userEntity->getAccountName();
+//                $_SESSION['userId'] = $userEntity->getId();
+//                $_SESSION['openId'] = $openId;
+//                $isLogined = true;
+//            }
+//        }
         return array("isLogined" => $isLogined, "openId" => $openId);
     }
 
-    public function doLogin()
+    public function doLogin($openId, $userName, $psw)
     {
-        if (!isset($_REQUEST['userName']) || !isset($_REQUEST['password'])) {
+        if (!isset($userName) || !isset($psw)) {
             echo json_encode(array("message" => "请输入用户名或密码登录！", "error" => "error"));
             return;
         }
-        $userName = $_REQUEST['userName'];
-        $password = $_REQUEST['password'];
-        $openId = $_REQUEST['openId'];
+        if ($psw != "123456") {
+            echo json_encode(array("message" => "用户名或密码错误！请重新输入", "error" => "error"));
+            return;
+        }
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
-        $userList = $this->userRepo->findAll();
-        $loginRes = false;
-        $loginUserEntity = null;
-        foreach ($userList as $userEntity) {
-            if ($userEntity instanceof User) {
-                if ($userEntity->getAccountName() != $userName) {
-                    continue;
-                }
-                $loginUserEntity = $userEntity;
-                if ($password == "123456") {
-                    $loginRes = true;
-                }
-            }
-        }
-        if ($loginRes) {
+        $loginUserEntity = $this->userRepo->findOneBy(array("account_name" => $userName));
+        if (!is_null($loginUserEntity)) {
             $_SESSION['userName'] = $userName;
             $_SESSION['openId'] = $openId;
             $_SESSION['userId'] = $loginUserEntity->getId();
-            if ($loginUserEntity instanceof User) {
-                $loginUserEntity->setOpenId($openId);
-                $this->entityManager->persist($loginUserEntity);
-                $this->entityManager->flush();
-            }
+            $loginUserEntity->setOpenId($openId);
+            $this->entityManager->persist($loginUserEntity);
+            $this->entityManager->flush();
             $resArr = array("message" => "登录成功！");
         } else {
             $resArr = array("message" => "登录失败，用户名或密码不正确！", "error" => "error");
@@ -83,12 +70,12 @@ class Login extends App
     public function doCheckOpenId()
     {
         $resArr = $this->checkUser();
-        $openId = $resArr["openId"];
-        if ($resArr["isLogined"]) {
-            echo json_encode(array("code" => 200, "openId" => $openId));
-        } else {
-            echo json_encode(array("code" => 201, "openId" => $openId));
-        }
+//        $openId = $resArr["openId"];
+//        if ($resArr["isLogined"]) {
+//            echo json_encode(array("code" => 200, "openId" => $openId));
+//        } else {
+//            echo json_encode(array("code" => 201, "openId" => $openId));
+//        }
     }
 
     /**
@@ -98,7 +85,7 @@ class Login extends App
     {
         parent::__construct();
         if (isset($_REQUEST["openId"])) {
-            $this->doLogin();
+            $this->doLogin($_REQUEST["openId"], $_REQUEST["userName"], $_REQUEST["password"]);
         } else if (isset($_REQUEST["action"])) {
             if (isset($_SESSION["openId"])) {
                 //如果没有失效，就直接跳转到主页了
