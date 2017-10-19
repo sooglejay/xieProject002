@@ -27,7 +27,7 @@ class Login extends App
         $isLogined = false;
         $openId = "";
         if (!is_null($arr) && isset($arr["openId"])) {
-            $openId = $arr["openId"];
+            $openId = $arr["openId"][0];
             $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
             if (!is_null($userEntity) && strlen($openId) > 0) {
                 $_SESSION['userName'] = $userEntity->getAccountName();
