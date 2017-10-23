@@ -349,7 +349,6 @@ class ExcelHandler extends App
         header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
-        echo json_encode("successful，请访问<a href='http://test.sighub.com/ziyan/ExcelHandler.xls'>http://test.sighub.com/ziyan/ExcelHandler.xls</a>");
     }
 }
 
