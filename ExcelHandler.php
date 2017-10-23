@@ -187,7 +187,8 @@ class ExcelHandler extends App
         echo "\n size = " . $len . "\n";
     }
 
-    function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+    function array_to_csv_download($array, $filename = "export.csv", $delimiter = ";")
+    {
         // open raw memory as file so no temp files needed, you might run out of memory though
         $f = fopen('php://memory', 'w');
         // loop over the input array
@@ -200,10 +201,11 @@ class ExcelHandler extends App
         // tell the browser it's going to be a csv file
         header('Content-Type: application/csv');
         // tell the browser we want to save it instead of displaying it
-        header('Content-Disposition: attachment; filename="'.$filename.'";');
+        header('Content-Disposition: attachment; filename="' . $filename . '";');
         // make php send the generated csv lines to the browser
         fpassthru($f);
     }
+
     public function doDownload()
     {
         $objPHPExcel = new PHPExcel();
@@ -251,8 +253,8 @@ class ExcelHandler extends App
                 $userModel = $shop->getShopUser();
                 if ($userModel instanceof User) {
                     $timeStr = $shop->getTime();
-                    if(strlen($timeStr)<=11){
-                        $timeStr = date("Y-m-d H:i:s",$timeStr);
+                    if (strlen($timeStr) <= 11) {
+                        $timeStr = date("Y-m-d H:i:s", $timeStr);
                     }
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('A' . $row, $userModel->getCity())
@@ -278,7 +280,7 @@ class ExcelHandler extends App
                         ->setCellValue('U' . $row, $shop->getShopBroadbandCover())
                         ->setCellValue('V' . $row, $shop->getShopLandline())
                         ->setCellValue('W' . $row, $shop->getShopOperator())
-                        ->setCellValue('X' . $row,$timeStr);
+                        ->setCellValue('X' . $row, $timeStr);
                     $row++;
                 }
             }
@@ -347,7 +349,7 @@ class ExcelHandler extends App
         header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save('php://output');
-
+        echo json_encode("successful，请访问<a href='http://test.sighub.com/ziyan/ExcelHandler.xls'>http://test.sighub.com/ziyan/ExcelHandler.xls</a>");
     }
 }
 
