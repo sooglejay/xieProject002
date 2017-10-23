@@ -187,6 +187,23 @@ class ExcelHandler extends App
         echo "\n size = " . $len . "\n";
     }
 
+    function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+        // open raw memory as file so no temp files needed, you might run out of memory though
+        $f = fopen('php://memory', 'w');
+        // loop over the input array
+        foreach ($array as $line) {
+            // generate csv lines from the inner arrays
+            fputcsv($f, $line, $delimiter);
+        }
+        // reset the file pointer to the start of the file
+        fseek($f, 0);
+        // tell the browser it's going to be a csv file
+        header('Content-Type: application/csv');
+        // tell the browser we want to save it instead of displaying it
+        header('Content-Disposition: attachment; filename="'.$filename.'";');
+        // make php send the generated csv lines to the browser
+        fpassthru($f);
+    }
     public function doDownload()
     {
         $objPHPExcel = new PHPExcel();
@@ -268,11 +285,11 @@ class ExcelHandler extends App
         }
         $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '商铺录入信息');
         $objPHPExcel->setActiveSheetIndex(0);
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="商铺信息.xls"');
-        header('Cache-Control: max-age=0');
+//        header('Content-Type: application/vnd.ms-excel');
+//        header('Content-Disposition: attachment;filename="商铺信息.xls"');
+//        header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save('php://output');
+        $objWriter->save(str_replace('.php', '.xls', __FILE__));
 
     }
 
