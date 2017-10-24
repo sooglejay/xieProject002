@@ -20,6 +20,33 @@ class StoreAndGive
     /** @Column(type="string") */
     protected $phoneNumber;
 
+    /** @Column(type="string") */
+    protected $time;
+
+    /**
+     * @return mixed
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param mixed $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
+
+    /**
+     * StoreAndGive constructor.
+     */
+    public function __construct()
+    {
+        $this->time = date("Y-m-d H:i:s");
+    }
+
     /**
      * @return mixed
      */
