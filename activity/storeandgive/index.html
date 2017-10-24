@@ -10,65 +10,72 @@
     <title>资阳移动微生活</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./../../css/layer.css" rel="stylesheet">
+    <style>
+        .tr_label {
+            background: white;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <form>
-        <div class="form-group">
-            <label for="userName">姓名</label>
-            <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
-        </div>
-        <div class="form-group">
-            <label for="phoneNumber">电话</label>
-            <input type="tel" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
-        </div>
-        <div class="form-group">
-            <label for="idCard">身份证号</label>
-            <input type="text" class="form-control" id="idCard" placeholder="请输入身份证号">
-        </div>
+<div style="background: url('background.jpg')">
+    <div class="container">
+        <form class="navbar-form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="idCard" placeholder="请输入身份证号">
+            </div>
 
-        <table class="table table-bordered">
+            <table class="table table-bordered">
 
-            <tbody>
-            <tr>
-                <td style="background-color: rgb(89, 199, 249); color: rgb(255, 255, 255);">区县
+                <tbody>
+                <tr>
+                    <td style="background-color: rgb(89, 199, 249); color: rgb(255, 255, 255);">区县
 
-                </td>
+                    </td>
 
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        <input type="radio" name="optionsRadios" id="an_yue" value="an_yue" checked>
-                        安岳县
-                    </label>
-                </td>
+                </tr>
+                <tr>
+                    <td class="tr_label">
+                        <label class="tr_label">
+                            <input type="radio" name="optionsRadios" id="an_yue" value="an_yue" checked>
+                            安岳县
+                        </label>
+                    </td>
 
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        <input type="radio" name="optionsRadios" id="le_zhi" value="le_zhi" checked>
-                        乐至县 </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>
-                        <input type="radio" name="optionsRadios" id="yang_jiang" value="yang_jiang" checked>
-                        雁江县 </label>
-                </td>
-            </tr>
+                </tr>
+                <tr>
+                    <td class="tr_label">
+                        <label class="tr_label">
+                            <input type="radio" name="optionsRadios" id="le_zhi" value="le_zhi" checked>
+                            乐至县 </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tr_label">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="yang_jiang" value="yang_jiang" checked>
+                            雁江县 </label>
+                    </td>
+                </tr>
 
-            </tbody>
-        </table>
-        <div class="form-group">
-            <label for="address">地址</label>
-            <input type="text" class="form-control" id="address" placeholder="请填写详细地址">
-        </div>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="text" class="form-control" id="address" placeholder="地址(请填写详细地址)">
+            </div>
 
-        <button type="button" id="btnSubmit" class="btn btn-default">提交</button>
-    </form>
+            <div align="center" style="width: 100%">
+                <button type="button" style="margin: 12px;background: deepskyblue;color: white;" id="btnSubmit"
+                        class="btn btn-default">立即提交，免费送货上门
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script src="./js/jquery.js"></script>
