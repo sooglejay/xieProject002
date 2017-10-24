@@ -73,3 +73,8 @@ function onSubmit() {
         }
     });
 }
+$(function () {
+    $("#btnSubmit").click(function () {
+        onSubmit();
+    });
+});
