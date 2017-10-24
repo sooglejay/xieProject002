@@ -25,7 +25,7 @@ function onSubmit() {
     var idCard = $("#idCard").val();
     var phoneNum = $("#phoneNumber").val();
     var address = $("#address").val();
-    var area = $("input[name='optionsRadios']").val();
+    var area = $("input[name='optionsRadios']:checked").val();
 
     if (!validatePhoneNumber(phoneNum)) {
         alert("手机号码不合法！请输入11位手机号码！");
@@ -81,4 +81,22 @@ $(function () {
     $("#btnSubmit").click(function () {
         onSubmit();
     });
+
+    $("#le_zhi_tr").click(function () {
+        $('input:radio[name=optionsRadios]')
+            .filter('[value=le_zhi]')
+            .prop('checked', true);
+    });
+    $("#yang_jiang_tr").click(function () {
+        $('input:radio[name=optionsRadios]')
+            .filter('[value=yang_jiang]')
+            .prop('checked', true);
+    });
+    $("#an_yue_tr").click(function () {
+        $('input:radio[name=optionsRadios]')
+            .filter('[value=an_yue]')
+            .prop('checked', true);
+    });
+
+
 });
