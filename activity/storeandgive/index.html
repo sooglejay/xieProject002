@@ -20,14 +20,16 @@
         <span>点击按钮即可领取流量卡</span>
     </div>
     <div style="margin:10%" align="center">
-        <button class="btn btn-success btn-lg"><a href="second.html">马上预约</a></button>
+        <button class="btn btn-success btn-lg" id="jump"><span style="color: white">马上预约</span></button>
     </div>
 </div>
-
-
 <script src="./js/jquery.js"></script>
 <script src="./js/bootstrap.min.js"></script>
-
+<script>
+    $("#jump").click(function () {
+        window.location.href = 'second.html';
+    });
+</script>
 </body>
 
 </html>
