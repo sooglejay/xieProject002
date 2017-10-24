@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>资阳移动微生活</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./../../css/layer.css" rel="stylesheet">
+    <style>
+        .tr_label {
+            background: white;
+        }
+    </style>
+</head>
+<body style="background: url('background.jpg')">
+<div class="container" align="center">
+    <main role="main" style="margin-top: 18%">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="input-lg form-control" id="userName" placeholder="请输入姓名">
+            </div>
+            <div class="form-group">
+                <input type="tel" class="input-lg form-control" id="phoneNumber" placeholder="请输入手机号码">
+            </div>
+            <div class="form-group">
+                <input type="text" class="input-lg form-control" id="idCard" placeholder="请输入身份证号">
+            </div>
+
+
+            <table class="table table-bordered">
+                <tbody>
+                <tr align="left">
+                    <td style="background-color: rgb(89, 199, 249); color: rgb(255, 255, 255);">区县
+
+                    </td>
+
+                </tr>
+                <tr id="an_yue_tr">
+                    <td class="tr_label">
+                        <label class="tr_label">
+                            <input type="radio" name="optionsRadios" id="an_yue" value="an_yue">
+                            安岳县
+                        </label>
+                    </td>
+                </tr>
+                <tr id="le_zhi_tr">
+                    <td class="tr_label">
+                        <label class="tr_label">
+                            <input type="radio" name="optionsRadios" id="le_zhi" value="le_zhi">
+                            乐至县 </label>
+                    </td>
+                </tr>
+                <tr id="yang_jiang_tr">
+                    <td class="tr_label">
+                        <label>
+                            <input type="radio" name="optionsRadios" id="yang_jiang"
+                                   value="yang_jiang">
+                            雁江县 </label>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="text" class="input-lg form-control" id="address" placeholder="地址(请填写详细地址)">
+            </div>
+        </form>
+    </main>
+    <footer>
+        <button type="button" style="margin: 12px;background: deepskyblue;color: white;" id="btnSubmit"
+                class="btn btn-default btn-lg">立即提交，免费送货上门
+        </button>
+    </footer>
+</div>
+<script src="./js/jquery.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./../../js/layer.js"></script>
+<script src="./js/index.js"></script>
+
+</body>
+
+</html>
+
+
+
+
