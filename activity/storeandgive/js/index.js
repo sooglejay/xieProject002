@@ -50,7 +50,7 @@ function onSubmit() {
     console.log(area);
     $.ajax({
         type: 'POST',
-        url: 'StoreAndGive.php',
+        url: 'Index.php',
         data: {
             area: area,
             userName: userName,
