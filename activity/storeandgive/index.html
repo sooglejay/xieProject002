@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>资阳移动微生活</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/layer.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="userName">姓名</label>
+            <input type="text" class="form-control" id="userName" placeholder="请输入姓名">
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">电话</label>
+            <input type="tel" class="form-control" id="phoneNumber" placeholder="请输入手机号码">
+        </div>
+        <div class="form-group">
+            <label for="idCard">身份证号</label>
+            <input type="text" class="form-control" id="idCard" placeholder="请输入身份证号">
+        </div>
+
+        <table class="table table-bordered">
+
+            <tbody>
+            <tr>
+                <td style="background-color: rgb(89, 199, 249); color: rgb(255, 255, 255);">区县
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <input type="radio" name="optionsRadios" id="an_yue" value="an_yue" checked>
+                        安岳县
+                    </label>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <input type="radio" name="optionsRadios" id="le_zhi" value="le_zhi" checked>
+                        乐至县 </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        <input type="radio" name="optionsRadios" id="yang_jiang" value="yang_jiang" checked>
+                        雁江县 </label>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="form-group">
+            <label for="address">地址</label>
+            <input type="text" class="form-control" id="address" placeholder="请填写详细地址">
+        </div>
+
+        <button type="submit" onsubmit="onSubmit();" class="btn btn-default">Submit</button>
+    </form>
+</div>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="./js/index.js"></script>
+
+</body>
+
+</html>

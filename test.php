@@ -8,8 +8,9 @@
 ////date_default_timezone_set("PRC");
 echo strtotime("6/30/2017 17:53:53");
 
+echo phpinfo();
 
-echo  date("m/d/Y H:i:s",strtotime("6/30/2017 17:53:53"));
+//echo  date("m/d/Y H:i:s",strtotime("6/30/2017 17:53:53"));
 ////echo dirname(__FILE__)
 ////;
 //

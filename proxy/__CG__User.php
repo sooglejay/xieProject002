@@ -64,10 +64,10 @@ class User extends \User implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'city', 'county', 'code', 'selling_area_name', 'area_name', 'grid_name', 'account_name', 'shop_num', 'assignedShop'];
+            return ['__isInitialized__', 'id', 'city', 'county', 'code', 'openId', 'selling_area_name', 'area_name', 'grid_name', 'account_name', 'shop_num', 'assignedShop'];
         }
 
-        return ['__isInitialized__', 'id', 'city', 'county', 'code', 'selling_area_name', 'area_name', 'grid_name', 'account_name', 'shop_num', 'assignedShop'];
+        return ['__isInitialized__', 'id', 'city', 'county', 'code', 'openId', 'selling_area_name', 'area_name', 'grid_name', 'account_name', 'shop_num', 'assignedShop'];
     }
 
     /**
@@ -173,6 +173,28 @@ class User extends \User implements \Doctrine\ORM\Proxy\Proxy
     }
 
     
+    /**
+     * {@inheritDoc}
+     */
+    public function getOpenId()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOpenId', []);
+
+        return parent::getOpenId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setOpenId($openId)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setOpenId', [$openId]);
+
+        return parent::setOpenId($openId);
+    }
+
     /**
      * {@inheritDoc}
      */
