@@ -16,7 +16,7 @@ function validateIDCard(val) {
         }
         return true;
     }
-    alert("输入的身份证号码长度应该是18位或15位，请检查！");
+    alert("您输入的身份证号码有误！");
     return false;
 }
 
