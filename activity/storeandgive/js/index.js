@@ -64,7 +64,11 @@ function onSubmit() {
         },
         success: function (res) {
             layer.closeAll();
-            box.msg('预约成功');
+            if (res.code == 200) {
+                box.msg('预约成功');
+            } else {
+                box.msg(res.error);
+            }
         },
         error: function (e) {
             layer.closeAll();

@@ -23,6 +23,11 @@ class Index extends App
         parent::__construct();
         if (isset($_REQUEST['userName'])) {
             $sagRep = $this->entityManager->getRepository("StoreAndGive");
+            $check = $sagRep->findOneBy(array("phoneNumber" => $_REQUEST['phoneNumber']));
+            if (!is_null($check) && $check instanceof StoreAndGive) {
+                echo json_encode(array("code" => 201, "error" => "您已经预约过，请不要重复预约！"));
+                return;
+            }
             try {
                 if ($sagRep instanceof StoreAndGiveRepository) {
                     $sagRep->saveEntity($_REQUEST);
