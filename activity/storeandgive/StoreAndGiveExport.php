@@ -18,14 +18,13 @@ require_once dirname(__FILE__) . "./../../model/ActivitySepUser.php";
 ini_set('memory_limit', '800M');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
-class ExportExcel extends App
+class StoreAndGiveExport extends App
 {
+
     public function __construct()
     {
         parent::__construct();
         $this->setupCache();
-        $this->doDownload();
-
     }
 
     private function setupCache()
@@ -97,13 +96,13 @@ class ExportExcel extends App
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $filename = str_replace('.php', '.xls', __FILE__);
+        chmod($filename, 0777);
         $objWriter->save($filename);
-        $filename =   dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]")."/ExportExcel.xls";
+        $filename = dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") . "/StoreAndGiveExport.xls";
         header("Location: $filename");
     }
 }
 
-$d = new ExportExcel();
 
 
 

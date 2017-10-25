@@ -62,10 +62,10 @@ function wxConfig(res) {
      * =============================================================================================================
      */
     var wxData = {
-        title: '资阳移动微生活',
-        desc: '',
-        link: "",
-        imgUrl: ""
+        title: '资阳移动用户存费送费活动',
+        desc: '存多少送多少！送费立即到账！',
+        link: 'http://test.sighub.com/ziyan/activity/storeandgive/',
+        imgUrl: 'http://test.sighub.com/ziyan/activity/storeandgive/img/01.jpg',
     };
     /**
      * =============================================================================================================
@@ -73,14 +73,19 @@ function wxConfig(res) {
      * =============================================================================================================
      */
     wx.ready(function () {
+        //分享给朋友
         wx.onMenuShareAppMessage({
-            title: '资阳移动用户存费送费活动',
-            desc: '存多少送多少！送费立即到账！',
-            link: 'http://test.sighub.com/ziyan/activity/storeandgive/',
-            imgUrl: 'http://test.sighub.com/ziyan/activity/storeandgive/img/01.jpg',
-            fail: function (res) {
-                alert(JSON.stringify(res));
-            }
+            title: wxData.title,
+            desc: wxData.desc,
+            imgUrl: wxData.imgUrl,
+            link: wxData.link
+        });
+        //分享到朋友圈
+        wx.onMenuShareTimeline({
+            title: wxData.title,
+            desc: wxData.desc,
+            imgUrl: wxData.imgUrl,
+            link: wxData.link
         });
         wx.checkJsApi({
             jsApiList: [
