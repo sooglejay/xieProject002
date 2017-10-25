@@ -78,15 +78,6 @@ function wxConfig(res) {
             desc: '存多少送多少！送费立即到账！',
             link: 'http://test.sighub.com/ziyan/activity/storeandgive/',
             imgUrl: 'http://test.sighub.com/ziyan/activity/storeandgive/img/01.jpg',
-            trigger: function (res) {
-                alert('用户点击发送给朋友');
-            },
-            success: function (res) {
-                alert('已分享');
-            },
-            cancel: function (res) {
-                alert('已取消');
-            },
             fail: function (res) {
                 alert(JSON.stringify(res));
             }
