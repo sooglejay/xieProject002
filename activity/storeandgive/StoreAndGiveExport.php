@@ -92,7 +92,7 @@ class StoreAndGiveExport extends App
                 $row++;
             }
         }
-        $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '移动用户存费送费预约信息');
+        $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d")."_sheet");
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $filename = str_replace('.php', '.xls', __FILE__);
