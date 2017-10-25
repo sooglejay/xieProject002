@@ -18,11 +18,7 @@ function validateIDCard(val) {
     // }
     // alert("您输入的身份证号码有误！");
     // return false;
-    if (!isValidateIdCard(val)) {
-        alert("您输入的身份证号码有误！");
-        return false;
-    }
-    return true;
+    return IdentityCodeValid(val);
 }
 
 function onSubmit() {
