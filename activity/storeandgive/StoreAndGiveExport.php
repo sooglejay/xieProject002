@@ -96,13 +96,20 @@ class StoreAndGiveExport extends App
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $filename = str_replace('.php', '.xls', __FILE__);
-        chmod($filename, 0777);
         $objWriter->save($filename);
-        $filename = dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") . "/StoreAndGiveExport.xls";
-        header("Location: $filename");
+//        $filename = dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") . "/StoreAndGiveExport.xls";
+//        header("Location: $filename");
+
     }
 }
 
+$t = new StoreAndGiveExport();
+try{
+    @$t->doDownload();
+    echo json_encode(array("message" => "good", "code" => 200));
+}catch (Exception $e){
+    echo json_encode(array("message" => "good", "error" => 200));
+}
 
 
 
