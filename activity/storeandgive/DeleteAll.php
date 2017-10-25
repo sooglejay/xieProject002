@@ -24,68 +24,18 @@ class DeleteAll extends App
     public function __construct()
     {
         parent::__construct();
-    }
-
-    public function doDownload()
-    {
-        $objPHPExcel = new PHPExcel();
-
-        /*以下是一些设置 ，什么作者  标题啊之类的*/
-        $objPHPExcel->getProperties()->setCreator("蒋维")
-            ->setLastModifiedBy("蒋维")
-            ->setTitle("移动用户存费送费活动预约信息")
-            ->setSubject("移动用户存费送费活动预约信息")
-            ->setDescription("移动活动")
-            ->setKeywords("移动用户存费送费活动预约信息")
-            ->setCategory("result file");
-
-        $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', "姓名")
-            ->setCellValue('B1', "手机号码")
-            ->setCellValue('C1', "身份证号")
-            ->setCellValue('D1', "区县")
-            ->setCellValue('E1', "地址")
-            ->setCellValue('F1', "预约时间");
-
         $sagRep = $this->entityManager->getRepository("StoreAndGive");
-        $allSagEntity = $sagRep->findAll();
-        $row = 2;
-        foreach ($allSagEntity as $entity) {
-            if ($entity instanceof StoreAndGive) {
-                $timeStr = $entity->getTime();
-                if (strlen($timeStr) < 2) {
-                    $timeStr = date("Y-m-d H:i:s");
-                } else if (strlen($timeStr) <= 11) {
-                    $timeStr = date("Y-m-d H:i:s", $timeStr);
-                }
-                $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A' . $row, $entity->getUserName())
-                    ->setCellValue('B' . $row, $entity->getPhoneNumber())
-                    ->setCellValue('C' . $row, $entity->getIdCard())
-                    ->setCellValue('D' . $row, $entity->getArea())
-                    ->setCellValue('E' . $row, $entity->getAddress())
-                    ->setCellValue('F' . $row, $timeStr);
-                $row++;
+        $en = $sagRep->findAll();
+        foreach ($en as $e){
+            if($e instanceof StoreAndGive){
+                $this->entityManager->remove($e);
+                $this->entityManager->flush();
             }
         }
-        $objPHPExcel->getActiveSheet()->setTitle("_data_");
-        $objPHPExcel->setActiveSheetIndex(0);
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $filename = str_replace('.php', '.xls', __FILE__);
-        $objWriter->save($filename);
-//        $filename = dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") . "/StoreAndGiveExport.xls";
-//        header("Location: $filename");
-
     }
 }
 
-$t = new StoreAndGiveExport();
-try{
-    @$t->doDownload();
-    echo json_encode(array("message" => "good", "code" => 200));
-}catch (Exception $e){
-    echo json_encode(array("message" => "good", "error" => $e));
-}
+$t = new DeleteAll();
 
 
 
