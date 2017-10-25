@@ -18,37 +18,13 @@ require_once dirname(__FILE__) . "./../../model/ActivitySepUser.php";
 ini_set('memory_limit', '800M');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
-class StoreAndGiveExport extends App
+class DeleteAll extends App
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->setupCache();
     }
-
-    private function setupCache()
-    {
-        try {
-            $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_discISAM;
-            $cacheSettings = array(
-                'dir' => './tmp'
-            );
-            PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
-
-            $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_phpTemp;
-            $cacheSettings = array(
-                'memoryCacheSize' => '700MB'
-            );
-            if (!PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings)) {
-                $responseToAjaxCall['error'] = $cacheMethod . " caching method is not available";
-                die(json_encode($responseToAjaxCall));
-            }
-        } catch (Exception $ex) {
-            throw new \Exception("Excel Setup Cache Exception: " . $ex->getMessage());
-        }
-    }
-
 
     public function doDownload()
     {
@@ -84,8 +60,8 @@ class StoreAndGiveExport extends App
                 }
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A' . $row, $entity->getUserName())
-                    ->setCellValueExplicit('B' . $row, $entity->getPhoneNumber(),PHPExcel_Cell_DataType::TYPE_STRING)
-                    ->setCellValueExplicit('C' . $row, $entity->getIdCard(),PHPExcel_Cell_DataType::TYPE_STRING)
+                    ->setCellValue('B' . $row, $entity->getPhoneNumber())
+                    ->setCellValue('C' . $row, $entity->getIdCard())
                     ->setCellValue('D' . $row, $entity->getArea())
                     ->setCellValue('E' . $row, $entity->getAddress())
                     ->setCellValue('F' . $row, $timeStr);
