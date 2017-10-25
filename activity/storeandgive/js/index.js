@@ -3,21 +3,26 @@ function validatePhoneNumber(phoneNum) {
     return pattern.test(phoneNum);
 }
 function validateIDCard(val) {
-    var CheckNum = function (c) {
-        return ((c >= '0' && c <= '9') || c == 'x' || c == 'X') ? true : false;
-    };
-    var len = val.length;
-    if (len == 18 || len == 15) {
-        for (var i = 0; i < len; i++) {
-            if (!CheckNum(val.charAt(i))) {
-                alert("输入的身份证号码错误，请检查！");
-                return false;
-            }
-        }
-        return true;
+    // var CheckNum = function (c) {
+    //     return ((c >= '0' && c <= '9') || c == 'x' || c == 'X') ? true : false;
+    // };
+    // var len = val.length;
+    // if (len == 18 || len == 15) {
+    //     for (var i = 0; i < len; i++) {
+    //         if (!CheckNum(val.charAt(i))) {
+    //             alert("输入的身份证号码错误，请检查！");
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
+    // alert("您输入的身份证号码有误！");
+    // return false;
+    if (!isValidateIdCard(val)) {
+        alert("您输入的身份证号码有误！");
+        return false;
     }
-    alert("您输入的身份证号码有误！");
-    return false;
+    return true;
 }
 
 function onSubmit() {
