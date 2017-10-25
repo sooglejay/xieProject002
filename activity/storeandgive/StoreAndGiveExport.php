@@ -92,7 +92,7 @@ class StoreAndGiveExport extends App
                 $row++;
             }
         }
-        $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d")."_sheet");
+        $objPHPExcel->getActiveSheet()->setTitle("_data_");
         $objPHPExcel->setActiveSheetIndex(0);
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $filename = str_replace('.php', '.xls', __FILE__);
