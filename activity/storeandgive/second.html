@@ -9,6 +9,21 @@
     <meta name="description" content="存多少送多少！送费立即到账！" />
     <meta name="format-detection" content="telephone=no"/>
     <title>资阳移动用户存费送费活动</title>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+        var from = getQueryString("from");
+        if (from == null || from.length < 1) {
+            // do nothing!
+        } else {
+            window.location.href = "index.html";
+        }
+    </script>
+
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./../../css/layer.css" rel="stylesheet">
     <style>
