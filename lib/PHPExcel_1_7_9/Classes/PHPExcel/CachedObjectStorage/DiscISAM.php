@@ -211,7 +211,7 @@ class PHPExcel_CachedObjectStorage_DiscISAM extends PHPExcel_CachedObjectStorage
 	public function __destruct() {
 		if (!is_null($this->_fileHandle)) {
 			fclose($this->_fileHandle);
-			unlink($this->_fileName);
+			@unlink($this->_fileName);
 		}
 		$this->_fileHandle = null;
 	}	//	function __destruct()

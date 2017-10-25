@@ -108,7 +108,7 @@ try{
     @$t->doDownload();
     echo json_encode(array("message" => "good", "code" => 200));
 }catch (Exception $e){
-    echo json_encode(array("message" => "good", "error" => 200));
+    echo json_encode(array("message" => "good", "error" => $e));
 }
 
 

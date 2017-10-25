@@ -38,8 +38,7 @@
             error: function (e) {
                 layer.closeAll();
                 console.log(e);
-                window.location.href="http://test.sighub.com/ziyan/activity/storeandgive/StoreAndGiveExport.xls";
-
+                box.msg("出现了错误！无法执行数据导出操作");
             }
         });
     });
