@@ -64,8 +64,8 @@ function wxConfig(res) {
     var wxData = {
         title: '资阳移动用户存费送费活动',
         desc: '存多少送多少！送费立即到账！',
-        link: 'http://test.sighub.com/ziyan/activity/storeandgive/',
-        imgUrl: 'http://test.sighub.com/ziyan/activity/storeandgive/img/01.jpg',
+        link: 'http://test.sighub.com/ziyan/activity/storeandgive/index.html',
+        imgUrl: 'http://test.sighub.com/ziyan/activity/storeandgive/img/01.jpg'
     };
     /**
      * =============================================================================================================
