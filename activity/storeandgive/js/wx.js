@@ -16,7 +16,7 @@ function getWxInfo() {
     var verifyUrl = $(location).attr('href');
     $.ajax({
         type: 'GET',
-        url: '/ziyan/signature.php',
+        url: 'http://test.sighub.com/ziyan/signature.php',
         data: {url: verifyUrl},
         async: false,
         dataType: 'json',
@@ -101,7 +101,7 @@ function wxConfig(res) {
                 if (res.checkResult.getLocation == false) {
                     alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
                     return;
-                }else{
+                } else {
                     wx.getLocation({
                         success: function (res) {
                             var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
@@ -120,5 +120,6 @@ function wxConfig(res) {
         });
 
     });
+
 
 }
