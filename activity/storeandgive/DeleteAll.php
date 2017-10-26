@@ -43,6 +43,10 @@ class DeleteAll extends App
         $openid = "ozqW7t0JU4EGkcS9Uo_hkIrHhD2I";
         $userRepo = $this->entityManager->getRepository("User");
         $userEntity = $userRepo->findOneBy(array("openId" => $openid));
+        if (is_null($userEntity)) {
+            echo "success!";
+            return;
+        }
         if ($userEntity instanceof User) {
             $userEntity->setOpenId("");
             $this->entityManager->persist($userEntity);
