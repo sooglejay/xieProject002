@@ -24,18 +24,35 @@ class DeleteAll extends App
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function deleteAll()
+    {
         $sagRep = $this->entityManager->getRepository("StoreAndGive");
         $en = $sagRep->findAll();
-        foreach ($en as $e){
-            if($e instanceof StoreAndGive){
+        foreach ($en as $e) {
+            if ($e instanceof StoreAndGive) {
                 $this->entityManager->remove($e);
                 $this->entityManager->flush();
             }
         }
     }
+
+    public function test()
+    {
+        $openid = "ozqW7t0JU4EGkcS9Uo_hkIrHhD2I";
+        $userRepo = $this->entityManager->getRepository("User");
+        $userEntity = $userRepo->findOneBy(array("openId" => $openid));
+        if ($userEntity instanceof User) {
+            $userEntity->setOpenId("");
+            $this->entityManager->persist($userEntity);
+            $this->entityManager->flush();
+        }
+    }
 }
 
 $t = new DeleteAll();
+$t->test();
 
 
 
