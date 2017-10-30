@@ -6,14 +6,46 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="description" content="存多少送多少！送费立即到账！" />
     <meta name="format-detection" content="telephone=no"/>
-    <title>资阳移动微生活</title>
+    <title>资阳移动用户存费送费活动</title>
 
 </head>
 <body>
+<script src="/activity/storeandgive/js/jquery.js"></script>
+<script src="/activity/storeandgive/js/bootstrap.min.js"></script>
+<script src="/js/layer.js"></script>
 
-<script type="text/javascript">
-    window.location.href = "ExcelHandler.php?flag=download";
+<script>
+    $(function () {
+        $.ajax({
+            type: 'POST',
+            url: 'ExcelHandler.php',
+            dataType: 'json',
+            beforeSend: function () {
+                box.loadding('加载中...');
+            },
+            success: function (res) {
+                layer.closeAll();
+                if (res.error) {
+                   box.msg("出现错误！请联系管理员！")
+                }else{
+                    window.location.href="http://test.sighub.com/ziyan/ExcelHandler.xls";
+                }
+            },
+            error: function (e) {
+                layer.closeAll();
+                console.log(e);
+                box.msg("出现了错误！无法执行数据导出操作");
+            }
+        });
+    });
 </script>
+
 </body>
+
 </html>
+
+
+
+

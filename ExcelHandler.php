@@ -344,32 +344,36 @@ class ExcelHandler extends App
         }
         $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '预约套餐用户信息');
         $objPHPExcel->setActiveSheetIndex(0);
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="预约套餐用户信息.xls"');
-        header('Cache-Control: max-age=0');
+//        header('Content-Type: application/vnd.ms-excel');
+//        header('Content-Disposition: attachment;filename="预约套餐用户信息.xls"');
+//        header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save('php://output');
+        $filename = str_replace('.php', '.xls', __FILE__);
+        $objWriter->save($filename);
+
     }
 }
 
+try {
+    $flag = ExcelHandler::$ACTION_DOWNLOAD;
+    if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
+        $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
+    } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
+        $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
+    }
+    echo json_encode(array("message" => "good", "code" => 200));
+} catch (Exception $e) {
+    echo json_encode(array("message" => "error", "code" => 201, "error" => "error"));
+}
 
-$flag = ExcelHandler::$ACTION_DOWNLOAD;
 
-//if (isset($_REQUEST["flag"])) {
-//    $flag = $_REQUEST["flag"];
+
+//if ($argc > 1 || $flag == "jiangwei") {
+//    shell_exec("vendor/bin/doctrine orm:schema-tool:drop --force");
+//    shell_exec("vendor/bin/doctrine orm:schema-tool:create");
+//    new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', "init");
+//    new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', "init_download_sep");
 //}
-if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
-    $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
-} else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
-    $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
-}
-
-if ($argc > 1 || $flag == "jiangwei") {
-    shell_exec("vendor/bin/doctrine orm:schema-tool:drop --force");
-    shell_exec("vendor/bin/doctrine orm:schema-tool:create");
-    new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', "init");
-    new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', "init_download_sep");
-}
 
 
 
