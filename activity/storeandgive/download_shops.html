@@ -25,14 +25,14 @@
             url: 'ExcelHandler.php',
             dataType: 'json',
             beforeSend: function () {
-                box.loadding('加载中...');
+                box.loadding('数据量超级大，大概需要10分钟，可以玩一把王者荣耀再回来...');
             },
             success: function (res) {
                 layer.closeAll();
                 if (res.error) {
                    box.msg("出现错误！请联系管理员！")
                 }else{
-                    window.location.href="http://test.sighub.com/ziyan/ExcelHandler.xls";
+                    window.location.href="http://test.sighub.com/ziyan/activity/storeandgive/ExcelHandler.xls";
                 }
             },
             error: function (e) {
