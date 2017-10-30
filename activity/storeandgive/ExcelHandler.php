@@ -7,13 +7,13 @@
  */
 date_default_timezone_set("PRC");
 
-require_once dirname(__FILE__) . '/lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
-require_once dirname(__FILE__) . '/lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
+require_once dirname(__FILE__) . '/../../lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
+require_once dirname(__FILE__) . '/../../lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
 
-require_once dirname(__FILE__) . "/bootstrap.php";
-require_once dirname(__FILE__) . "/model/User.php";
-require_once dirname(__FILE__) . "/model/BuyTypeUser.php";
-require_once dirname(__FILE__) . "/model/ActivitySepUser.php";
+require_once dirname(__FILE__) . "/../../bootstrap.php";
+require_once dirname(__FILE__) . "/../../model/User.php";
+require_once dirname(__FILE__) . "/../../model/BuyTypeUser.php";
+require_once dirname(__FILE__) . "/../../model/ActivitySepUser.php";
 ini_set('memory_limit', '800M');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
@@ -354,18 +354,19 @@ class ExcelHandler extends App
     }
 }
 
-try {
-    $flag = ExcelHandler::$ACTION_DOWNLOAD;
-    if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
-        $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
-    } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
-        $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
-    }
-    echo json_encode(array("message" => "good", "code" => 200));
-} catch (Exception $e) {
-    echo json_encode(array("message" => "error", "code" => 201, "error" => "error"));
-}
 
+$flag = ExcelHandler::$ACTION_DOWNLOAD;
+if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
+    $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
+} else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
+    $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
+}
+$filename = str_replace('.php', '.xls', __FILE__);
+if (is_file($filename)) {
+    echo json_encode(array("message" => "Success", "code" => 200));
+} else {
+    echo json_encode(array("message" => "导出失败！", "code" => 201, "error" => "error"));
+}
 
 
 //if ($argc > 1 || $flag == "jiangwei") {
