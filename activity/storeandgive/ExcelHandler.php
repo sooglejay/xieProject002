@@ -28,7 +28,7 @@ class ExcelHandler extends App
     public static $ACTION_DOWNLOAD = "download";
     public static $ACTION_DOWNLOAD_SEP = "download_sep";
 
-    public function __construct($path, $xlsSheetName, $flag)
+    public function __construct($path="./docs/account.xlsx", $xlsSheetName='c_wx_22_hd20170426_user', $flag="download")
     {
         parent::__construct();
         $this->xlsFile = $path;
@@ -42,16 +42,16 @@ class ExcelHandler extends App
         } catch (Exception $ex) {
             throw new \Exception("Excel Create Reader Exception: " . $ex->getMessage());
         }
-
-        if ($flag == "init") {//初始化 账户信息，比如
-            $this->doExport();
-        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//导出商铺信息
-            $this->doDownload();
-        } else if ($flag == "init_download_sep") {//初始化 9月活动 用户数据
-            $this->doExportActivity();
-        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) { //导出9月活动用户信息
-            $this->doDownloadActivity();
-        }
+// 放到其他工具类 调用
+//        if ($flag == "init") {//初始化 账户信息，比如
+//            $this->doExport();
+//        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//导出商铺信息
+//            $this->doDownload();
+//        } else if ($flag == "init_download_sep") {//初始化 9月活动 用户数据
+//            $this->doExportActivity();
+//        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) { //导出9月活动用户信息
+//            $this->doDownloadActivity();
+//        }
     }
 
     public function getSheetData()
@@ -292,7 +292,8 @@ class ExcelHandler extends App
 //        header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save(str_replace('.php', '.xls', __FILE__));
-
+        $fullPath = __DIR__ . "/tmp/" ;
+        @array_map('unlink', glob( "$fullPath*.cache"));
     }
 
     public function doDownloadActivity()
@@ -354,19 +355,6 @@ class ExcelHandler extends App
     }
 }
 
-
-$flag = ExcelHandler::$ACTION_DOWNLOAD;
-if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) {//九月活动预订
-    $excelHandler = new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', $flag);
-} else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//商铺登记
-    $excelHandler = new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', $flag);
-}
-$filename = str_replace('.php', '.xls', __FILE__);
-if (is_file($filename)) {
-    echo json_encode(array("message" => "Success", "code" => 200));
-} else {
-    echo json_encode(array("message" => "导出失败！", "code" => 201, "error" => "error"));
-}
 
 
 //if ($argc > 1 || $flag == "jiangwei") {
