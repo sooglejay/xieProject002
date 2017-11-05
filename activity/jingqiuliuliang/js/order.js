@@ -37,7 +37,7 @@ function doBuy() {
         url: 'Home.php',
         data: {
             doBuy: 'doBuy',
-            address: 'address',
+            address: address,
             mobileNumber: mobileNumber
         },
         beforeSend: function () {
