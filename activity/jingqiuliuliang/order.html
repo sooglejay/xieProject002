@@ -27,11 +27,21 @@
         #phoneNumber {
             width: 92%;
             padding: 2%;
-            height: 20%;
+            height: 40px;
             text-align: center;
             border-radius: 4px;
             background: #dcdcdc;
-            margin-top: 16%;
+            margin-top: 8%;
+        }
+
+        #address {
+            width: 92%;
+            padding: 2%;
+            height: 40px;
+            text-align: center;
+            border-radius: 4px;
+            background: #dcdcdc;
+            margin-top: 4%;
             margin-bottom: 8%;
 
         }
@@ -51,12 +61,6 @@
             border-bottom: 0;
             padding: 8px 8px 8px 8px;
         }
-
-        .new-modal-footer {
-            padding: 15px;
-            text-align: center;
-            border-top: 1px solid #e5e5e5;
-        }
     </style>
 </head>
 <body>
@@ -65,7 +69,8 @@
     <img src="img/txt.png" alt="" class="img-title">
     <div class="box" align="center">
         <input id="phoneNumber" placeholder="请输入手机号"/>
-        <img id="search" src="img/b1.png" style="height: 20%"/>
+        <input id="address" placeholder="请输入所在区县"/>
+        <img id="doBuy" src="img/b1.png" style="height: 20%;"/>
     </div>
 </div>
 
@@ -76,10 +81,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
-            </div>
-            <div class="modal-footer" id="footer">
-                <a id="doBuy" href="#"><img src="img/b3.png" style="height: 30px;"/></a>
-                <button id="btnClose" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="btnClose" type="button" class="btn btn-default" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
@@ -87,7 +89,7 @@
 
 <script src="./../../js/bootstrap_3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./../../js/layer.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
 </body>
 </html>
 

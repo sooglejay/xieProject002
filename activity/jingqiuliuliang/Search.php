@@ -17,8 +17,34 @@ ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
  */
 class Search extends App
 {
+    private $userRepo;
+
     public function __construct()
     {
         parent::__construct();
+        $this->userRepo = $this->entityManager->getRepository('JQLL_User');
+    }
+
+    public function checkTypeByPhone($mobileNumber)
+    {
+        $entity = $this->userRepo->findOneBy(array('mobileNumber' => $mobileNumber));
+        if ($entity instanceof JQLL_User) {
+            return $entity->getType();
+        }
+        return false;
+    }
+
+    public function doBuy($mobileNumber, $address)
+    {
+        if ($this->checkTypeByPhone($mobileNumber)) {
+            $entity = $this->userRepo->findOneBy(array('mobileNumber' => $mobileNumber));
+            if ($entity instanceof JQLL_User) {
+                $entity->setIsChosen(1);
+                $entity->setAddress($address);
+                $this->entityManager->flush($entity);
+                return $entity->getType();
+            }
+        }
+        return false;
     }
 }

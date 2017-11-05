@@ -109,6 +109,8 @@ class ImportDataFromExcel extends App
             $entity->setZifeiCode(isset($row['B']) ? $row['B'] : "");
             $entity->setZifeiName(isset($row['C']) ? $row['C'] : "");
             $entity->setType($type);
+            $entity->setAddress('');
+            $entity->setIsChosen(0);
             $i++;
             $this->entityManager->persist($entity);
             if ($i % 20 == 0) {

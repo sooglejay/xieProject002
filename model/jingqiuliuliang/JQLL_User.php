@@ -26,14 +26,53 @@ class JQLL_User
 
     /** @Column(type="string") */
     protected $zifei_name;
+    /** @Column(type="string") */
+    protected $address;
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
 
     /** @Column(type="integer")
      * 28 38 48 58 88 138
      */
     protected $type;
 
+    /** @Column(type="integer")
+     *
+     */
+    protected $isChosen;
+
     /** @Column(type="string") * */
     protected $time;
+
+    /**
+     * @return mixed
+     */
+    public function getIsChosen()
+    {
+        return $this->isChosen;
+    }
+
+    /**
+     * @param mixed $isChosen
+     */
+    public function setIsChosen($isChosen)
+    {
+        $this->isChosen = $isChosen;
+    }
 
     /**
      *
@@ -130,29 +169,10 @@ class JQLL_User
     {
         $this->type = $type;
     }
-
-    public function toArray()
-    {
-        return array("mobileNumber" => $this->mobileNumber,
-            "type" => $this->type,
-            "ziFeiCode" => $this->zifei_code,
-            "ziFeiName" => $this->zifei_name,
-            "time" => $this->time,
-        );
-    }
 }
 
 class JQLL_UserRepository extends EntityRepository
 {
-    protected function saveUser($user)
-    {
-        $e = new JQLL_User();
-        $e->setMobileNumber($user["mobileNumber"]);
-        $e->setType($user["type"]);
-        $e->setZifeiCode($user["ziFeiCode"]);
-        $e->setZifeiName($user["ziFeiName"]);
-    }
-
     public function deleteAll()
     {
         $e = $this->_em->getRepository("JQLL_User");
