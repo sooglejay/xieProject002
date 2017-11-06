@@ -6,66 +6,22 @@
  * Time: 23:05
  */
 date_default_timezone_set("PRC");
-
 require_once dirname(__FILE__) . '/../../lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
 require_once dirname(__FILE__) . '/../../lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
-
 require_once dirname(__FILE__) . "/../../bootstrap.php";
-require_once dirname(__FILE__) . "/../../model/User.php";
-require_once dirname(__FILE__) . "/../../model/BuyTypeUser.php";
-require_once dirname(__FILE__) . "/../../model/ActivitySepUser.php";
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 300000); //300 seconds = 5 minutes
 
 class ExcelHandler extends App
 {
-    private $xlsFile;
-    private $xlsSheetName;
-    private $objReader;
-    private $objPHPExcel;
     private $userRepo;
 
-    public static $ACTION_DOWNLOAD = "download";
-    public static $ACTION_DOWNLOAD_SEP = "download_sep";
-
-    public function __construct($path="./docs/account.xlsx", $xlsSheetName='c_wx_22_hd20170426_user', $flag="download")
+    public function __construct()
     {
         parent::__construct();
-        $this->xlsFile = $path;
-        $this->xlsSheetName = $xlsSheetName;
         $this->userRepo = $this->entityManager->getRepository('User');
         $this->setupCache();
-        try {
-            $type = $this->getXlsType();
-            $this->objReader = PHPExcel_IOFactory::createReader($type);
-            $this->objReader->setReadDataOnly(true);
-        } catch (Exception $ex) {
-            throw new \Exception("Excel Create Reader Exception: " . $ex->getMessage());
-        }
-// 放到其他工具类 调用
-//        if ($flag == "init") {//初始化 账户信息，比如
-//            $this->doExport();
-//        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD) {//导出商铺信息
-//            $this->doDownload();
-//        } else if ($flag == "init_download_sep") {//初始化 9月活动 用户数据
-//            $this->doExportActivity();
-//        } else if ($flag == ExcelHandler::$ACTION_DOWNLOAD_SEP) { //导出9月活动用户信息
-//            $this->doDownloadActivity();
-//        }
-    }
 
-    public function getSheetData()
-    {
-        try {
-            $this->objReader->setLoadSheetsOnly($this->xlsSheetName);
-            //$filterSubset = new MyReadFilter($_POST['start'],$_POST['end'],range('A','S'));
-            //$objReader->setReadFilter($filterSubset);
-            $this->objPHPExcel = $this->objReader->load($this->xlsFile);
-            $sheetData = $this->objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
-        } catch (Exception $ex) {
-            throw new \Exception("Excel Load Sheet Exception: " . $ex->getMessage());
-        }
-        return $sheetData;
     }
 
     private function setupCache()
@@ -88,122 +44,6 @@ class ExcelHandler extends App
         } catch (Exception $ex) {
             throw new \Exception("Excel Setup Cache Exception: " . $ex->getMessage());
         }
-    }
-
-    private function getXlsType()
-    {
-        $xlsType = "Excel2007";
-        $arr = explode('.', $this->xlsFile);
-        $type = end($arr);
-        if ($type == "xls") {
-            $xlsType = "Excel5";
-        }
-        return $xlsType;
-    }
-
-    public function doExport()
-    {
-
-        $dataArray = $this->getSheetData();
-
-        if (count($dataArray) > 0) {//若有需要导入，就先清空数据库
-            $existsArr = $this->userRepo->findAll();
-            foreach ($existsArr as $entity) {
-                assert($entity instanceof User);
-                $this->entityManager->remove($entity);
-            }
-            $this->entityManager->flush();
-        }
-        $i = 0;
-        $firstItem = true;
-        foreach ($dataArray as $index => $row) {
-            if ($firstItem) {
-                $firstItem = false;
-                continue;
-            }
-
-            $i++;
-            $user = new User();
-            $user->setCity($row['A']);
-            $user->setCounty($row['B']);
-            $user->setCode($row['C']);
-            $user->setSellingAreaName($row['D']);
-            $user->setAreaName($row['E']);
-            $user->setGridName($row['F']);
-            $user->setAccountName($row['G']);
-            $user->setShopNum(0);
-            $this->entityManager->persist($user);
-            if ($i % 20 == 0) {
-                $this->entityManager->flush();
-                $i = 0;
-            }
-        }
-        if ($i > 0) {
-            $this->entityManager->flush();
-        }
-        $userArr = $this->userRepo->findAll();
-        echo "\n size = " . count($userArr) . "\n";
-    }
-
-    public function doExportActivity()
-    {
-        $dataArray = $this->getSheetData();
-        $activitySepRepo = $this->entityManager->getRepository("ActivitySepUser");
-
-        if (count($dataArray) > 0) {//若有需要导入，就先清空数据库
-            $existsArr = $activitySepRepo->findAll();
-            foreach ($existsArr as $entity) {
-                assert($entity instanceof ActivitySepUser);
-                $this->entityManager->remove($entity);
-            }
-            $this->entityManager->flush();
-        }
-        $i = 0;
-        $firstItem = true;
-        $len = 0;
-        foreach ($dataArray as $index => $row) {
-            if ($firstItem) {
-                $firstItem = false;
-                continue;
-            }
-
-            $i++;
-            $user = new ActivitySepUser();
-            $user->setMobileNumber($row['A']);
-            $user->setType88($row['B'] == "是");
-            $user->setType138($row['C'] == "是");
-            $user->setType158($row['D'] == "是");
-            $user->setType238($row['E'] == "是");
-            $this->entityManager->persist($user);
-            if ($i % 20 == 0) {
-                $this->entityManager->flush();
-                $i = 0;
-            }
-            $len++;
-        }
-        if ($i > 0) {
-            $this->entityManager->flush();
-        }
-        echo "\n size = " . $len . "\n";
-    }
-
-    function array_to_csv_download($array, $filename = "export.csv", $delimiter = ";")
-    {
-        // open raw memory as file so no temp files needed, you might run out of memory though
-        $f = fopen('php://memory', 'w');
-        // loop over the input array
-        foreach ($array as $line) {
-            // generate csv lines from the inner arrays
-            fputcsv($f, $line, $delimiter);
-        }
-        // reset the file pointer to the start of the file
-        fseek($f, 0);
-        // tell the browser it's going to be a csv file
-        header('Content-Type: application/csv');
-        // tell the browser we want to save it instead of displaying it
-        header('Content-Disposition: attachment; filename="' . $filename . '";');
-        // make php send the generated csv lines to the browser
-        fpassthru($f);
     }
 
     public function doDownload()
@@ -287,85 +127,12 @@ class ExcelHandler extends App
         }
         $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '商铺录入信息');
         $objPHPExcel->setActiveSheetIndex(0);
-//        header('Content-Type: application/vnd.ms-excel');
-//        header('Content-Disposition: attachment;filename="商铺信息.xls"');
-//        header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $objWriter->save(str_replace('.php', '.xls', __FILE__));
-        $fullPath = __DIR__ . "/tmp/" ;
-        @array_map('unlink', glob( "$fullPath*.cache"));
-    }
-
-    public function doDownloadActivity()
-    {
-        $objPHPExcel = new PHPExcel();
-
-        /*以下是一些设置 ，什么作者  标题啊之类的*/
-        $objPHPExcel->getProperties()->setCreator("蒋维")
-            ->setLastModifiedBy("蒋维")
-            ->setTitle("预约活动信息")
-            ->setSubject("预约活动信息")
-            ->setDescription("备份数据")
-            ->setKeywords("预约活动信息")
-            ->setCategory("result file");
-
-        $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A1', "姓名")
-            ->setCellValue('B1', "性别")
-            ->setCellValue('C1', "手机号码")
-            ->setCellValue('D1', "地址")
-            ->setCellValue('E1', "预定套餐")
-            ->setCellValue('F1', "预定时间");
-
-        $buyRepo = $this->entityManager->getRepository("BuyTypeUser");
-        $buyers = $buyRepo->findAll();
-        $row = 2;
-        foreach ($buyers as $buyer) {
-            if ($buyer instanceof BuyTypeUser) {
-                $type = "88";
-                if ($buyer->getType88()) {
-                    $type = "88";
-                } else if ($buyer->getType138()) {
-                    $type = "138";
-                } else if ($buyer->getType158()) {
-                    $type = "158";
-                } else if ($buyer->getType238()) {
-                    $type = "238";
-                }
-                $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A' . $row, $buyer->getUserName())
-                    ->setCellValue('B' . $row, $buyer->getGender())
-                    ->setCellValue('C' . $row, $buyer->getMobileNumber())
-                    ->setCellValue('D' . $row, $buyer->getAddress())
-                    ->setCellValue('E' . $row, $type)
-                    ->setCellValue('F' . $row, $buyer->getTime());
-                $row++;
-            }
-
-        }
-        $objPHPExcel->getActiveSheet()->setTitle(date("Y-m-d") . '预约套餐用户信息');
-        $objPHPExcel->setActiveSheetIndex(0);
-//        header('Content-Type: application/vnd.ms-excel');
-//        header('Content-Disposition: attachment;filename="预约套餐用户信息.xls"');
-//        header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $filename = str_replace('.php', '.xls', __FILE__);
-        $objWriter->save($filename);
-
+        $fullPath = __DIR__ . "/tmp/";
+        @array_map('unlink', glob("$fullPath*.cache"));
     }
 }
-
-
-
-
-//if ($argc > 1 || $flag == "jiangwei") {
-//    shell_exec("vendor/bin/doctrine orm:schema-tool:drop --force");
-//    shell_exec("vendor/bin/doctrine orm:schema-tool:create");
-//    new ExcelHandler("./docs/account.xlsx", 'c_wx_22_hd20170426_user', "init");
-//    new ExcelHandler("./docs/activity_sep.xlsx", '9.9目标', "init_download_sep");
-//}
-
-
 
 
 
