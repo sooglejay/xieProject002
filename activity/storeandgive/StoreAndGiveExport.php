@@ -15,8 +15,8 @@ require_once dirname(__FILE__) . "./../../model/User.php";
 require_once dirname(__FILE__) . "./../../model/BuyTypeUser.php";
 require_once dirname(__FILE__) . "./../../model/StoreAndGive.php";
 require_once dirname(__FILE__) . "./../../model/ActivitySepUser.php";
-ini_set('memory_limit', '800M');
-ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
+ini_set('memory_limit', '-1');
+ini_set('max_execution_time', 300000); //300 seconds = 5 minutes
 
 class StoreAndGiveExport extends App
 {
