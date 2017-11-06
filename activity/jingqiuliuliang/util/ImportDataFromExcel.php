@@ -7,12 +7,14 @@
  */
 
 
+use Doctrine\DBAL\DriverManager;
+
 require_once dirname(__FILE__) . './../../../lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
 require_once dirname(__FILE__) . './../../../lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
 
 require_once dirname(__FILE__) . "./../../../bootstrap.php";
 require_once dirname(__FILE__) . "./../../../model/jingqiuliuliang/JQLL_User.php";
-ini_set('memory_limit', '1024M');
+ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
 
@@ -29,15 +31,19 @@ class ImportDataFromExcel extends App
     {
         parent::__construct();
         $this->userRepo = $this->entityManager->getRepository('JQLL_User');
-        if ($this->userRepo instanceof JQLL_UserRepository) {
-            $this->userRepo->deleteAll();
-        }
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/28.xlsx", 'Sheet1', 28);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/38.xlsx", 'Sheet1', 38);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
+//        $this->dropAllData();
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/28.xlsx", 'Sheet1', 28);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/38.xlsx", 'Sheet1', 38);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
         $this->doParseExcel(dirname(__FILE__) . "/../excels/88.xlsx", 'Sheet1', 88);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
+    }
+
+    public function dropAllData()
+    {
+        $query = $this->entityManager->getConnection()->prepare("delete from jqll_user");
+        $query->execute();
     }
 
     public function getSheetData()
@@ -118,11 +124,14 @@ class ImportDataFromExcel extends App
                 $i = 0;
             }
             $len++;
+            if ($len % 1000==0) {
+                echo "\n size = " . $len . "\n";
+            }
         }
         if ($i > 0) {
             $this->entityManager->flush();
         }
-        echo "\n size = " . $len . "\n";
+        echo "\n total size = " . $len . "\n";
     }
 }
 

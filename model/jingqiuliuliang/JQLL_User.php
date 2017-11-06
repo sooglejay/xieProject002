@@ -173,23 +173,5 @@ class JQLL_User
 
 class JQLL_UserRepository extends EntityRepository
 {
-    public function deleteAll()
-    {
-        $e = $this->_em->getRepository("JQLL_User");
-        $repo = $e->findAll();
-        $i = 0;
-        foreach ($repo as $r) {
-            if ($r instanceof JQLL_User) {
-                $this->_em->remove($r);
-                $i++;
-                if ($i % 20 == 0) {
-                    $this->_em->flush();
-                    $i = 0;
-                }
-            }
-        }
-        if ($i > 0) {
-            $this->_em->flush();
-        }
-    }
+
 }
