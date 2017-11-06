@@ -2,6 +2,24 @@ function validatePhoneNumber(phoneNum) {
     var pattern = /(^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/;
     return pattern.test(phoneNum);
 }
+function doExport() {
+    $.ajax({
+        type: 'POST',
+        url: 'doExport.php',
+        data: {
+            'd': 'd'
+        },
+        dataType: 'json',
+
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+
+}
 function validateIDCard(val) {
     // var CheckNum = function (c) {
     //     return ((c >= '0' && c <= '9') || c == 'x' || c == 'X') ? true : false;
@@ -67,6 +85,7 @@ function onSubmit() {
             layer.closeAll();
             if (res.code == 200) {
                 box.msg('预约成功');
+                doExport();
             } else {
                 box.msg(res.error);
             }

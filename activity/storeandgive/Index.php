@@ -12,7 +12,6 @@ ini_set('date.timezone', 'Asia/Shanghai');
  */
 require_once dirname(__FILE__) . "/../../bootstrap.php";
 require_once dirname(__FILE__) . "/../../model/StoreAndGive.php";
-
 class Index extends App
 {
     /**

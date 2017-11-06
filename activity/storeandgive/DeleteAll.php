@@ -1,5 +1,6 @@
 <?php
 /**
+ * 临时文件，用于删除某个openid 的用户的相关信息
  * Created by PhpStorm.
  * User: sooglejay
  * Date: 17/8/23

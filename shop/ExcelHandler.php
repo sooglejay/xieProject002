@@ -6,9 +6,11 @@
  * Time: 23:05
  */
 date_default_timezone_set("PRC");
-require_once dirname(__FILE__) . '/../../lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
-require_once dirname(__FILE__) . '/../../lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
-require_once dirname(__FILE__) . "/../../bootstrap.php";
+require_once dirname(__FILE__) . '/../lib/PHPExcel_1_7_9/Classes/PHPExcel/IOFactory.php';
+require_once dirname(__FILE__) . '/../lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
+require_once dirname(__FILE__) . "/../bootstrap.php";
+require_once dirname(__FILE__) . "/../model/User.php";
+require_once dirname(__FILE__) . "/../model/Shop.php";
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 300000); //300 seconds = 5 minutes
 

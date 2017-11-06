@@ -184,9 +184,9 @@ function doSearch() {
                 box.msg(res.message);
                 return;
             }
-            if(res.length<1){
-                box.msg("没有搜索到任何有关"+search+"的结果");
-                return ;
+            if (res.length < 1) {
+                box.msg("没有搜索到任何有关" + search + "的结果");
+                return;
             }
             var list = '';
             $.each(res, function (i, item) {
@@ -224,6 +224,24 @@ function doSearch() {
             console.log(e);
         }
     });
+}
+function doExport() {
+    $.ajax({
+        type: 'POST',
+        url: 'shop/doExcelHandler.php',
+        data: {
+            'd': 'd'
+        },
+        dataType: 'json',
+
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+
 }
 
 $(function () {
@@ -422,7 +440,7 @@ $(function () {
 
                     var textLeft = (searchWord != null ? "返回上一级" : "继续添加");
                     var textRight = "返回首页";
-
+                    doExport();
                     layer.open({
                         content: res.message
                         , btn: [textLeft, textRight]

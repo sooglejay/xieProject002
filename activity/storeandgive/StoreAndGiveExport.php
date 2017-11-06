@@ -11,10 +11,7 @@ require_once dirname(__FILE__) . './../../lib/PHPExcel_1_7_9/Classes/PHPExcel/IO
 require_once dirname(__FILE__) . './../../lib/PHPExcel_1_7_9/Classes/PHPExcel.php';
 
 require_once dirname(__FILE__) . "./../../bootstrap.php";
-require_once dirname(__FILE__) . "./../../model/User.php";
-require_once dirname(__FILE__) . "./../../model/BuyTypeUser.php";
 require_once dirname(__FILE__) . "./../../model/StoreAndGive.php";
-require_once dirname(__FILE__) . "./../../model/ActivitySepUser.php";
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 300000); //300 seconds = 5 minutes
 
@@ -84,8 +81,8 @@ class StoreAndGiveExport extends App
                 }
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A' . $row, $entity->getUserName())
-                    ->setCellValueExplicit('B' . $row, $entity->getPhoneNumber(),PHPExcel_Cell_DataType::TYPE_STRING)
-                    ->setCellValueExplicit('C' . $row, $entity->getIdCard(),PHPExcel_Cell_DataType::TYPE_STRING)
+                    ->setCellValueExplicit('B' . $row, $entity->getPhoneNumber(), PHPExcel_Cell_DataType::TYPE_STRING)
+                    ->setCellValueExplicit('C' . $row, $entity->getIdCard(), PHPExcel_Cell_DataType::TYPE_STRING)
                     ->setCellValue('D' . $row, $entity->getArea())
                     ->setCellValue('E' . $row, $entity->getAddress())
                     ->setCellValue('F' . $row, $timeStr);
@@ -97,19 +94,11 @@ class StoreAndGiveExport extends App
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
         $filename = str_replace('.php', '.xls', __FILE__);
         $objWriter->save($filename);
-//        $filename = dirname("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") . "/StoreAndGiveExport.xls";
-//        header("Location: $filename");
-
+        $fullPath = __DIR__ . "/tmp/";
+        @array_map('unlink', glob("$fullPath*.cache"));
     }
 }
 
-$t = new StoreAndGiveExport();
-try{
-    @$t->doDownload();
-    echo json_encode(array("message" => "good", "code" => 200));
-}catch (Exception $e){
-    echo json_encode(array("message" => "good", "error" => $e));
-}
 
 
 

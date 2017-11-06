@@ -12,7 +12,6 @@ ini_set('date.timezone', 'Asia/Shanghai');
  */
 require_once dirname(__FILE__) . "/bootstrap.php";
 require_once dirname(__FILE__) . "/model/User.php";
-require_once dirname(__FILE__) . "/activity/storeandgive/ExcelHandler.php";
 
 class MainApp extends App
 {
@@ -140,7 +139,6 @@ class MainApp extends App
             }
         }
         $userObj = $this->userRepo->find($this->loginUserId);
-        $ret = false;
         try {
             $shopRep = $this->entityManager->getRepository("Shop");
             if ($shopRep instanceof ShopRepository) {
@@ -153,9 +151,6 @@ class MainApp extends App
         }
         if ($ret) {
             echo json_encode(array("message" => "添加成功!"));
-            // 每添加一个，就导出一次excel
-            $e = new ExcelHandler();
-            $e->doDownload();
         }
     }
 

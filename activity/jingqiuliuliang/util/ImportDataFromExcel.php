@@ -36,8 +36,8 @@ class ImportDataFromExcel extends App
 //        $this->doParseExcel(dirname(__FILE__) . "/../excels/38.xlsx", 'Sheet1', 38);
 //        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
 //        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/88.xlsx", 'Sheet1', 88);
-//        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/88.xlsx", 'Sheet1', 88);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
     }
 
     public function dropAllData()
