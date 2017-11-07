@@ -9,11 +9,63 @@
     <meta name="description" content="金秋流量敞开用,今年套餐免费送,活动时间：即日起-2017年11月30日"/>
     <meta name="format-detection" content="telephone=no"/>
     <title>金秋流量敞开用,今年套餐免费送</title>
+    <script type="text/javascript" src="./../../../js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./../../../js/layer.js"></script>
+    <script>
+        function set() {
+            $.ajax({
+                type: 'POST',
+                url: 'doExcelHandler.php',
+                data: {
+                    actionName: 'set'
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    box.loadding('正在导出数据，请稍后...');
+                },
+                success: function (res) {
+                    layer.closeAll();
+                    console.log(res + " success");
+                    if (res == 1) {
+                        window.location.href = "http://test.sighub.com/ziyan/activity/jingqiuliuliang/export/ExportHandler.xls";
+                        clear();
+                    }else{
+                        set();
+                    }
+                },
+                error: function (e) {
+                    layer.closeAll();
+                    console.log(e);
+                }
+            });
+        }
+        function clear() {
+            $.ajax({
+                type: 'POST',
+                url: 'doExcelHandler.php',
+                data: {
+                    actionName: 'clear'
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    box.loadding('正在清楚标志，请稍后...');
+                },
+                success: function (res) {
+                    layer.closeAll();
+                    console.log(res + " success");
+                },
+                error: function (e) {
+                    layer.closeAll();
+                    console.log(e);
+                }
+            });
+        }
+        $(function () {
+            set();
+        });
+    </script>
 </head>
 <body>
-<script>
-    window.location.href = "http://test.sighub.com/ziyan/activity/jingqiuliuliang/export/ExportHandler.xls";
-</script>
 </body>
 </html>
 

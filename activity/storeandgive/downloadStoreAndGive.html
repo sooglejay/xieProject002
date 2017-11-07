@@ -28,7 +28,10 @@
                     layer.closeAll();
                     console.log(res + " success");
                     if (res == 1) {
+                        window.location.href = "http://test.sighub.com/ziyan/activity/storeandgive/StoreAndGiveExport.xls";
                         clear();
+                    }else{
+                        set();
                     }
                 },
                 error: function (e) {

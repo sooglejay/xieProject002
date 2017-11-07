@@ -7,27 +7,6 @@ function getQueryString(name) {
     if (r != null) return unescape(r[2]);
     return null;
 }
-function exportExcel() {
-    $.ajax({
-        type: 'POST',
-        url: 'export/doExcelHandler.php',
-        data: {
-            "n": 'd'
-        },
-        beforeSend: function () {
-            box.loadding('正在处理数据,请稍后...');
-        },
-        dataType: 'json',
-        success: function (res) {
-            layer.closeAll();
-            console.log(res);
-        },
-        error: function (e) {
-            console.log(e);
-            layer.closeAll();
-        }
-    });
-}
 function doBuy() {
     var mobileNumber = $("#phoneNumber").val();
     var address = $("#address").val();
@@ -63,7 +42,6 @@ function doBuy() {
                 $('.modal-body').html('抱歉，您不是本次活动的目标客户');
             } else {
                 $('.modal-body').html('恭喜您预约成功');
-                exportExcel();
             }
 
             console.log(res);
