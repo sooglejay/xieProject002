@@ -13,6 +13,18 @@ function exportExcel() {
         url: 'export/doExcelHandler.php',
         data: {
             "n": 'd'
+        },
+        beforeSend: function () {
+            box.loadding('正在处理数据,请稍后...');
+        },
+        dataType: 'json',
+        success: function (res) {
+            layer.closeAll();
+            console.log(res);
+        },
+        error: function (e) {
+            console.log(e);
+            layer.closeAll();
         }
     });
 }
