@@ -32,12 +32,12 @@ class ImportDataFromExcel extends App
         parent::__construct();
         $this->userRepo = $this->entityManager->getRepository('JQLL_User');
 //        $this->dropAllData();
-//        $this->doParseExcel(dirname(__FILE__) . "/../excels/28.xlsx", 'Sheet1', 28);
-//        $this->doParseExcel(dirname(__FILE__) . "/../excels/38.xlsx", 'Sheet1', 38);
-//        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
-//        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/28.xlsx", 'Sheet1', 28);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/38.xlsx", 'Sheet1', 38);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
 //        $this->doParseExcel(dirname(__FILE__) . "/../excels/88.xlsx", 'Sheet1', 88);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
     }
 
     public function dropAllData()
@@ -119,12 +119,12 @@ class ImportDataFromExcel extends App
             $entity->setIsChosen(0);
             $i++;
             $this->entityManager->persist($entity);
-            if ($i % 20 == 0) {
+            if ($i % 10000 == 0) {
                 $this->entityManager->flush();
                 $i = 0;
             }
             $len++;
-            if ($len % 1000==0) {
+            if ($len % 10000==0) {
                 echo "\n size = " . $len . "\n";
             }
         }
