@@ -38,6 +38,7 @@ class demo
     public function __construct($isNotFromWinXin=false)
     {
         $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
+        $wholeFile = dirname(__FILE__) . '/../file_cache/wholeText.txt';
         if($isNotFromWinXin){
             return;//类之间的调用，不需要 下面的微信认证代码
         }
@@ -59,6 +60,8 @@ class demo
         if (isset($_GET["signature"])) {
             $this->checkSignature();
         }
+        file_put_contents($wholeFile, json_encode($xml));
+
     }
 
     public function writeArrayToFile($arr)
