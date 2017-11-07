@@ -5,7 +5,7 @@
  * Date: 17/10/30
  * Time: 18:19
  */
-require_once dirname(__FILE__) . "/ExportHandler.php";
+require_once dirname(__FILE__) . "/JQLL_ExcelHandler.php";
 require_once dirname(__FILE__) . "/../../../bootstrap.php";
 require_once dirname(__FILE__) . "/../../../model/ExcelFlag.php";
 
@@ -33,26 +33,31 @@ class JQLL_Handler extends App
     private function doExport()
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
-        $entity = $flagRepo->findBy(array("typeName" => "jqll_excel_export"));
-        if (is_null($entity) || (is_array($entity) && count($entity) < 1)) {
+        $entities = $flagRepo->findBy(array("typeName" => "jqll_excel_export"));
+        $exist = false;
+        foreach ($entities as $entity) {
+            if ($entity instanceof ExcelFlag) {
+                $exist = true;
+                break;
+            }
+        }
+        if (!$exist) {
             $entity = new ExcelFlag();
-            $entity->setTypeName("shop");
+            $entity->setTypeName("jqll_excel_export");
             $this->entityManager->persist($entity);
             $this->entityManager->flush($entity);
             // start to export
-            $s = new ExcelHandler();
+            $s = new JQLL_ExcelHandler();
             $s->doDownload();
-            echo 'okay';
         }
-        echo 'oj';
-
     }
 
-    private function clear()
+    private
+    function clear()
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
-        $entity = $flagRepo->findOneBy(array("typeName" => "jqll_excel_export"));
-        if (!is_null($entity)) {
+        $entities = $flagRepo->findBy(array("typeName" => "jqll_excel_export"));
+        foreach ($entities as $entity) {
             if ($entity instanceof ExcelFlag) {
                 $this->entityManager->remove($entity);
                 $this->entityManager->flush();

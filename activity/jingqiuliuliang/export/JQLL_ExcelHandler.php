@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . "/../../../model/jingqiuliuliang/JQLL_User.php"
 ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 30000); //300 seconds = 5 minutes
 
-class ExportHandler extends App
+class JQLL_ExcelHandler extends App
 {
 
 

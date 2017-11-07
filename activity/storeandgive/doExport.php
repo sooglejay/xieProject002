@@ -31,13 +31,19 @@ class Handler extends App
     private function doExport()
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
-        $entity = $flagRepo->findOneBy(array("typeName" => "storeAndGive"));
-        if (is_null($entity)) {
+        $entities = $flagRepo->findBy(array("typeName" => "storeAndGive"));
+        $exist = false;
+        foreach ($entities as $entity) {
+            if ($entity instanceof ExcelFlag) {
+                $exist = true;
+                break;
+            }
+        }
+        if (!$exist) {
             $entity = new ExcelFlag();
             $entity->setTypeName("storeAndGive");
             $this->entityManager->persist($entity);
             $this->entityManager->flush($entity);
-            // start to export
             $s = new StoreAndGiveExport();
             $s->doDownload();
         }
@@ -46,8 +52,8 @@ class Handler extends App
     private function clear()
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
-        $entity = $flagRepo->findOneBy(array("typeName" => "storeAndGive"));
-        if (!is_null($entity)) {
+        $entities = $flagRepo->findBy(array("typeName" => "storeAndGive"));
+        foreach ($entities as $entity) {
             if ($entity instanceof ExcelFlag) {
                 $this->entityManager->remove($entity);
                 $this->entityManager->flush();

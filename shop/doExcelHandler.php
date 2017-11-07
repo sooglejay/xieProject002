@@ -33,8 +33,15 @@ class doExcelHandler extends App
     private function doExport()
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
-        $entity = $flagRepo->findBy(array("typeName" => "shop"));
-        if (is_null($entity) || (is_array($entity) && count($entity) < 1)) {
+        $entities = $flagRepo->findBy(array("typeName" => "shop"));
+        $exist = false;
+        foreach ($entities as $entity) {
+            if ($entity instanceof ExcelFlag) {
+                $exist = true;
+                break;
+            }
+        }
+        if (!$exist) {
             $entity = new ExcelFlag();
             $entity->setTypeName("shop");
             $this->entityManager->persist($entity);
@@ -42,17 +49,14 @@ class doExcelHandler extends App
             // start to export
             $s = new ExcelHandler();
             $s->doDownload();
-            echo 'okay';
         }
-        echo 'oj';
-
     }
 
     private function clear()
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
-        $entity = $flagRepo->findOneBy(array("typeName" => "shop"));
-        if (!is_null($entity)) {
+        $entities = $flagRepo->findBy(array("typeName" => "shop"));
+        foreach ($entities as $entity) {
             if ($entity instanceof ExcelFlag) {
                 $this->entityManager->remove($entity);
                 $this->entityManager->flush();
