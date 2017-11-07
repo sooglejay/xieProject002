@@ -32,10 +32,12 @@ class ImportDataFromExcel extends App
         parent::__construct();
         $this->userRepo = $this->entityManager->getRepository('JQLL_User');
 //        $this->dropAllData();
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/28.xlsx", 'Sheet1', 28);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/38.xlsx", 'Sheet1', 38);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
-        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/28_1.xlsx", 'Sheet1', 28);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/28_2.xlsx", 'Sheet1', 28);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/38_1.xlsx", 'Sheet1', 38);
+        $this->doParseExcel(dirname(__FILE__) . "/../excels/38_2.xlsx", 'Sheet1', 38);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/48.xlsx", 'Sheet1', 48);
+//        $this->doParseExcel(dirname(__FILE__) . "/../excels/58.xlsx", 'Sheet1', 58);
 //        $this->doParseExcel(dirname(__FILE__) . "/../excels/88.xlsx", 'Sheet1', 88);
 //        $this->doParseExcel(dirname(__FILE__) . "/../excels/138.xlsx", 'Sheet1', 138);
     }
@@ -100,8 +102,10 @@ class ImportDataFromExcel extends App
 
     public function doParseExcel($path, $xlsSheetName, $type)
     {
+
         $this->configExcelAfterInit($path, $xlsSheetName);
         $dataArray = $this->getSheetData();
+        echo $type."=".count($dataArray)."\n";
         $i = 0;
         $firstItem = true;
         $len = 0;
@@ -124,7 +128,7 @@ class ImportDataFromExcel extends App
                 $i = 0;
             }
             $len++;
-            if ($len % 10000==0) {
+            if ($len % 10000 == 0) {
                 echo "\n size = " . $len . "\n";
             }
         }

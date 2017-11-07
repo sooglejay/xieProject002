@@ -41,7 +41,7 @@ class DeleteAll extends App
 
     public function test()
     {
-        $openid = "ozqW7t6T7z7j6UvzmewNGuROH2os";
+        $openid = "ozqW7t0JU4EGkcS9Uo_hkIrHhD2I";
         $userRepo = $this->entityManager->getRepository("User");
         $userEntity = $userRepo->findOneBy(array("openId" => $openid));
         if (is_null($userEntity)) {
