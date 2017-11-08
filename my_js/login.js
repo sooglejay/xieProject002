@@ -22,7 +22,7 @@ function checkLogin() {
             openId = res["openId"];
             console.log("jiangwei says:" + res);
             var code = res.code;
-            if (code == 200) {
+            if (code == 200 && openId.length > 5) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
             else if (code == 503) {
@@ -33,7 +33,7 @@ function checkLogin() {
             layer.closeAll();
         },
         error: function (e) {
-            console.log("失败："+e);
+            console.log("失败：" + e);
             layer.closeAll();
         }
     });
