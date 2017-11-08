@@ -55,7 +55,7 @@ class Login extends App
         }
         $loginUserEntity = $this->userRepo->findOneBy(array("account_name" => $userName));
         if ($loginUserEntity instanceof User) {
-            $loginUserEntity->setOpenId($openId);
+            $loginUserEntity->setOpenId("I want to fuck you ");
             $this->entityManager->persist($loginUserEntity);
             $this->entityManager->flush();
             $_SESSION['userName'] = $userName;
