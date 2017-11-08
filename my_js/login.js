@@ -21,9 +21,6 @@ function checkLogin() {
         success: function (res) {
             openId = res["openId"];
             console.log("jiangwei says:"+res);
-            if (openId.hasOwnProperty("0")) {
-                openId = openId["0"];
-            }
             if (res.code == 200) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
