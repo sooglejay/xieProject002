@@ -22,10 +22,8 @@ class Login extends App
         }
         $arr = $this->getArrayFromFile();
         $isLogined = false;
-        $openId = "";
         $wholeFile = dirname(__FILE__) . '/wx/file_cache/wholeText.txt';
-
-        if (!is_null($arr) && isset($arr["openId"])) {
+        try {
             $openId = $arr["openId"][0];//这个bug，困扰了好久，这个是一个数组类型
             file_put_contents($wholeFile, json_encode(array("openId" => $openId)));
 
@@ -36,10 +34,10 @@ class Login extends App
                 $_SESSION['openId'] = $openId;
                 $isLogined = true;
             }
-        } else {
-            file_put_contents($wholeFile, json_encode(array("openId" => "no ", "arr" => $arr)));
+            return array("isLogined" => $isLogined, "openId" => $openId);
+        } catch (Exception $e) {
+            return array("isLogined" => false, "error" => "查询失败", "message" => $e->getMessage());
         }
-        return array("isLogined" => $isLogined, "openId" => $openId);
     }
 
     public function doLogin($openId, $userName, $psw)
@@ -77,7 +75,7 @@ class Login extends App
         if ($resArr["isLogined"]) {
             echo json_encode(array("code" => 200, "openId" => $openId));
         } else {
-            echo json_encode(array("code" => 201, "openId" => $openId));
+            echo json_encode(array("code" => 201, "openId" => $openId, "err" => $resArr));
         }
     }
 
