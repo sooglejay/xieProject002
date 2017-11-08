@@ -29,3 +29,5 @@
 !phpmyadmin
 
 bootstrap.php
+
+wx/file_cache/*
