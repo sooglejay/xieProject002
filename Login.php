@@ -92,11 +92,12 @@ class Login extends App
         if (isset($_REQUEST["openId"])) {
             $this->doLogin();
         } else if (isset($_REQUEST["action"])) {
-            if (isset($_SESSION["openId"])) {
-                //如果没有失效，就直接跳转到主页了
-                echo json_encode(array("code" => 200, "openId" => $_SESSION["openId"]));
-                return;
-            }
+            // session 有些哈货 还没有失效，就无法解绑了
+//            if (isset($_SESSION["openId"])) {
+//                //如果没有失效，就直接跳转到主页了
+//                echo json_encode(array("code" => 200, "openId" => $_SESSION["openId"]));
+//                return;
+//            }
             // 用 一个标志位来 代表，当前微信用户openid 是否登录！如果登录了，就直接返回，没登录，也不做任何事情返回！
             $this->doCheckOpenId();
         }
