@@ -95,7 +95,7 @@ class Login extends App
 
     public function getArrayFromFile()
     {
-        $fileCachePath = dirname(__FILE__) . './wx/file_cache/openId.txt';
+        $fileCachePath = dirname(__FILE__) . '/wx/file_cache/openId.txt';
         return json_decode(file_get_contents($fileCachePath), true);
     }
 }
