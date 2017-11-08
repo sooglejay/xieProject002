@@ -40,8 +40,10 @@ class Login extends App
         }
     }
 
-    public function doLogin($openId, $userName, $psw)
+    public function doLogin()
     {
+        $userName = $_REQUEST['userName'];
+        $psw = $_REQUEST['password'];
         if (!isset($userName) || !isset($psw)) {
             echo json_encode(array("message" => "请输入用户名或密码登录！", "error" => "error"));
             return;
@@ -55,13 +57,13 @@ class Login extends App
         }
         $loginUserEntity = $this->userRepo->findOneBy(array("account_name" => $userName));
         if ($loginUserEntity instanceof User) {
-            $loginUserEntity->setOpenId("I want to fuck you ".$_REQUEST['openId']);
+            $loginUserEntity->setOpenId($_REQUEST['openId']);
             $this->entityManager->persist($loginUserEntity);
             $this->entityManager->flush();
             $_SESSION['userName'] = $userName;
-            $_SESSION['openId'] = $openId;
+            $_SESSION['openId'] = $_REQUEST['openId'];
             $_SESSION['userId'] = $loginUserEntity->getId();
-            $resArr = array("message" => "登录成功！", "openId" => $openId, "object" => $loginUserEntity->toArray());
+            $resArr = array("message" => "登录成功！", "openId" => $_REQUEST['openId'], "object" => $loginUserEntity->toArray());
         } else {
             $resArr = array("message" => "登录失败，用户名或密码不正确！", "error" => "error");
         }
@@ -88,7 +90,7 @@ class Login extends App
     {
         parent::__construct();
         if (isset($_REQUEST["openId"])) {
-            $this->doLogin($_REQUEST["openId"], $_REQUEST["userName"], $_REQUEST["password"]);
+            $this->doLogin();
         } else if (isset($_REQUEST["action"])) {
             if (isset($_SESSION["openId"])) {
                 //如果没有失效，就直接跳转到主页了
