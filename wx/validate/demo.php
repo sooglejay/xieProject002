@@ -33,15 +33,11 @@ class demo
 
     /***
      * demo constructor.
-     * @param bool $isNotFromWinXin
      */
-    public function __construct($isNotFromWinXin=false)
+    public function __construct()
     {
         $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
         $wholeFile = dirname(__FILE__) . '/../file_cache/wholeText.txt';
-        if($isNotFromWinXin){
-            return;//类之间的调用，不需要 下面的微信认证代码
-        }
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
         if (isset($xml) &&
@@ -57,11 +53,10 @@ class demo
             );
             $this->writeArrayToFile($arr);
         }
+        file_put_contents($wholeFile, json_encode($xml));
         if (isset($_GET["signature"])) {
             $this->checkSignature();
         }
-        file_put_contents($wholeFile, json_encode($xml));
-
     }
 
     public function writeArrayToFile($arr)

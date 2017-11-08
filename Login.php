@@ -10,19 +10,16 @@ ini_set('date.timezone', 'Asia/Shanghai');
 require_once dirname(__FILE__) . "/bootstrap.php";
 require_once dirname(__FILE__) . "/model/User.php";
 require_once dirname(__FILE__) . "/model/Shop.php";
-require_once dirname(__FILE__) . "/wx/validate/demo.php";
 
 class Login extends App
 {
     private $userRepo;
-
     private function checkUser()
     {
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
-        $wxObj = new demo(true);
-        $arr = $wxObj->getArrayFromFile();
+        $arr = $this->getArrayFromFile();
         $isLogined = false;
         $openId = "";
         if (!is_null($arr) && isset($arr["openId"])) {
@@ -94,6 +91,12 @@ class Login extends App
             // 用 一个标志位来 代表，当前微信用户openid 是否登录！如果登录了，就直接返回，没登录，也不做任何事情返回！
             $this->doCheckOpenId();
         }
+    }
+
+    public function getArrayFromFile()
+    {
+        $fileCachePath = dirname(__FILE__) . './wx/file_cache/openId.txt';
+        return json_decode(file_get_contents($fileCachePath), true);
     }
 }
 
