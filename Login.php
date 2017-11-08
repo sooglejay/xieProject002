@@ -55,12 +55,12 @@ class Login extends App
         }
         $loginUserEntity = $this->userRepo->findOneBy(array("account_name" => $userName));
         if ($loginUserEntity instanceof User) {
-            $_SESSION['userName'] = $userName;
-            $_SESSION['openId'] = $openId;
-            $_SESSION['userId'] = $loginUserEntity->getId();
             $loginUserEntity->setOpenId($openId);
             $this->entityManager->persist($loginUserEntity);
             $this->entityManager->flush();
+            $_SESSION['userName'] = $userName;
+            $_SESSION['openId'] = $openId;
+            $_SESSION['userId'] = $loginUserEntity->getId();
             $resArr = array("message" => "登录成功！", "openId" => $openId, "object" => $loginUserEntity->toArray());
         } else {
             $resArr = array("message" => "登录失败，用户名或密码不正确！", "error" => "error");

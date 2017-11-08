@@ -62,7 +62,7 @@ function login() {
             if (res.error) {
                 box.msg(res.message);
             } else {
-                window.location.href = '/ziyan/home.html?openId=' + openId;
+                window.location.href = '/ziyan/home.html?openId=' + res["openId"];
             }
         },
         error: function (e) {
