@@ -36,16 +36,16 @@ class demo
      */
     public function __construct()
     {
-        $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
-        $wholeFile = dirname(__FILE__) . '/../file_cache/wholeText.txt';
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-        file_put_contents($wholeFile, json_encode($xml));
+//        $wholeFile = dirname(__FILE__) . '/../file_cache/wholeText.txt';
+//        file_put_contents($wholeFile, json_encode($xml));
         if (isset($xml) &&
             isset($xml->FromUserName) &&
             isset($xml->ToUserName) &&
-            isset($xml->Content)
+            isset($xml->Content)&&$xml->Content=="摸底"
         ) {
+            $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
             $this->fromUsername = $xml->FromUserName;
             $this->toUsername = $xml->ToUserName;
             $this->keyword = trim($xml->Content);
