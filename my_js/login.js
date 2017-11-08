@@ -51,7 +51,7 @@ function login() {
         type: 'POST',
         url: 'Login.php',
         data: {
-            userName: userName, password: password, openId: openId
+            'userName': userName, 'password': password, 'openId': openId
         },
         dataType: 'json',
         beforeSend: function () {
