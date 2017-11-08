@@ -24,7 +24,7 @@ class Login extends App
         $isLogined = false;
         $wholeFile = dirname(__FILE__) . '/wx/file_cache/wholeText.txt';
         try {
-            $openId = $arr["openId"][0];//这个bug，困扰了好久，这个是一个数组类型
+            $openId = $arr["openId"]["0"];//这个bug，困扰了好久，这个是一个数组类型
             file_put_contents($wholeFile, json_encode(array("openId" => $openId)));
 
             $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
