@@ -20,14 +20,20 @@ function checkLogin() {
         dataType: 'json',
         success: function (res) {
             openId = res["openId"];
-            console.log("jiangwei says:"+res);
-            if (res.code == 200) {
+            console.log("jiangwei says:" + res);
+            var code = res.code;
+            if (code == 200) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
+            }
+            else if (code == 503) {
+                alert("error!" + res["error"]);
+            } else if (code == 201) {
+                console.log(openId + " please login ! jiangwei ");
             }
             layer.closeAll();
         },
         error: function (e) {
-            console.log(e);
+            console.log("失败："+e);
             layer.closeAll();
         }
     });

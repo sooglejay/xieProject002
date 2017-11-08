@@ -21,7 +21,7 @@ class Login extends App
             $this->userRepo = $this->entityManager->getRepository('User');
         }
         $arr = $this->getArrayFromFile();
-        $isLogined = false;
+        $isLogin = false;
         $wholeFile = dirname(__FILE__) . '/wx/file_cache/wholeText.txt';
         try {
             $openId = $arr["openId"]["0"];//这个bug，困扰了好久，这个是一个数组类型
@@ -32,11 +32,11 @@ class Login extends App
                 $_SESSION['userName'] = $userEntity->getAccountName();
                 $_SESSION['userId'] = $userEntity->getId();
                 $_SESSION['openId'] = $openId;
-                $isLogined = true;
+                $isLogin = true;
             }
-            return array("isLogined" => $isLogined, "openId" => $openId);
+            return array("isLogin" => $isLogin, "openId" => $openId);
         } catch (Exception $e) {
-            return array("isLogined" => false, "error" => "查询失败", "message" => $e->getMessage());
+            return array("isLogin" => false, "error" => "查询失败", "message" => $e->getMessage());
         }
     }
 
@@ -72,10 +72,12 @@ class Login extends App
     {
         $resArr = $this->checkUser();
         $openId = $resArr["openId"];
-        if ($resArr["isLogined"]) {
+        if ($resArr["isLogin"] == true) {
             echo json_encode(array("code" => 200, "openId" => $openId));
+        } else if ($resArr['error']) {
+            echo json_encode(array("code" => 503, "openId" => $openId, "error" => $resArr['error']));
         } else {
-            echo json_encode(array("code" => 201, "openId" => $openId, "err" => $resArr));
+            echo json_encode(array("code" => 201, "openId" => $openId, "result" => $resArr['error']));
         }
     }
 
