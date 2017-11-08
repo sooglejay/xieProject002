@@ -18,11 +18,7 @@ class JQLL_Handler extends App
     public function __construct()
     {
         parent::__construct();
-        $actionName = isset($_REQUEST['actionName']) ? $_REQUEST['actionName'] : "";
-        if ($actionName == 'set') {
-            $this->doExport();
-            echo 1;
-        } else if ($actionName == 'clear') {
+        if ($this->doExport()) {
             $this->clear();
             echo 1;
         } else {
@@ -34,22 +30,19 @@ class JQLL_Handler extends App
     {
         $flagRepo = $this->entityManager->getRepository("ExcelFlag");
         $entities = $flagRepo->findBy(array("typeName" => "jqll_excel_export"));
-        $exist = false;
         foreach ($entities as $entity) {
             if ($entity instanceof ExcelFlag) {
-                $exist = true;
-                break;
+                return false;
             }
         }
-        if (!$exist) {
-            $entity = new ExcelFlag();
-            $entity->setTypeName("jqll_excel_export");
-            $this->entityManager->persist($entity);
-            $this->entityManager->flush($entity);
-            // start to export
-            $s = new JQLL_ExcelHandler();
-            $s->doDownload();
-        }
+        $entity = new ExcelFlag();
+        $entity->setTypeName("jqll_excel_export");
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush($entity);
+        // start to export
+        $s = new JQLL_ExcelHandler();
+        $s->doDownload();
+        return true;
     }
 
     private

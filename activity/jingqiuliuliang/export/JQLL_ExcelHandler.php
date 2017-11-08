@@ -67,11 +67,10 @@ class JQLL_ExcelHandler extends App
             ->setCellValue('E1', "预订时间");
 
         $userRepo = $this->entityManager->getRepository("JQLL_User");
-        $users = $userRepo->findAll();
+        $users = $userRepo->findBy(array("isChosen"=>1));
         $row = 2;
         foreach ($users as $userEntity) {
             if ($userEntity instanceof JQLL_User) {
-                if (!$userEntity->getIsChosen()) continue;
                 $timeStr = $userEntity->getTime();
                 if (strlen($timeStr) <= 11) {
                     $timeStr = date("Y-m-d H:i:s", $timeStr);
