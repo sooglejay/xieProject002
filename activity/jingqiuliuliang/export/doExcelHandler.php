@@ -20,9 +20,9 @@ class JQLL_Handler extends App
         parent::__construct();
         if ($this->doExport()) {
             $this->clear();
-            echo 1;
+            echo true;
         } else {
-            echo 0;
+            echo false;
         }
     }
 

@@ -64,7 +64,8 @@ class JQLL_ExcelHandler extends App
             ->setCellValue('B1', "资费编号")
             ->setCellValue('C1', "资费名称")
             ->setCellValue('D1', "预订套餐档次")
-            ->setCellValue('E1', "预订时间");
+            ->setCellValue('E1', "所在区县")
+            ->setCellValue('F1', "预订时间");
 
         $userRepo = $this->entityManager->getRepository("JQLL_User");
         $users = $userRepo->findBy(array("isChosen"=>1));
@@ -80,7 +81,8 @@ class JQLL_ExcelHandler extends App
                     ->setCellValue('B' . $row, $userEntity->getZifeiCode())
                     ->setCellValue('C' . $row, $userEntity->getZifeiName())
                     ->setCellValue('D' . $row, $userEntity->getType() . "元档活动")
-                    ->setCellValue('E' . $row, $timeStr);
+                    ->setCellValue('E' . $row, $userEntity->getAddress())
+                    ->setCellValue('F' . $row, $timeStr);
                 $row++;
             }
         }
