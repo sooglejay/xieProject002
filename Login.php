@@ -14,6 +14,7 @@ require_once dirname(__FILE__) . "/model/Shop.php";
 class Login extends App
 {
     private $userRepo;
+
     private function checkUser()
     {
         if (is_null($this->userRepo)) {
@@ -22,15 +23,21 @@ class Login extends App
         $arr = $this->getArrayFromFile();
         $isLogined = false;
         $openId = "";
+        $wholeFile = dirname(__FILE__) . '/wx/file_cache/wholeText.txt';
+
         if (!is_null($arr) && isset($arr["openId"])) {
             $openId = $arr["openId"][0];//这个bug，困扰了好久，这个是一个数组类型
+            file_put_contents($wholeFile, json_encode(array("openId" => $openId)));
+
             $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
-            if (!is_null($userEntity) && strlen($openId) > 0) {
+            if ($userEntity instanceof User) {
                 $_SESSION['userName'] = $userEntity->getAccountName();
                 $_SESSION['userId'] = $userEntity->getId();
                 $_SESSION['openId'] = $openId;
                 $isLogined = true;
             }
+        } else {
+            file_put_contents($wholeFile, json_encode(array("openId" => "no ", "arr" => $arr)));
         }
         return array("isLogined" => $isLogined, "openId" => $openId);
     }
