@@ -39,7 +39,7 @@ class demo
         $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
         $wholeFile = dirname(__FILE__) . '/../file_cache/wholeText.txt';
         file_put_contents($wholeFile, json_encode(array("jiangwei"=>"say hello")));
-
+        echo "1212";
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
         if (isset($xml) &&
