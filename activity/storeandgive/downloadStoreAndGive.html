@@ -13,20 +13,17 @@
     <script type="text/javascript" src="./../../js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="./../../js/layer.js"></script>
     <script>
-        $(function () {
+        function doDownload() {
             $.ajax({
                 type: 'GET',
                 url: 'doExport.php',
                 dataType: 'json',
-                beforeSend: function () {
-                    box.loadding('正在导出，请稍后...');
-                },
                 success: function (res) {
-                    layer.closeAll();
                     if (res == 1) {
+                        layer.closeAll();
                         window.location.href = "StoreAndGiveExport.xls";
                     } else {
-                        set();
+                        setTimeout(doDownload, 5000);
                     }
                 },
                 error: function (e) {
@@ -34,6 +31,10 @@
                     console.log(e);
                 }
             });
+        }
+        $(function () {
+            box.loadding('正在导出，请稍后...');
+            doDownload();
         });
     </script>
 </head>

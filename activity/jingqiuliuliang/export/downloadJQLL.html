@@ -12,21 +12,17 @@
     <script type="text/javascript" src="./../../../js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="./../../../js/layer.js"></script>
     <script>
-        $(function () {
+        function doDownload() {
             $.ajax({
                 type: 'GET',
                 url: 'doExcelHandler.php',
                 dataType: 'json',
-                beforeSend: function () {
-                    box.loadding('正在导出数据，请稍后...');
-                },
                 success: function (res) {
-                    layer.closeAll();
-                    console.log(res + " success");
                     if (res == 1) {
+                        layer.closeAll();
                         window.location.href = "JQLL_ExcelHandler.xls";
                     } else {
-                        set();
+                        setTimeout(doDownload, 4000);
                     }
                 },
                 error: function (e) {
@@ -34,6 +30,10 @@
                     console.log(e);
                 }
             });
+        }
+        $(function () {
+            box.loadding('正在导出数据，请稍后...');
+            doDownload();
         });
     </script>
 </head>
