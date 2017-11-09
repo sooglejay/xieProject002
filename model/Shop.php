@@ -357,7 +357,7 @@ class Shop
     /**
      * @param $t
      */
-    public function setTime($t)
+    public function setTime($t=null)
     {
         if(isset($t)){
             $this->time = $t;
@@ -408,54 +408,4 @@ class Shop
 
 class ShopRepository extends EntityRepository
 {
-    public function addShop($shopObj, $userObj)
-    {
-        $sh = new Shop();
-        $sh->setTime();
-        $sh->setShopUser($userObj);
-        $sh->setShop209($shopObj['shop209']);
-        $sh->setShopName($shopObj['shopName']);
-        $sh->setShopLandline($shopObj['shopLandLine']);
-        $sh->setShop280($shopObj['shop280']);
-        $sh->setShopAddr($shopObj['shopAddress']);
-        $sh->setShopBroadbandCover($shopObj['shopBroadbandCover']);
-        $sh->setShopContact1($shopObj['shopContact1']);
-        $sh->setShopContact2($shopObj['shopContact2']);
-        $sh->setShopMemNum($shopObj['shopMemNum']);
-        $sh->setShopGroupNet($shopObj['shopGroupNet']);
-        $sh->setShopOperator($shopObj['shopOperator']);
-        $sh->setShopStreet($shopObj['shopStreet']);
-        $sh->setShopType($shopObj['shopType']);
-        $sh->setShopLng($shopObj['shopLng']);
-        $sh->setShopLat($shopObj['shopLat']);
-        $code = '';
-        for ($i = 0; $i < 7; $i++) {
-            $code .= range('a', 'z')[random_int(0, 25)];
-        }
-        $sh->setShopUniqueCode($code);
-        $this->getEntityManager()->persist($sh);
-        $this->getEntityManager()->flush();
-        return $sh->getId();
-    }
-
-    public function getShopArrayFromRequest($requestArr)
-    {
-        return array(
-            "shopLng" => isset($requestArr['shop_lng']) ? $requestArr['shop_lng'] . "" : "",
-            "shopLat" => isset($requestArr['shop_lat']) ? $requestArr['shop_lat'] . "" : "",
-            "shop209" => isset($requestArr['shop_209']) ? $requestArr['shop_209'] : "",
-            "shop280" => isset($requestArr['shop_280']) ? $requestArr['shop_280'] : "",
-            "shopName" => isset($requestArr['shop_name']) ? $requestArr['shop_name'] : "",
-            "shopLandLine" => isset($requestArr['shop_landline']) ? $requestArr['shop_landline'] : "",
-            "shopAddress" => isset($requestArr['shop_addr']) ? $requestArr['shop_addr'] : "",
-            "shopType" => isset($requestArr['shop_type']) ? $requestArr['shop_type'] : "",
-            "shopMemNum" => isset($requestArr['shop_mem_num']) ? $requestArr['shop_mem_num'] : "",
-            "shopOperator" => isset($requestArr['shop_operator']) ? $requestArr['shop_operator'] : "",
-            "shopContact2" => isset($requestArr['shop_contact2']) ? $requestArr['shop_contact2'] : "",
-            "shopContact1" => isset($requestArr['shop_contact1']) ? $requestArr['shop_contact1'] : "",
-            "shopGroupNet" => isset($requestArr['shop_group_net']) ? $requestArr['shop_group_net'] : "",
-            "shopStreet" => isset($requestArr['shop_street']) ? $requestArr['shop_street'] : "",
-            "shopBroadbandCover" => isset($requestArr['shop_broadband_cover']) ? $requestArr['shop_broadband_cover'] : ""
-        );
-    }
 }

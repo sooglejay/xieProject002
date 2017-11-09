@@ -89,7 +89,6 @@ class ImportShopsHandler extends App
     {
         $dataArray = $this->getSheetData();
         echo count($dataArray);
-        if (true) return true;
         $i = 0;
         $firstItem = true;
         $len = 0;

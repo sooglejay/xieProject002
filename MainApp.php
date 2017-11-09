@@ -1,5 +1,4 @@
 <?php
-use Doctrine\ORM\Query\ResultSetMapping;
 
 ini_set('display_errors', 1);
 ini_set('date.timezone', 'Asia/Shanghai');
@@ -128,6 +127,7 @@ class MainApp extends App
     private
     function actionSaveShop()
     {
+
         $shopName = $_POST['shop_name'];
         $shops = $this->shopRepo->findAll();
         foreach ($shops as $addedShop) {
@@ -140,10 +140,47 @@ class MainApp extends App
         }
         $userObj = $this->userRepo->find($this->loginUserId);
         try {
-            $shopRep = $this->entityManager->getRepository("Shop");
-            if ($shopRep instanceof ShopRepository) {
-                $shopRep->addShop($shopRep->getShopArrayFromRequest($_REQUEST), $userObj);
+            $shopLng = isset($_POST['shop_lng']) ? $_POST['shop_lng'] . "" : "";
+            $shopLat = isset($_POST['shop_lat']) ? $_POST['shop_lat'] . "" : "";
+            $shop209 = isset($_POST['shop_209']) ? $_POST['shop_209'] : "";
+            $shop280 = isset($_POST['shop_280']) ? $_POST['shop_280'] : "";
+            $shopName = isset($_POST['shop_name']) ? $_POST['shop_name'] : "";
+            $shopLandLine = isset($_POST['shop_landline']) ? $_POST['shop_landline'] : "";
+            $shopAddress = isset($_POST['shop_addr']) ? $_POST['shop_addr'] : "";
+            $shopType = isset($_POST['shop_type']) ? $_POST['shop_type'] : "";
+            $shopMemNum = isset($_POST['shop_mem_num']) ? $_POST['shop_mem_num'] : "";
+            $shopOperator = isset($_POST['shop_operator']) ? $_POST['shop_operator'] : "";
+            $shopContact2 = isset($_POST['shop_contact2']) ? $_POST['shop_contact2'] : "";
+            $shopContact1 = isset($_POST['shop_contact1']) ? $_POST['shop_contact1'] : "";
+            $shopGroupNet = isset($_POST['shop_group_net']) ? $_POST['shop_group_net'] : "";
+            $shopStreet = isset($_POST['shop_street']) ? $_POST['shop_street'] : "";
+            $shopBroadbandCover = isset($_POST['shop_broadband_cover']) ? $_POST['shop_broadband_cover'] : "";
+
+            $sh = new Shop();
+            $sh->setTime(date("Y-m-d H:i:s"));
+            $sh->setShopUser($userObj);
+            $sh->setShop209($shop209);
+            $sh->setShopName($shopName);
+            $sh->setShopLandline($shopLandLine);
+            $sh->setShop280($shop280);
+            $sh->setShopAddr($shopAddress);
+            $sh->setShopBroadbandCover($shopBroadbandCover);
+            $sh->setShopContact1($shopContact1);
+            $sh->setShopContact2($shopContact2);
+            $sh->setShopMemNum($shopMemNum);
+            $sh->setShopGroupNet($shopGroupNet);
+            $sh->setShopOperator($shopOperator);
+            $sh->setShopStreet($shopStreet);
+            $sh->setShopType($shopType);
+            $sh->setShopLng($shopLng);
+            $sh->setShopLat($shopLat);
+            $code = '';
+            for ($i = 0; $i < 7; $i++) {
+                $code .= range('a', 'z')[random_int(0, 25)];
             }
+            $sh->setShopUniqueCode($code);
+            $this->entityManager->persist($sh);
+            $this->entityManager->flush($sh);
             $ret = true;
         } catch (Exception $e) {
             $ret = false;
@@ -153,6 +190,82 @@ class MainApp extends App
             echo json_encode(array("message" => "添加成功!"));
         }
     }
+
+//    private
+//    function testSaveShop()
+//    {
+//
+//        $shopName = $_POST['shop_name'] = "安岳测试2";
+//        $_POST['shop_lng'] = '1234.233435454';
+//        $_POST['shop_lat'] = '12.2324343';
+//        $_POST['shop_209'] = '12.2324343';
+//        $_POST['shop_contact1'] = '13678054215';
+//        $_POST['shop_mem_num'] = '23';
+//        $_POST['shop_broadband_cover'] = '是';
+//        $this->shopRepo = $this->entityManager->getRepository("Shop");
+//        $this->userRepo = $this->entityManager->getRepository("User");
+//
+//        $shops = $this->shopRepo->findAll();
+//        foreach ($shops as $addedShop) {
+//            if ($addedShop instanceof Shop) {
+//                if ($addedShop->getShopName() == $shopName) {
+//                    echo json_encode(array("message" => "店铺名已经存在，请重新输入！", "error" => "error"));
+//                    return;
+//                }
+//            }
+//        }
+//        $userObj = $this->userRepo->find(1);
+//        try {
+//            $shopLng = isset($_POST['shop_lng']) ? $_POST['shop_lng'] . "" : "";
+//            $shopLat = isset($_POST['shop_lat']) ? $_POST['shop_lat'] . "" : "";
+//            $shop209 = isset($_POST['shop_209']) ? $_POST['shop_209'] : "";
+//            $shop280 = isset($_POST['shop_280']) ? $_POST['shop_280'] : "";
+//            $shopName = isset($_POST['shop_name']) ? $_POST['shop_name'] : "";
+//            $shopLandLine = isset($_POST['shop_landline']) ? $_POST['shop_landline'] : "";
+//            $shopAddress = isset($_POST['shop_addr']) ? $_POST['shop_addr'] : "";
+//            $shopType = isset($_POST['shop_type']) ? $_POST['shop_type'] : "";
+//            $shopMemNum = isset($_POST['shop_mem_num']) ? $_POST['shop_mem_num'] : "";
+//            $shopOperator = isset($_POST['shop_operator']) ? $_POST['shop_operator'] : "";
+//            $shopContact2 = isset($_POST['shop_contact2']) ? $_POST['shop_contact2'] : "";
+//            $shopContact1 = isset($_POST['shop_contact1']) ? $_POST['shop_contact1'] : "";
+//            $shopGroupNet = isset($_POST['shop_group_net']) ? $_POST['shop_group_net'] : "";
+//            $shopStreet = isset($_POST['shop_street']) ? $_POST['shop_street'] : "";
+//            $shopBroadbandCover = isset($_POST['shop_broadband_cover']) ? $_POST['shop_broadband_cover'] : "";
+//
+//            $sh = new Shop();
+//            $sh->setTime(date("Y-m-d H:i:s"));
+//            $sh->setShopUser($userObj);
+//            $sh->setShop209($shop209);
+//            $sh->setShopName($shopName);
+//            $sh->setShopLandline($shopLandLine);
+//            $sh->setShop280($shop280);
+//            $sh->setShopAddr($shopAddress);
+//            $sh->setShopBroadbandCover($shopBroadbandCover);
+//            $sh->setShopContact1($shopContact1);
+//            $sh->setShopContact2($shopContact2);
+//            $sh->setShopMemNum($shopMemNum);
+//            $sh->setShopGroupNet($shopGroupNet);
+//            $sh->setShopOperator($shopOperator);
+//            $sh->setShopStreet($shopStreet);
+//            $sh->setShopType($shopType);
+//            $sh->setShopLng($shopLng);
+//            $sh->setShopLat($shopLat);
+//            $code = '';
+//            for ($i = 0; $i < 7; $i++) {
+//                $code .= range('a', 'z')[random_int(0, 25)];
+//            }
+//            $sh->setShopUniqueCode($code);
+//            $this->entityManager->persist($sh);
+//            $this->entityManager->flush($sh);
+//            $ret = true;
+//        } catch (Exception $e) {
+//            $ret = false;
+//            echo json_encode(array("message" => $e->getMessage(), "error" => "error"));
+//        }
+//        if ($ret) {
+//            echo json_encode(array("message" => "添加成功!"));
+//        }
+//    }
 
     private
     function searchKeyWord($keyWord)
@@ -167,28 +280,41 @@ class MainApp extends App
     function actionEditShop($id)
     {
         try {
-            $shopRep = $this->entityManager->getRepository("Shop");
-            if ($shopRep instanceof ShopRepository) {
-                $shopObj = $shopRep->getShopArrayFromRequest($_REQUEST);
-                $shopEntity = $shopRep->find($id);
-                $shopEntity->setShop209($shopObj['shop209']);
-                $shopEntity->setShopName($shopObj['shopName']);
-                $shopEntity->setShopLandline($shopObj['shopLandLine']);
-                $shopEntity->setShop280($shopObj['shop280']);
-                $shopEntity->setShopAddr($shopObj['shopAddress']);
-                $shopEntity->setShopBroadbandCover($shopObj['shopBroadbandCover']);
-                $shopEntity->setShopContact1($shopObj['shopContact1']);
-                $shopEntity->setShopContact2($shopObj['shopContact2']);
-                $shopEntity->setShopMemNum($shopObj['shopMemNum']);
-                $shopEntity->setShopGroupNet($shopObj['shopGroupNet']);
-                $shopEntity->setShopOperator($shopObj['shopOperator']);
-                $shopEntity->setShopStreet($shopObj['shopStreet']);
-                $shopEntity->setShopType($shopObj['shopType']);
-                $shopEntity->setShopLng($shopObj['shopLng']);
-                $shopEntity->setShopLat($shopObj['shopLat']);
-                $this->entityManager->persist($shopEntity);
-                $this->entityManager->flush();
-            }
+            $shopLng = isset($_POST['shop_lng']) ? $_POST['shop_lng'] . "" : "";
+            $shopLat = isset($_POST['shop_lat']) ? $_POST['shop_lat'] . "" : "";
+            $shop209 = isset($_POST['shop_209']) ? $_POST['shop_209'] : "";
+            $shop280 = isset($_POST['shop_280']) ? $_POST['shop_280'] : "";
+            $shopName = isset($_POST['shop_name']) ? $_POST['shop_name'] : "";
+            $shopLandLine = isset($_POST['shop_landline']) ? $_POST['shop_landline'] : "";
+            $shopAddress = isset($_POST['shop_addr']) ? $_POST['shop_addr'] : "";
+            $shopType = isset($_POST['shop_type']) ? $_POST['shop_type'] : "";
+            $shopMemNum = isset($_POST['shop_mem_num']) ? $_POST['shop_mem_num'] : "";
+            $shopOperator = isset($_POST['shop_operator']) ? $_POST['shop_operator'] : "";
+            $shopContact2 = isset($_POST['shop_contact2']) ? $_POST['shop_contact2'] : "";
+            $shopContact1 = isset($_POST['shop_contact1']) ? $_POST['shop_contact1'] : "";
+            $shopGroupNet = isset($_POST['shop_group_net']) ? $_POST['shop_group_net'] : "";
+            $shopStreet = isset($_POST['shop_street']) ? $_POST['shop_street'] : "";
+            $shopBroadbandCover = isset($_POST['shop_broadband_cover']) ? $_POST['shop_broadband_cover'] : "";
+
+            $shopEntity = $this->shopRepo->find($id);
+            $shopEntity->setShop209($shop209);
+            $shopEntity->setShopName($shopName);
+            $shopEntity->setShopLandline($shopLandLine);
+            $shopEntity->setShop280($shop280);
+            $shopEntity->setShopAddr($shopAddress);
+            $shopEntity->setShopBroadbandCover($shopBroadbandCover);
+            $shopEntity->setShopContact1($shopContact1);
+            $shopEntity->setShopContact2($shopContact2);
+            $shopEntity->setShopMemNum($shopMemNum);
+            $shopEntity->setShopGroupNet($shopGroupNet);
+            $shopEntity->setShopOperator($shopOperator);
+            $shopEntity->setShopStreet($shopStreet);
+            $shopEntity->setShopType($shopType);
+            $shopEntity->setShopLng($shopLng);
+            $shopEntity->setShopLat($shopLat);
+            $this->entityManager->persist($shopEntity);
+            $this->entityManager->flush($shopEntity);
+
         } catch (Exception $e) {
             echo json_encode(array("message" => "保存失败," . $e->getMessage(), "error" => "error"));
         }
