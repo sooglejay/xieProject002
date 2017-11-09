@@ -434,6 +434,7 @@ $(function () {
                         return;
                     }
 
+                    var openId = res['openId'];
                     var searchWord = getURLParameter("search");
                     $("#btn_submit").click(function () {
                     });
@@ -453,7 +454,7 @@ $(function () {
                             layer.close(index);
                         },
                         no: function (index) {
-                            window.location.href = "home.html";
+                            window.location.href = "home.html?openId=" + openId;
                         }
                     });
                 },

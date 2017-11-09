@@ -59,8 +59,6 @@ class MainApp extends App
             }
         } else if ($actionName == MainApp::$EDIT_SAVE) {
             $this->actionEditShop($_REQUEST['id']);
-        }else{
-            $this->index();
         }
     }
 
@@ -94,6 +92,7 @@ class MainApp extends App
                     }
             }
         }
+        $retArr['openId']=$_SESSION['openId'];
         echo json_encode($retArr);
     }
 
@@ -129,6 +128,7 @@ class MainApp extends App
                     $userModel->setShopNum($num);
                 }
             }
+
             echo json_encode($userModel->toArray());
         }
     }
@@ -190,7 +190,7 @@ class MainApp extends App
             $this->entityManager->persist($sh);
             $this->entityManager->persist($userObj);
             $this->entityManager->flush();
-            echo json_encode(array("message" => "添加成功!" ));
+            echo json_encode(array("message" => "添加成功!" ,"openId"=>$_SESSION['openId']));
         } catch (Exception $e) {
             echo json_encode(array("message" => $e->getMessage(), "error" => "error"));
         }
@@ -243,7 +243,7 @@ class MainApp extends App
             $shopEntity->setShopLat($shopLat);
             $this->entityManager->persist($shopEntity);
             $this->entityManager->flush();
-            echo json_encode(array("message" => "修改成功！"));
+            echo json_encode(array("message" => "修改成功！","openId"=>$_SESSION['openId']));
         } catch (Exception $e) {
             echo json_encode(array("message" => "保存失败," . $e->getMessage(), "error" => "error"));
         }
