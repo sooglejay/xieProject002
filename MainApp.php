@@ -35,7 +35,6 @@ class MainApp extends App
         $this->userRepo = $this->entityManager->getRepository('User');
         $this->shopRepo = $this->entityManager->getRepository('Shop');
 
-
         // check login
         if (isset($_SESSION['userName']) && isset($_SESSION['userId'])) {
             $this->loginUserName = $_SESSION['userName'];
@@ -60,6 +59,8 @@ class MainApp extends App
             }
         } else if ($actionName == MainApp::$EDIT_SAVE) {
             $this->actionEditShop($_REQUEST['id']);
+        }else{
+            $this->index();
         }
     }
 
