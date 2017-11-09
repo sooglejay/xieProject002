@@ -92,6 +92,7 @@ class Login extends App
         if (isset($_REQUEST["openId"])) {
             $this->doLogin();
         } else if (isset($_REQUEST["action"])) {
+
             // session 有些哈货 还没有失效，就无法解绑了
 //            if (isset($_SESSION["openId"])) {
 //                //如果没有失效，就直接跳转到主页了

@@ -126,8 +126,8 @@ class MainApp extends App
                     }
                     $userModel->setShopNum($num);
                 }
-                echo json_encode($userModel->toArray());
             }
+            echo json_encode($userModel->toArray());
         }
     }
 
