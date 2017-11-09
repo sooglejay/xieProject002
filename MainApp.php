@@ -35,6 +35,7 @@ class MainApp extends App
         $this->userRepo = $this->entityManager->getRepository('User');
         $this->shopRepo = $this->entityManager->getRepository('Shop');
 
+
         // check login
         if (isset($_SESSION['userName']) && isset($_SESSION['userId'])) {
             $this->loginUserName = $_SESSION['userName'];
@@ -186,9 +187,9 @@ class MainApp extends App
             }
             $sh->setShopUniqueCode($code);
             $this->entityManager->persist($sh);
-            $id = $this->entityManager->flush($sh);
-            $r = $this->shopRepo->find($id);
-            echo json_encode(array("message" => "添加成功!" . $r->getShopName()));
+            $this->entityManager->persist($userObj);
+            $this->entityManager->flush();
+            echo json_encode(array("message" => "添加成功!" ));
         } catch (Exception $e) {
             echo json_encode(array("message" => $e->getMessage(), "error" => "error"));
         }
@@ -240,7 +241,7 @@ class MainApp extends App
             $shopEntity->setShopLng($shopLng);
             $shopEntity->setShopLat($shopLat);
             $this->entityManager->persist($shopEntity);
-            $this->entityManager->flush($shopEntity);
+            $this->entityManager->flush();
             echo json_encode(array("message" => "修改成功！"));
         } catch (Exception $e) {
             echo json_encode(array("message" => "保存失败," . $e->getMessage(), "error" => "error"));
