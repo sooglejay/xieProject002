@@ -36,7 +36,7 @@ class MainApp extends App
         $this->shopRepo = $this->entityManager->getRepository('Shop');
 
         // check login
-        if (isset($_SESSION['userName'])&&isset($_SESSION['userId'])) {
+        if (isset($_SESSION['userName']) && isset($_SESSION['userId'])) {
             $this->loginUserName = $_SESSION['userName'];
             $this->loginUserId = $_SESSION['userId'];
         } else {
@@ -132,7 +132,6 @@ class MainApp extends App
     private
     function actionSaveShop()
     {
-
         $shopName = $_POST['shop_name'];
         $shops = $this->shopRepo->findAll();
         foreach ($shops as $addedShop) {
@@ -185,14 +184,11 @@ class MainApp extends App
             }
             $sh->setShopUniqueCode($code);
             $this->entityManager->persist($sh);
-            $this->entityManager->flush($sh);
-            $ret = true;
+            $id = $this->entityManager->flush($sh);
+            $r = $this->shopRepo->find($id);
+            echo json_encode(array("message" => "添加成功!" . $r->getShopName()));
         } catch (Exception $e) {
-            $ret = false;
             echo json_encode(array("message" => $e->getMessage(), "error" => "error"));
-        }
-        if ($ret) {
-            echo json_encode(array("message" => "添加成功!"));
         }
     }
 
@@ -243,11 +239,10 @@ class MainApp extends App
             $shopEntity->setShopLat($shopLat);
             $this->entityManager->persist($shopEntity);
             $this->entityManager->flush($shopEntity);
-
+            echo json_encode(array("message" => "修改成功！"));
         } catch (Exception $e) {
             echo json_encode(array("message" => "保存失败," . $e->getMessage(), "error" => "error"));
         }
-        echo json_encode(array("message" => "修改成功！"));
     }
 
 }
