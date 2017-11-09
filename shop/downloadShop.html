@@ -17,7 +17,6 @@
             $.ajax({
                 type: 'GET',
                 url: 'doExcelHandler.php',
-                dataType: 'json',
                 success: function (res) {
                     if (res == 1) {
                         layer.closeAll();

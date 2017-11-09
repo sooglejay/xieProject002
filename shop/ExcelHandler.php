@@ -31,7 +31,7 @@ class ExcelHandler extends App
         try {
             $cacheMethod = PHPExcel_CachedObjectStorageFactory:: cache_to_discISAM;
             $cacheSettings = array(
-                'dir' => './tmp'
+                'dir' => dirname(__FILE__).'/tmp'
             );
             PHPExcel_Settings::setCacheStorageMethod($cacheMethod, $cacheSettings);
 
