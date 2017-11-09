@@ -116,14 +116,16 @@ class MainApp extends App
                         $county = "乐至";
                         break;
                 }
-                $users = $this->userRepo->findBy(array("county" => $county));
-                $num = 0;
-                foreach ($users as $u) {
-                    if ($u instanceof User) {
-                        $num += $u->getShopNum();
+                if ($county == -1) {
+                    $num = 0;
+                    $users = $this->userRepo->findBy(array("county" => $county));
+                    foreach ($users as $u) {
+                        if ($u instanceof User) {
+                            $num += $u->getShopNum();
+                        }
                     }
+                    $userModel->setShopNum($num);
                 }
-                $userModel->setShopNum($num);
                 echo json_encode($userModel->toArray());
             }
         }
