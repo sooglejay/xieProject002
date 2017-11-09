@@ -441,7 +441,6 @@ $(function () {
 
                     var textLeft = (searchWord != null ? "返回上一级" : "继续添加");
                     var textRight = "返回首页";
-                    doExport();
                     layer.open({
                         content: res.message
                         , btn: [textLeft, textRight]
