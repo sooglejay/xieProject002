@@ -41,13 +41,13 @@ class demo
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
         if (isset($xml) &&
-            isset($xml->Content) && trim($xml->Content == "摸底")
+            isset($xml->Content) && trim($xml->Content == "摸底123")
         ) {
             $openId = $this->fromUsername;
             $content = urlencode("请点击http://test.sighub.com/ziyan?openId=" . $openId);
 
             $accessToken = Wechat::accessToken();
-            $url = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" . $accessToken;
+            $url = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" . $accessToken->access_token;
             $arr = array(
                 "touser" => $openId,
                 "msgtype" => "text",
