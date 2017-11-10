@@ -1,8 +1,6 @@
 /**
  * Created by hanke0726 on 2016/7/29.
  */
-
-
 function downUpList(clockNode, selectBox, selectNode) {
     function stopPropagation(e) {
         var e1 = e || event;
@@ -38,16 +36,13 @@ function downUpList(clockNode, selectBox, selectNode) {
     }
 }
 
-function getURLParameter(name) {
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
-}
-function doEdit(id) {
+function doViewShop(id, isForView) {
     $.ajax({
         type: 'post',
-        url: 'MainApp.php',
+        url: 'shop/controller/EditOrReviewApp.php',
         data: {
             id: id,
-            action: "edit"
+            openId: getURLParameter("openId")
         },
         beforeSend: function () {
             box.loadding('正在获取信息,请稍后...');
@@ -61,7 +56,7 @@ function doEdit(id) {
                 console.log("ERROR:" + e);
             }
             if (data != "") {
-                fillForm(data, false);
+                fillForm(data, isForView);
             }
         },
         error: function (e) {
@@ -70,36 +65,7 @@ function doEdit(id) {
         }
     });
 }
-function doView(id) {
-    $.ajax({
-        type: 'post',
-        url: 'MainApp.php',
-        data: {
-            id: id,
-            action: "view"
-        },
-        beforeSend: function () {
-            box.loadding('正在获取信息,请稍后...');
-        },
-        success: function (res) {
-            var data = "";
-            layer.closeAll();
-            try {
-                data = JSON.parse(res);
-            } catch (e) {
-                console.log("ERROR:" + e);
-            }
-            if (data != "") {
-                fillForm(data, true);
-            }
-        },
-        error: function (e) {
-            layer.closeAll();
-            console.log(e);
-        }
-    });
-}
-function fillForm(obj, isDisEnable) {
+function fillForm(obj, isForView) {
     $('#shop_name').val(obj['shop_name']);
     $('#shop_addr').val(obj['shop_addr']);
     $('#shop_street').val(obj['shop_street']);
@@ -114,7 +80,7 @@ function fillForm(obj, isDisEnable) {
     $('#shop_landline').val(obj['shop_landline']);
     $('#shop_mem_num').val(obj['shop_mem_num']);
 
-    if (isDisEnable) {
+    if (isForView) {
         $('#shop_name,' +
             '#shop_addr,' +
             '#shop_street,' +
@@ -142,15 +108,10 @@ function fillForm(obj, isDisEnable) {
 
 $(function () {
     $(".page").css("min-height", $(window).height() + "px");
-
     var id = getURLParameter("id");
     if (id) {
         var flag = getURLParameter("action");
-        if (flag == "edit") {
-            doEdit(id);
-        } else {
-            doView(id);
-        }
+        doViewShop(id, (flag == "view"));
     } else {
         var searchWord = getURLParameter("search");
         if (searchWord) {
@@ -158,8 +119,6 @@ $(function () {
             doSearch();
         }
     }
-
-
 });
 
 function doSearch() {
@@ -171,25 +130,26 @@ function doSearch() {
     }
     $.ajax({
         type: 'post',
-        url: 'MainApp.php',
+        url: 'shop/controller/SearchApp.php',
         dataType: 'json',
-        data: {search: search, action: 'search'},
+        data: {search: search},
         beforeSend: function () {
             box.loadding('正在搜索,请稍等...');
         },
         success: function (res) {
-
             layer.closeAll();
-            if (res.hasOwnProperty("errorCode")) {
-                box.msg(res.message);
+            var result = JSON.parse(res);
+            if (result["code"] != 200) {
+                box.msg(result["message"]);
                 return;
             }
-            if (res.length < 1) {
+            var data = result["data"];
+            if (data == undefined || data.length < 1) {
                 box.msg("没有搜索到任何有关" + search + "的结果");
                 return;
             }
             var list = '';
-            $.each(res, function (i, item) {
+            $.each(data, function (i, item) {
                 var editText = '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="btn-xgzl">修改资料</a>';
                 var classSee = "btn-ckxq";
                 if (item.hasOwnProperty("owner")) {
@@ -225,24 +185,6 @@ function doSearch() {
         }
     });
 }
-function doExport() {
-    $.ajax({
-        type: 'POST',
-        url: 'shop/doExcelHandler.php',
-        data: {
-            'd': 'd'
-        },
-        dataType: 'json',
-
-        success: function (res) {
-            console.log(res);
-        },
-        error: function (e) {
-            console.log(e);
-        }
-    });
-
-}
 
 $(function () {
     downUpList($(".se-qylb"), $(".select-hangye"), $(".select-hangye ul li"));
@@ -250,43 +192,6 @@ $(function () {
     downUpList($(".se-ztzw"), $(".select_ztzw"), $(".select_ztzw ul li"));
     downUpList($(".se-kdfg"), $(".select_kdfg"), $(".select_kdfg ul li"));
     $(".select_magistrate").css("margin-top", -($(".select_magistrate").height() / 2) + "px");
-
-
-    // 操作
-    $('#btn_login').on('click', function () {
-        var username = $.trim($('#username').val());
-        var password = $.trim($('#password').val());
-
-        if (username == '') {
-            box.msg('请输入账号！');
-            return false;
-        }
-
-        if (password == '') {
-            box.msg('请输入密码！');
-            return false;
-        }
-
-        $.ajax({
-            type: 'post',
-            url: 'http://wx.hankedata.com/index.php?part=index&openid=' + request('openid') + '&appid=' + request('appid'),
-            data: {
-                username: username,
-                password: password
-            },
-            beforeSend: function () {
-                box.loadding('正在登陆,请稍后...');
-            },
-            success: function (res) {
-                layer.closeAll();
-                if (res.errcode == 0) {
-                    window.location.href = res.href;
-                } else {
-                    box.msg(res.message);
-                }
-            }
-        });
-    });
 
     // 商铺信息录入
     $('#btn_submit').on('click', function () {
@@ -399,13 +304,15 @@ $(function () {
             }
 
             var id = getURLParameter("id");
+            var openId = getURLParameter("openId");
 
             $.ajax({
                 type: 'POST',
-                url: 'MainApp.php',
+                url: 'shop/controller/SaveApp.php',
                 dataType: 'json',
                 data: {
                     id: id ? id : "",
+                    openId: openId,
                     action: (id == null ? 'save_shop' : 'edit_save_shop'),
                     shop_name: shop_name,
                     shop_addr: shop_addr,
