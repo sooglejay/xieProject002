@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . "/Core/Wechat.php";
+
 /**
  * 这个类是对接微信公众号平台的，之前一直是别人的服务器，所以微信只给他发
  * 现在换做了我们的了，我们就终于可以获取openid了！
@@ -38,25 +40,42 @@ class demo
     {
         $data = file_get_contents("php://input");
         $xml = simplexml_load_string($data, 'SimpleXMLElement', LIBXML_NOCDATA);
-//        $wholeFile = dirname(__FILE__) . '/../file_cache/wholeText.txt';
-//        file_put_contents($wholeFile, json_encode($xml));
         if (isset($xml) &&
-            isset($xml->FromUserName) &&
-            isset($xml->ToUserName) &&
-            isset($xml->Content)&&$xml->Content=="摸底"
+            isset($xml->Content) && trim($xml->Content == "摸底")
         ) {
-            $this->fileCachePath = dirname(__FILE__) . '/../file_cache/openId.txt';
-            $this->fromUsername = $xml->FromUserName;
-            $this->toUsername = $xml->ToUserName;
-            $this->keyword = trim($xml->Content);
+            $openId = $this->fromUsername;
+            $content = urlencode("请点击http://test.sighub.com/ziyan?openId=" . $openId);
+
+            $accessToken = Wechat::accessToken();
+            $url = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" . $accessToken;
             $arr = array(
-                "openId" => $this->fromUsername
+                "touser" => $openId,
+                "msgtype" => "text",
+                "text" => array("content" => $content)
             );
-            $this->writeArrayToFile($arr);
+            $this->httpRequest($url, urldecode(json_encode($arr)));
         }
         if (isset($_GET["signature"])) {
             $this->checkSignature();
         }
+    }
+
+    private function httpRequest($url, $data = null)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+        if (!is_null($data)) {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        return $output;
     }
 
     public function writeArrayToFile($arr)

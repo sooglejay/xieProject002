@@ -1,34 +1,38 @@
 /**
  * Created by sooglejay on 17/8/24.
  */
-var openId = "";
 $(function () {
-    box.loadding('加载中...');
-    checkLogin();
-    $("#btnLogin").click(function () {
-        login();
-    });
+    var openId = getURLParameter('openId');
+    if (openId == undefined || openId.length < 5) {
+        $("body").html("未能获取用户信息，请在资阳微信公众号中点击图文消息进入!");
+    } else {
+        checkLogin(openId);
+    }
 });
 
-function checkLogin() {
+function checkLogin(openId) {
+    // pre-config
+    box.loadding('加载中...');
+    $("#btnLogin").click(function () {
+        login(openId);
+    });
+
     $.ajax({
         type: 'POST',
-        url: 'Login.php',
+        url: 'shop/controller/Login.php',
         data: {
-            action: "checkUserIsLogin"
+            checkLogin: "checkUserIsLogin",
+            openId: openId
         },
         dataType: 'json',
         success: function (res) {
-            openId = res["openId"];
-            console.log("jiangwei says:" + res);
+            console.log("jiangwei says:" + res + openId);
             var code = res.code;
             if (code == 200 && openId.length > 5) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
-            else if (code == 503) {
+            else if (res.error) {
                 alert("error!" + res["error"]);
-            } else if (code == 201) {
-                console.log(openId + " please login ! jiangwei ");
             }
             layer.closeAll();
         },
@@ -38,7 +42,7 @@ function checkLogin() {
         }
     });
 }
-function login() {
+function login(openId) {
     var userName = $("#userName").val();
     var password = $("#password").val();
     if (!userName || userName.length < 1) {
@@ -49,13 +53,9 @@ function login() {
         box.msg("请输入密码");
         return;
     }
-    if (!openId || openId.length < 1) {
-        box.msg("微信openId为空，请在微信中使用！");
-        return;
-    }
     $.ajax({
         type: 'POST',
-        url: 'Login.php',
+        url: 'shop/controller/Login.php',
         data: {
             'userName': userName, 'password': password, 'openId': openId
         },
@@ -68,7 +68,7 @@ function login() {
             if (res.error) {
                 box.msg(res.message);
             } else {
-                window.location.href = '/ziyan/home.html?openId=' + res["openId"];
+                window.location.href = '/ziyan/home.html?openId=' + openId;
             }
         },
         error: function (e) {

@@ -2,13 +2,26 @@
  * Created by sooglejay on 17/8/24.
  */
 $(function () {
-    loadData();
+    var openId = getURLParameter("openId");
+    if (openId == undefined || openId.length < 5) {
+        box.msg("请在资阳微信公众号中点击图文消息进入!");
+    } else {
+        loadData(openId);
+        $("#searchBtn").click(function () {
+            window.location.href = "search.html?openId="+openId;
+        });
+        $("#addBtn").click(function () {
+            window.location.href = "fill_info.html?openId="+openId;
+        });
+    }
 });
-function loadData() {
+function loadData(openId) {
     $.ajax({
         type: 'POST',
-        url: 'MainApp.php',
-        data: {action: "index"},
+        url: 'shop/controller/Index.php',
+        data: {
+            'openId': openId
+        },
         dataType: 'json',
         beforeSend: function () {
             box.loadding('加载中...');
