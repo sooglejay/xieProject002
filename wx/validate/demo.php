@@ -46,13 +46,14 @@ class demo
             $openId = $this->fromUsername;
             $content = urlencode("请点击http://test.sighub.com/ziyan?openId=" . $openId);
 
-            $accessToken = Wechat::accessToken();
-            $url = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" . $accessToken->access_token;
+            $accessToken = "ZKl-Eh2zMVTKHUhgARdOz2IlP8DXUEwpzlj_PjQgqKeKnhdo1J7sj2SPhVfSMJ4P352li3xTzdyPNxH8JVQgVZMSHMLk1qGqhuB2kY2ySekvbsdMtGBSt__LEZC2F9nmEQBjCHAIUF";
+            $url = "https://api.weixin.qq.com/customservice/kfaccount/add?access_token=" . $accessToken;
             $arr = array(
                 "touser" => $openId,
                 "msgtype" => "text",
                 "text" => array("content" => $content)
             );
+            echo 1234;
             $this->httpRequest($url, urldecode(json_encode($arr)));
         }
         if (isset($_GET["signature"])) {
