@@ -33,12 +33,13 @@ function loadData(openId) {
                 window.location.href = "index.html?openId=" + openId;
                 return;
             }
-            $('#county').text(res["county"]);
-            $('#area_name').text(res["area_name"]);
-            $('#grid_name').text(res["grid_name"]);
-            $('#code').text(res["code"]);
-            $('#selling_area_name').text(res["selling_area_name"]);
-            $('#shop_num').text(res["shop_num"]);
+            var result = res["data"];
+            $('#county').text(result["county"]);
+            $('#area_name').text(result["area_name"]);
+            $('#grid_name').text(result["grid_name"]);
+            $('#code').text(result["code"]);
+            $('#selling_area_name').text(result["selling_area_name"]);
+            $('#shop_num').text(result["shop_num"]);
         },
         error: function (e) {
             layer.closeAll();
