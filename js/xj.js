@@ -132,7 +132,10 @@ function doSearch() {
         type: 'post',
         url: 'shop/controller/SearchApp.php',
         dataType: 'json',
-        data: {search: search},
+        data: {
+            search: search,
+            openId:getURLParameter('openId')
+        },
         beforeSend: function () {
             box.loadding('正在搜索,请稍等...');
         },
