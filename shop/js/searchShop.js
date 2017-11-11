@@ -50,7 +50,7 @@ function doSearch(search) {
     }
     $.ajax({
         type: 'post',
-        url: 'shop/controller/SearchApp.php',
+        url: 'controller/SearchApp.php',
         dataType: 'json',
         data: {
             search: search,

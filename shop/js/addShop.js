@@ -153,7 +153,7 @@ function addShop() {
 
     $.ajax({
         type: 'POST',
-        url: 'shop/controller/SaveApp.php',
+        url: 'controller/SaveApp.php',
         dataType: 'json',
         data: {
             id: id ? id : "",
