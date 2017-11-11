@@ -98,7 +98,7 @@ function fillForm(obj, isForView) {
         $("#btn_submit").html("返回");
         var searchWord = getURLParameter("search");
         $("#btn_submit").click(function () {
-            window.location.href = "search.html?openId="+getURLParameter('openId')+"&search=" + searchWord;
+            window.location.href = "search.html?openId=" + getURLParameter('openId') + "&search=" + searchWord;
         });
     } else {
         $("#btn_submit").html("保存修改");
@@ -134,7 +134,7 @@ function doSearch() {
         dataType: 'json',
         data: {
             search: search,
-            openId:getURLParameter('openId')
+            openId: getURLParameter('openId')
         },
         beforeSend: function () {
             box.loadding('正在搜索,请稍等...');
@@ -156,7 +156,7 @@ function doSearch() {
                 var classSee = "btn-ckxq";
                 if (item.hasOwnProperty("owner")) {
                     var owner = item["owner"];
-                    if (!owner) {
+                    if (owner == "0") {
                         editText = '';
                         classSee = "btn-ckxq-without";
                     }
@@ -355,7 +355,7 @@ $(function () {
                         , btn: [textLeft, textRight]
                         , yes: function (index) {
                             if (searchWord != null) {
-                                window.location.href = "search.html?openId=" + openId+"&search=" + searchWord;
+                                window.location.href = "search.html?openId=" + openId + "&search=" + searchWord;
                             } else {
                                 window.location.reload();
                             }
@@ -383,14 +383,14 @@ $(function () {
     $('#result').delegate('.btn-ckxq,.btn-ckxq-without', 'click', function () {
         var id = $(this).data('id');
         var searchWord = $(this).data('search');
-        window.location.href = 'fill_info.html?openId='+getURLParameter('openId')+'&id=' + id + "&action=view&search=" + searchWord;
+        window.location.href = 'fill_info.html?openId=' + getURLParameter('openId') + '&id=' + id + "&action=view&search=" + searchWord;
     });
 
 // 修改资料
     $('#result').delegate('.btn-xgzl', 'click', function () {
         var id = $(this).data('id');
         var searchWord = $(this).data('search');
-        window.location.href = 'fill_info.html?openId='+getURLParameter('openId')+'&id=' + id + "&action=edit&search=" + searchWord;
+        window.location.href = 'fill_info.html?openId=' + getURLParameter('openId') + '&id=' + id + "&action=edit&search=" + searchWord;
     });
 
 });
