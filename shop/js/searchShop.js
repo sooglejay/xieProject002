@@ -109,6 +109,7 @@ $(function () {
     $(".page").css("min-height", $(window).height() + "px");
     var searchKeyWord = getURLParameter("search");
     if (searchKeyWord != undefined) {
+        $("#shop_name").val(searchKeyWord);
         doSearch(searchKeyWord);
     }
     $('#btn_search').click(function () {
