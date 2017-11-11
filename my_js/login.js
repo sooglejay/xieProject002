@@ -28,7 +28,7 @@ function checkLogin(openId) {
         success: function (res) {
             console.log("jiangwei says:" + res + openId);
             var code = res.code;
-            if (code == 200 && openId.length > 5) {
+            if (code == 200 && openId.length == 28) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
             }
             else if (res.error) {

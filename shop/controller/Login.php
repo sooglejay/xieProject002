@@ -20,18 +20,20 @@ class Login extends App
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
-        $isLogin = false;
+        $code = 201;
+        $error = null;
+        $message = null;
         try {
             $userEntity = $this->userRepo->findOneBy(array("openId" => $openId));
             if (!is_null($userEntity) && $userEntity instanceof User) {
-                $_SESSION['openId'] = $openId;
-                $isLogin = true;
+                $code = 200;
+                $message = "登录成功！";
             }
-            $result = array("isLogin" => $isLogin, "openId" => $openId, "code" => 200);
         } catch (Exception $e) {
-            $result = array("isLogin" => false, "error" => "查询失败", "message" => $e->getMessage(), "code" => 201);
+            $error = "查询失败";
+            $message = $e->getMessage();
         }
-        return $result;
+        return array("openId" => $openId, "code" => $code, "message" => $message, "error" => $error);
     }
 
     /**
@@ -43,7 +45,7 @@ class Login extends App
         if (is_null($this->userRepo)) {
             $this->userRepo = $this->entityManager->getRepository('User');
         }
-        if (is_null($openId) || strlen($openId) < 5) return;
+        if (!$this->checkOpenIdValidation($openId)) return;
         $existEntities = $this->userRepo->findBy(array("openId" => $openId));
         foreach ($existEntities as $entity) {
             if ($entity instanceof User) {
@@ -63,7 +65,7 @@ class Login extends App
             return array("code" => 201, "message" => "openId 不合法，请重新进入公众号点击图文消息！", "error" => "error");
         }
         if (!isset($userName) || !isset($psw)) {
-            return array("message" => "请输入用户名或密码登录！", "error" => "error");
+            return array("code" => 201, "message" => "请输入用户名或密码登录！", "error" => "error");
         }
         if ($psw != "123456") {
             return array("message" => "用户名或密码错误！请重新输入", "error" => "error");
@@ -78,9 +80,9 @@ class Login extends App
             $this->entityManager->persist($loginUserEntity);
             $this->entityManager->flush();
             $_SESSION['openId'] = $openId;
-            $resArr = array("code" => 200, "message" => "登录成功！", "openId" => $openId, "object" => $loginUserEntity->toArray());
+            $resArr = array("code" => 200, "message" => "登录成功！", "openId" => $openId);
         } else {
-            $resArr = array("code" => 201, "message" => "登录失败，用户名或密码不正确！", "error" => "error");
+            $resArr = array("code" => 201, "message" => "登录失败，用户名或密码不正确！", "openId" => $openId, "error" => "error");
         }
         return $resArr;
     }
