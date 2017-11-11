@@ -16,7 +16,7 @@ function getWxInfo() {
     var verifyUrl = 'http://test.sighub.com/ziyan';
     $.ajax({
         type: 'GET',
-        url: '/wx/signature.php',
+        url: 'wx/signature.php',
         data: {url: verifyUrl},
         async: false,
         dataType: 'json',

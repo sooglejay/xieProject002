@@ -23,7 +23,7 @@ function checkLogin(openId) {
 
     $.ajax({
         type: 'POST',
-        url: 'shop/controller/Login.php',
+        url: 'controller/Login.php',
         data: {
             checkLogin: "checkUserIsLogin",
             openId: openId
@@ -59,7 +59,7 @@ function login(openId) {
     }
     $.ajax({
         type: 'POST',
-        url: 'shop/controller/Login.php',
+        url: 'controller/Login.php',
         data: {
             'userName': userName, 'password': password, 'openId': openId
         },
