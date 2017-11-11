@@ -6,8 +6,8 @@
  * Time: 18:19
  */
 require_once dirname(__FILE__) . "/ExcelHandler.php";
-require_once dirname(__FILE__) . "/../bootstrap.php";
-require_once dirname(__FILE__) . "/../model/ExcelFlag.php";
+require_once dirname(__FILE__) . "/../../bootstrap.php";
+require_once dirname(__FILE__) . "/../../model/ExcelFlag.php";
 
 class doExcelHandler extends App
 {
