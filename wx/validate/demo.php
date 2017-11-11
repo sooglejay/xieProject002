@@ -117,7 +117,10 @@ Weixin::instance()->setCallback(Weixin::TYPE_UNDEFINED, 'catchAll')
 function catchAll(WeixinResult $data)
 {
     $weixin = Weixin::instance();
-    $weixin->responseText('Hello World,接受到一条' . $data->MsgType . '消息');
+    if($data->Content=="摸底"){
+        $weixin->responseText('您好，请点击访问商铺系统'.'http://test.sighub.com/ziyan?openId='.$data->FromUserName);
+//        $weixin->responseNews();
+    }
 }
 
 class DemoClass
