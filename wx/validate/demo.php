@@ -120,7 +120,7 @@ function catchAll(WeixinResult $data)
     if ($data->Content == "摸底") {
         $articles = array(
             'title' => "商铺信息登记系统",
-            'picurl' => 'http://test.sighub.com/shop/image/pic_url.jpg',
+            'picurl' => 'http://test.sighub.com/ziyan/shop/image/pic_url.jpg',
             'url' => 'http://test.sighub.com/ziyan?openId=' . $data->FromUserName
         );
         $weixin->responseNews(array($articles));
