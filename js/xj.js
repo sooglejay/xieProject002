@@ -98,7 +98,7 @@ function fillForm(obj, isForView) {
         $("#btn_submit").html("返回");
         var searchWord = getURLParameter("search");
         $("#btn_submit").click(function () {
-            window.location.href = "search.html?search=" + searchWord;
+            window.location.href = "search.html?openId="+getURLParameter('openId')+"&search=" + searchWord;
         });
     } else {
         $("#btn_submit").html("保存修改");
@@ -355,7 +355,7 @@ $(function () {
                         , btn: [textLeft, textRight]
                         , yes: function (index) {
                             if (searchWord != null) {
-                                window.location.href = "search.html?search=" + searchWord;
+                                window.location.href = "search.html?openId=" + openId+"&search=" + searchWord;
                             } else {
                                 window.location.reload();
                             }
@@ -383,14 +383,14 @@ $(function () {
     $('#result').delegate('.btn-ckxq,.btn-ckxq-without', 'click', function () {
         var id = $(this).data('id');
         var searchWord = $(this).data('search');
-        window.location.href = 'fill_info.html?id=' + id + "&action=view&search=" + searchWord;
+        window.location.href = 'fill_info.html?openId='+getURLParameter('openId')+'&id=' + id + "&action=view&search=" + searchWord;
     });
 
 // 修改资料
     $('#result').delegate('.btn-xgzl', 'click', function () {
         var id = $(this).data('id');
         var searchWord = $(this).data('search');
-        window.location.href = 'fill_info.html?id=' + id + "&action=edit&search=" + searchWord;
+        window.location.href = 'fill_info.html?openId='+getURLParameter('openId')+'&id=' + id + "&action=edit&search=" + searchWord;
     });
 
 });
