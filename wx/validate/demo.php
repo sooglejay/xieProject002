@@ -121,7 +121,7 @@ function catchAll(WeixinResult $data)
         $articles = array(
             'title' => "商铺信息登记系统",
             'picurl' => 'http://test.sighub.com/ziyan/shop/image/pic_url.jpg',
-            'url' => 'http://test.sighub.com/ziyan/shop?openId=' . $data->FromUserName
+            'url' => 'http://test.sighub.com/ziyan/shop/html?openId=' . $data->FromUserName
         );
         $weixin->responseNews(array($articles));
     }
