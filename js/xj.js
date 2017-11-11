@@ -141,12 +141,11 @@ function doSearch() {
         },
         success: function (res) {
             layer.closeAll();
-            var result = JSON.parse(res);
-            if (result["code"] != 200) {
-                box.msg(result["message"]);
+            if (res["code"] != 200) {
+                box.msg(res["message"]);
                 return;
             }
-            var data = result["data"];
+            var data = res["data"];
             if (data == undefined || data.length < 1) {
                 box.msg("没有搜索到任何有关" + search + "的结果");
                 return;
