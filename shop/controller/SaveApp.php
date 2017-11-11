@@ -96,7 +96,7 @@ class SaveApp extends App
             $this->entityManager->persist($sh);
             $this->entityManager->persist($userEntity);
             $this->entityManager->flush();
-            return array("message" => "添加成功!", "openId" => $_SESSION['openId']);
+            return array("message" => "添加成功!", "openId" => $openId);
         } catch (Exception $e) {
             return array("message" => $e->getMessage(), "error" => "error");
         }
@@ -153,7 +153,7 @@ class SaveApp extends App
             $shopEntity->setShopLat($shopLat);
             $this->entityManager->persist($shopEntity);
             $this->entityManager->flush();
-            return array("code" => 200, "message" => "修改成功！");
+            return array("code" => 200, "message" => "修改成功！","openId" => $openId);
         } catch (Exception $e) {
             return array("code" => 200, "message" => "保存失败," . $e->getMessage(), "error" => "error");
         }
