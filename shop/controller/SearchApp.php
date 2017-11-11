@@ -55,7 +55,7 @@ class SearchApp extends App
 
     private function searchShopForAdmin($keyWord, $adminUserId)
     {
-        $a = "SELECT * , IF(sh.shopUser_id=$adminUserId,1,0) as owner FROM shop as sh WHERE  shop_name LIKE  '%" . $keyWord . "%'";
+        $a = "SELECT * , IF(sh.shopUser_id=$adminUserId,true,false) as owner FROM shop as sh WHERE  shop_name LIKE  '%" . $keyWord . "%'";
         $stmt = $this->entityManager->getConnection()->prepare($a);
         $stmt->execute();
         return $stmt->fetchAll();
