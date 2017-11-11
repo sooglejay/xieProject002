@@ -7,6 +7,17 @@
 
 2017-08-23
 
+
+2017-11-11
+代码重构
+1、将商铺代码全部重写，移动到/shop目录下
+2、将微信认证、缓存、图片等，对于每一个活动，单独使用，放置到/activity目录下
+3、降低活动之间的耦合
+4、如果活动下线直接删除activity下的目录即可
+
+
+Doctrine 数据库管理快捷命令
+
 //全部删除
 vendor/bin/doctrine orm:schema-tool:drop --force
 
