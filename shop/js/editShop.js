@@ -156,7 +156,7 @@ function addShop() {
 
     $.ajax({
         type: 'POST',
-        url: 'controller/SaveApp.php',
+        url: './../controller/SaveApp.php',
         dataType: 'json',
         data: {
             id: id ? id : "",
@@ -220,7 +220,7 @@ function addShop() {
 function doEditShop(id) {
     $.ajax({
         type: 'post',
-        url: 'controller/EditOrReviewApp.php',
+        url: './../controller/EditOrReviewApp.php',
         data: {
             id: id,
             openId: getURLParameter("openId")

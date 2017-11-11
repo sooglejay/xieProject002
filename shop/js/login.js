@@ -23,7 +23,7 @@ function checkLogin(openId) {
 
     $.ajax({
         type: 'POST',
-        url: 'controller/Login.php',
+        url: './../controller/Login.php',
         data: {
             checkLogin: "checkUserIsLogin",
             openId: openId
@@ -33,7 +33,7 @@ function checkLogin(openId) {
             console.log("jiangwei says:" + res + openId);
             var code = res.code;
             if (code == 200 && openId.length == 28) {
-                window.location.href = '/ziyan/home.html?openId=' + openId;
+                window.location.href = 'home.html?openId=' + openId;
             }
             else if (res.error) {
                 alert("error!" + res["error"]);
@@ -59,7 +59,7 @@ function login(openId) {
     }
     $.ajax({
         type: 'POST',
-        url: 'controller/Login.php',
+        url: './../controller/Login.php',
         data: {
             'userName': userName, 'password': password, 'openId': openId
         },
@@ -70,7 +70,7 @@ function login(openId) {
         success: function (res) {
             layer.closeAll();
             if (res.code == 200) {
-                window.location.href = '/ziyan/home.html?openId=' + openId;
+                window.location.href = 'home.html?openId=' + openId;
             } else {
                 box.msg(res.message);
             }

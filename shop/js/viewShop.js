@@ -44,7 +44,7 @@ function downUpList(clockNode, selectBox, selectNode) {
 function doViewShop(id) {
     $.ajax({
         type: 'post',
-        url: 'shop/controller/EditOrReviewApp.php',
+        url: './../controller/EditOrReviewApp.php',
         data: {
             id: id,
             openId: getURLParameter("openId")
