@@ -18,7 +18,7 @@ class IndexApp extends App
     {
         parent::__construct();
         if ($this->isLogin()) {
-            echo json_encode($this->doShowPage());
+            echo json_encode(array("code" => 200, "data" => $this->doShowPage()));
         } else {
             echo json_encode(array("code" => 201, "message" => "您未登录，请重新进入公众号点击图文消息！", "error" => "error"));
         }
