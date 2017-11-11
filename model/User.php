@@ -1,7 +1,8 @@
 <?php
-ini_set('date.timezone','Asia/Shanghai');
+ini_set('date.timezone', 'Asia/Shanghai');
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
 
 require_once 'Shop.php';
 
@@ -10,7 +11,8 @@ require_once 'Shop.php';
  * User: sooglejay
  * Date: 17/8/23
  * Time: 22:34
- * @Entity @Table(name="user")
+ * @Entity(repositoryClass="UserRepository")
+ * @Table(name="user")
  */
 class User
 {
@@ -79,6 +81,7 @@ class User
         $this->assignedShop[] = $shop;
         $this->shop_num++;
     }
+
     public function clearShops()
     {
         $this->assignedShop = new ArrayCollection();
@@ -243,5 +246,10 @@ class User
             "shop_num" => $this->shop_num,
         );
     }
+
+}
+
+class UserRepository extends EntityRepository
+{
 
 }
