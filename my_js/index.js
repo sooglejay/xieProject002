@@ -29,7 +29,7 @@ function loadData(openId) {
         success: function (res) {
             layer.closeAll();
             if (res.error) {
-                window.location.href = "index.html";
+                window.location.href = "index.html?openId="+openId;
                 return;
             }
             $('#county').text(res["county"]);
