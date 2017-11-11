@@ -8,10 +8,10 @@ $(function () {
     } else {
         loadData(openId);
         $("#searchBtn").click(function () {
-            window.location.href = "search.html?openId="+openId;
+            window.location.href = "search.html?openId=" + openId;
         });
         $("#addBtn").click(function () {
-            window.location.href = "fill_info.html?openId="+openId;
+            window.location.href = "fill_info.html?openId=" + openId;
         });
     }
 });
@@ -28,8 +28,9 @@ function loadData(openId) {
         },
         success: function (res) {
             layer.closeAll();
-            if (res.error) {
-                window.location.href = "index.html?openId="+openId;
+            if (res.code != 200) {
+                box.msg(res.message);
+                window.location.href = "index.html?openId=" + openId;
                 return;
             }
             $('#county').text(res["county"]);

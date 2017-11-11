@@ -65,10 +65,10 @@ function login(openId) {
         },
         success: function (res) {
             layer.closeAll();
-            if (res.error) {
-                box.msg(res.message);
-            } else {
+            if (res.code == 200) {
                 window.location.href = '/ziyan/home.html?openId=' + openId;
+            } else {
+                box.msg(res.message);
             }
         },
         error: function (e) {
