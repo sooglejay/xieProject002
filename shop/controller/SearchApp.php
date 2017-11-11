@@ -72,7 +72,7 @@ class SearchApp extends App
 
     private function searchShopForSimplePeople($keyWord, $userId)
     {
-        $a = "SELECT s.* , true as owner from `shop` as s,`user` as u where  u.id ='" . $userId . "'  and  s.shop_name LIKE  '%" . $keyWord . "%'";
+        $a = "SELECT s.* , true as owner from `shop` as s where  s.shopUser_id ='" . $userId . "'  and  s.shop_name LIKE  '%" . $keyWord . "%'";
         $stmt = $this->entityManager->getConnection()->prepare($a);
         $stmt->execute();
         return $stmt->fetchAll();
