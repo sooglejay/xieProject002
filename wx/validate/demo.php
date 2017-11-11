@@ -103,7 +103,7 @@ Weixin::init('ZiYanWeiXinGongZhongHaoToken', 'wxb76c5258ffa59386', '80b8d4e87926
  * 用匿名函数处理location消息
  * 用catchAll函数处理其余消息
  */
-$class = new DemoClass();
+$class = new Demo();
 $location = function ($data) {
     //使用instance方法获取已经创建好的weixin实例
     Weixin::instance()->responseText('Hello World,这是一条位置消息,你的位置为' . $data->Label);
@@ -117,13 +117,17 @@ Weixin::instance()->setCallback(Weixin::TYPE_UNDEFINED, 'catchAll')
 function catchAll(WeixinResult $data)
 {
     $weixin = Weixin::instance();
-    if($data->Content=="摸底"){
-        $weixin->responseText('您好，请点击访问商铺系统'.'http://test.sighub.com/ziyan?openId='.$data->FromUserName);
-//        $weixin->responseNews();
+    if ($data->Content == "摸底") {
+        $articles = array(
+            'title' => "商铺信息登记系统",
+            'picurl' => 'http://test.sighub.com/shop/image/pic_url.jpg',
+            'url' => 'http://test.sighub.com/ziyan?openId=' . $data->FromUserName
+        );
+        $weixin->responseNews($articles);
     }
 }
 
-class DemoClass
+class Demo
 {
 
     function __construct()
