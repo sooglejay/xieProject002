@@ -13,7 +13,7 @@ $(function () {
 });
 
 function getWxInfo() {
-    var verifyUrl = 'http://test.sighub.com/ziyan';
+    var verifyUrl = $(location).attr('href');
     $.ajax({
         type: 'GET',
         url: './../wx/signature.php',
