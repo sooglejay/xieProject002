@@ -1,10 +1,7 @@
 /**
  * Created by sooglejay on 17/9/2.
  */
-
-
 $(function () {
-
     var type_88 = getURLParameter("type_88");
     if (type_88 != null) {
         var type_138 = getURLParameter("type_138");

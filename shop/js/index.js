@@ -1,6 +1,10 @@
 /**
  * Created by sooglejay on 17/8/24.
  */
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+}
+
 $(function () {
     var openId = getURLParameter("openId");
     if (openId == undefined || openId.length < 5) {
@@ -11,7 +15,7 @@ $(function () {
             window.location.href = "search.html?openId=" + openId;
         });
         $("#addBtn").click(function () {
-            window.location.href = "fill_info.html?openId=" + openId;
+            window.location.href = "addShop.html?openId=" + openId;
         });
     }
 });

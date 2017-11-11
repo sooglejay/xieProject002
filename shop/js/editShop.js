@@ -1,6 +1,13 @@
 /**
+ * Created by sooglejay on 17/11/11.
+ */
+/**
  * Created by hanke0726 on 2016/7/29.
  */
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+}
+
 function downUpList(clockNode, selectBox, selectNode) {
     function stopPropagation(e) {
         var e1 = e || event;
@@ -184,7 +191,7 @@ function addShop() {
 
             var openId = res['openId'];
             var searchWord = getURLParameter("search");
-            $("#btn_submit").unbind('click',addShop);
+            $("#btn_submit").unbind('click', addShop);
             var textLeft = (searchWord != null ? "返回上一级" : "继续添加");
             var textRight = "返回首页";
             layer.open({
@@ -210,9 +217,7 @@ function addShop() {
         }
     });
 }
-
-
-function doViewShop(id, isForView) {
+function doEditShop(id) {
     $.ajax({
         type: 'post',
         url: 'shop/controller/EditOrReviewApp.php',
@@ -232,7 +237,7 @@ function doViewShop(id, isForView) {
                 console.log("ERROR:" + e);
             }
             if (data != "") {
-                fillForm(data, isForView);
+                fillForm(data);
             }
         },
         error: function (e) {
@@ -241,7 +246,7 @@ function doViewShop(id, isForView) {
         }
     });
 }
-function fillForm(obj, isForView) {
+function fillForm(obj) {
     $('#shop_name').val(obj['shop_name']);
     $('#shop_addr').val(obj['shop_addr']);
     $('#shop_street').val(obj['shop_street']);
@@ -255,138 +260,15 @@ function fillForm(obj, isForView) {
     $('#shop_operator').val(obj['shop_operator']);
     $('#shop_landline').val(obj['shop_landline']);
     $('#shop_mem_num').val(obj['shop_mem_num']);
-
-    if (isForView) {
-        $('#shop_name,' +
-            '#shop_addr,' +
-            '#shop_street,' +
-            '#shop_contact1,' +
-            '#shop_contact2,' +
-            '#shop_type,' +
-            '#shop_280,' +
-            '#shop_209,' +
-            '#shop_group_net,' +
-            '#shop_broadband_cover,' +
-            '#shop_landline,' +
-            '#shop_mem_num,' +
-            '#shop_operator' +
-            '').attr("disabled", "disabled");
-        $("#btn_submit").html("返回");
-        var searchWord = getURLParameter("search");
-        $("#btn_submit").bind('click',function () {
-            window.location.href = "search.html?openId=" + getURLParameter('openId') + "&search=" + searchWord;
-        });
-    } else {
-        $("#btn_submit").html("保存修改");
-        // 商铺信息录入
-        $('#btn_submit').bind('click',addShop);
-    }
+    // 商铺信息录入
+    $('#btn_submit').click(addShop);
 }
-
 $(function () {
     $(".page").css("min-height", $(window).height() + "px");
-    var id = getURLParameter("id");
-    if (id) {
-        var flag = getURLParameter("action");
-        doViewShop(id, (flag == "view"));
-    } else {
-        var searchWord = getURLParameter("search");
-        if (searchWord) {
-            $('#shop_name').val(searchWord);
-            doSearch();
-        }
-    }
-});
-
-function doSearch() {
-
-    var search = $.trim($('#shop_name').val());
-    if (search == '') {
-        box.msg('请输入需要搜索的商铺名称！');
-        return false;
-    }
-    $.ajax({
-        type: 'post',
-        url: 'shop/controller/SearchApp.php',
-        dataType: 'json',
-        data: {
-            search: search,
-            openId: getURLParameter('openId')
-        },
-        beforeSend: function () {
-            box.loadding('正在搜索,请稍等...');
-        },
-        success: function (res) {
-            layer.closeAll();
-            if (res["code"] != 200) {
-                box.msg(res["message"]);
-                return;
-            }
-            var data = res["data"];
-            if (data == undefined || data.length < 1) {
-                box.msg("没有搜索到任何有关" + search + "的结果");
-                return;
-            }
-            var list = '';
-            $.each(data, function (i, item) {
-                var editText = '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="btn-xgzl">修改资料</a>';
-                var classSee = "btn-ckxq";
-                if (item.hasOwnProperty("owner")) {
-                    var owner = item["owner"];
-                    if (owner == "0") {
-                        editText = '';
-                        classSee = "btn-ckxq-without";
-                    }
-                }
-                var content = '<div class="search-list">';
-                content += '<h2>' + item.shop_name + '</h2>';
-                content += '<ul>';
-                content += '<li>企业类别：<span>' + item.shop_type + '</span></li>';
-                content += '<li>商铺所在地址：<span>' + item.shop_addr + item.shop_street + '</span></li>';
-                content += '</ul>';
-                content += '<div class="clearfix" align="center">';
-                content += '<a href="javascript:void (0)" data-id="' + item.id + '"  data-search="' + search + '" class="' + classSee + '">查看详情</a>';
-                content += editText;
-                content += '</div></div>';
-                list += content;
-
-            });
-            $('#result').show();
-            $('#result').html(list);
-
-            // } else {
-            //     box.msg('搜索失败');
-            // }
-        },
-        error: function (e) {
-            layer.closeAll();
-            console.log(e);
-        }
-    });
-}
-
-$(function () {
+    doEditShop(getURLParameter("id"));
     downUpList($(".se-qylb"), $(".select-hangye"), $(".select-hangye ul li"));
     downUpList($(".se-yunying"), $(".select_yunying"), $(".select_yunying ul li"));
     downUpList($(".se-ztzw"), $(".select_ztzw"), $(".select_ztzw ul li"));
     downUpList($(".se-kdfg"), $(".select_kdfg"), $(".select_kdfg ul li"));
     $(".select_magistrate").css("margin-top", -($(".select_magistrate").height() / 2) + "px");
-
-// 搜索
-    $('#btn_search').on('click', doSearch);
-
-// 查看详情
-    $('#result').delegate('.btn-ckxq,.btn-ckxq-without', 'click', function () {
-        var id = $(this).data('id');
-        var searchWord = $(this).data('search');
-        window.location.href = 'fill_info.html?openId=' + getURLParameter('openId') + '&id=' + id + "&action=view&search=" + searchWord;
-    });
-
-// 修改资料
-    $('#result').delegate('.btn-xgzl', 'click', function () {
-        var id = $(this).data('id');
-        var searchWord = $(this).data('search');
-        window.location.href = 'fill_info.html?openId=' + getURLParameter('openId') + '&id=' + id + "&action=edit&search=" + searchWord;
-    });
-
 });
