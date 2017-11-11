@@ -38,11 +38,8 @@ class SearchApp extends App
         $keyWord = $_POST['search'];
         $accountName = $userEntity->getAccountName();
         if ($accountName == "88888888") {
-            $searchResultArr = $this->searchShopForAdmin($keyWord);
             //总账号
-            for ($i = 0; $i < count($searchResultArr); $i++) {
-                $searchResultArr[$i]["owner"] = ($searchResultArr[$i]["shopUser_id"] == $userEntity->getId());
-            }
+            $searchResultArr = $this->searchShopForAdmin($keyWord, $userEntity->getId());
         } else {
             $ar = array("yanjiang" => "雁江", "anyue" => "安岳", "lezhi" => "乐至");
             if (isset($ar[$accountName])) {
@@ -56,9 +53,9 @@ class SearchApp extends App
         return $searchResultArr;
     }
 
-    private function searchShopForAdmin($keyWord)
+    private function searchShopForAdmin($keyWord, $adminUserId)
     {
-        $a = "SELECT * FROM shop WHERE  shop_name LIKE  '%" . $keyWord . "%'";
+        $a = "SELECT * , IF(sh.shopUser_id=$adminUserId,1,0) as owner FROM shop as sh WHERE  shop_name LIKE  '%" . $keyWord . "%'";
         $stmt = $this->entityManager->getConnection()->prepare($a);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -67,7 +64,7 @@ class SearchApp extends App
 
     private function searchShopForAreaAdmin($keyWord, $countyName)
     {
-        $a = "SELECT * from `shop` as s,`user` as u where  u.county ='" . $countyName . "'  and  s.shop_name LIKE  '%" . $keyWord . "%'";
+        $a = "SELECT *,true as owner from `shop` as s,`user` as u where  u.county ='" . $countyName . "'  and  s.shop_name LIKE  '%" . $keyWord . "%'";
         $stmt = $this->entityManager->getConnection()->prepare($a);
         $stmt->execute();
         return $stmt->fetchAll();
@@ -75,7 +72,7 @@ class SearchApp extends App
 
     private function searchShopForSimplePeople($keyWord, $userId)
     {
-        $a = "SELECT s.* from `shop` as s,`user` as u where  u.id ='" . $userId . "'  and  s.shop_name LIKE  '%" . $keyWord . "%'";
+        $a = "SELECT s.* , true as owner from `shop` as s,`user` as u where  u.id ='" . $userId . "'  and  s.shop_name LIKE  '%" . $keyWord . "%'";
         $stmt = $this->entityManager->getConnection()->prepare($a);
         $stmt->execute();
         return $stmt->fetchAll();
