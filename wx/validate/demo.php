@@ -123,7 +123,7 @@ function catchAll(WeixinResult $data)
             'picurl' => 'http://test.sighub.com/shop/image/pic_url.jpg',
             'url' => 'http://test.sighub.com/ziyan?openId=' . $data->FromUserName
         );
-        $weixin->responseNews($articles);
+        $weixin->responseNews(array($articles));
     }
 }
 
