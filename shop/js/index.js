@@ -22,7 +22,7 @@ $(function () {
 function loadData(openId) {
     $.ajax({
         type: 'POST',
-        url: 'controller/IndexApp.php',
+        url: './../controller/IndexApp.php',
         data: {
             'openId': openId
         },
