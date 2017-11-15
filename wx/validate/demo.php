@@ -126,7 +126,7 @@ function catchAll(WeixinResult $data)
         );
         $weixin->responseNews(array($articles));
     }
-    file_put_contents(dirname(__FILE__)."/del.txt",$data);
+    file_put_contents(dirname(__FILE__) . "/del.txt", $data->getXml());
 }
 
 class Demo
