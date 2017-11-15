@@ -111,9 +111,9 @@ $location = function ($data) {
 Weixin::instance()->setCallback(Weixin::TYPE_UNDEFINED, 'catchAll')
     ->setCallback(array(Weixin::TYPE_EVENT, Weixin::EVENT_SUBSCRIBE), array($class, 'subscribe'))
     ->setCallback(Weixin::TYPE_EVENT, array($class, 'otherEvent'))
-    ->setCallback(Weixin::EVENT_CLICK, array($class, 'click'))
     ->setCallback(Weixin::TYPE_LOCATION, $location)
     ->listen();
+
 
 function catchAll(WeixinResult $data)
 {
@@ -126,7 +126,8 @@ function catchAll(WeixinResult $data)
         );
         $weixin->responseNews(array($articles));
     }
-    file_put_contents(dirname(__FILE__) . "/del.txt", $data->FromUserName);
+    $menu = $weixin->getMenu();
+    file_put_contents(dirname(__FILE__) . "/del.txt", $menu);
 }
 
 class Demo
