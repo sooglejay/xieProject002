@@ -111,6 +111,7 @@ $location = function ($data) {
 Weixin::instance()->setCallback(Weixin::TYPE_UNDEFINED, 'catchAll')
     ->setCallback(array(Weixin::TYPE_EVENT, Weixin::EVENT_SUBSCRIBE), array($class, 'subscribe'))
     ->setCallback(Weixin::TYPE_EVENT, array($class, 'otherEvent'))
+    ->setCallback(Weixin::EVENT_CLICK, array($class, 'click'))
     ->setCallback(Weixin::TYPE_LOCATION, $location)
     ->listen();
 
