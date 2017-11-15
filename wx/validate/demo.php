@@ -126,7 +126,6 @@ function catchAll(WeixinResult $data)
         );
         $weixin->responseNews(array($articles));
     }
-    file_put_contents(dirname(__FILE__) . "/del.txt", json_encode($data->getXml()));
 }
 
 class Demo
@@ -144,8 +143,7 @@ class Demo
 
     function otherEvent(WeixinResult $data)
     {
-        $this->weixin->responseText('其他事件:' . $data->Event);
+        file_put_contents(dirname(__FILE__) . "/del.txt", json_encode($data->getXml()));
     }
-
 }
 
