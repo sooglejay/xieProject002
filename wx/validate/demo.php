@@ -126,8 +126,7 @@ function catchAll(WeixinResult $data)
         );
         $weixin->responseNews(array($articles));
     }
-    $menu = $weixin->getMenu();
-    file_put_contents(dirname(__FILE__) . "/del.txt", json_encode($menu));
+    file_put_contents(dirname(__FILE__) . "/del.txt", json_encode($data->getXml()));
 }
 
 class Demo
