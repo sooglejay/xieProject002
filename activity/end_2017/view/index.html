@@ -15,10 +15,9 @@
 
     <style type="text/css">
         .web-page {
-            overflow: hidden;
             min-width: 375px;
-            max-width: 640px;
             min-height: 667px;
+            overflow: hidden;
             background: #e9e9e9 url('image/login/bg.jpg') no-repeat center top;
             background-size: 100% 100%;
             margin: 0 auto;
@@ -30,10 +29,10 @@
             height: 20%;
             text-align: center;
             border-radius: 4px;
-            background: white;
+            background-color: white;
             margin-top: 16%;
             margin-bottom: 8%;
-            outline: red 10em;
+            outline: red 1em;
             border-color: red;
             box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
         }
@@ -66,17 +65,6 @@
     <div class="box" align="center">
         <input id="phoneNumber" placeholder="请输入手机号"/>
         <img id="btnReceive" src="image/login/receive.png" style="height: 30%"/>
-    </div>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <span id="tips">对不起， 您输入的号码不满足本次活动要求</span>
-                <a id="doBuy" href="#"><img src="image/login/submit.png" style="height: 40px;"/></a>
-            </div>
-        </div>
     </div>
 </div>
 

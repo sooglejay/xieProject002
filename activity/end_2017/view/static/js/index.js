@@ -18,7 +18,6 @@ function checkPhoneNumber(phoneNumber) {
     });
 }
 $(function () {
-    $("#myModal").show();
     $("#btnReceive").click(function () {
         var phoneNumber = $("#phoneNumber").val();
         if (phoneNumber == undefined || phoneNumber.length != 11) {
