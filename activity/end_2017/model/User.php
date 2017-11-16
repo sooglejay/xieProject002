@@ -98,7 +98,7 @@ class End2017UserRepository extends EntityRepository
     /**
      * 添加用户
      * @param string $phoneNumber 用户的手机号码
-     * @param integer $typeVal  属于第几类用户
+     * @param integer $typeVal 属于第几类用户
      * @return array
      */
     protected function saveUser($phoneNumber, $typeVal)
@@ -109,7 +109,7 @@ class End2017UserRepository extends EntityRepository
         if (!is_null($e)) {
             return array("message" => "您已经添加过此用户", "code" => 201);
         }
-        $userTypeEntity = $userTypeRepo->findOneBy(array("typeVal"=>$typeVal));
+        $userTypeEntity = $userTypeRepo->findOneBy(array("typeVal" => $typeVal));
         if ($userTypeEntity instanceof UserType) {
             $userEntity = new User();
             $userEntity->setPhoneNumber($phoneNumber);
@@ -121,5 +121,14 @@ class End2017UserRepository extends EntityRepository
             return array("message" => "添加成功！", "code" => 200);
         }
         return array("message" => "找不到实例，请联系管理员！", "code" => 201);
+    }
+
+    public function getTypeByPhoneNumber($phoneNumber)
+    {
+        $e = $this->findOneBy(array("phoneNumber" => $phoneNumber));
+        if ($e instanceof User) {
+            return $e->getUserType();
+        }
+        return null;
     }
 }
