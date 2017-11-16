@@ -31,3 +31,7 @@
 bootstrap.php
 
 wx/file_cache/*
+
+*.xls
+
+*.txt
