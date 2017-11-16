@@ -1,5 +1,7 @@
 <?php
 namespace End_2017;
+require_once dirname(__FILE__) . "/../model/Order.php";
+require_once dirname(__FILE__) . "/../model/UserType.php";
 
 use Doctrine\ORM\EntityRepository;
 
@@ -101,7 +103,7 @@ class End2017UserRepository extends EntityRepository
      * @param integer $typeVal 属于第几类用户
      * @return array
      */
-    protected function saveUser($phoneNumber, $typeVal)
+    public function saveUser($phoneNumber, $typeVal)
     {
         $userTypeRepo = $this->_em->getRepository("UserType");
         $userRepo = $this->_em->getRepository("User");

@@ -58,7 +58,7 @@ class End2017AllPhoneSegmentsRepository extends EntityRepository
      * @param string $phoneNumberSeg 手机号码段
      * @return array
      */
-    public function saveUser($phoneNumberSeg)
+    public function savePhoneSegment($phoneNumberSeg)
     {
         $e = $this->findOneBy(array("phoneNumberSeg" => $phoneNumberSeg));
         if (is_null($e)) {

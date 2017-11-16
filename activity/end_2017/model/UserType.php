@@ -107,7 +107,7 @@ class End2017UserTypeRepository extends EntityRepository
      * @param $typeVal
      * @return array
      */
-    protected function addUserType($typeDes, $typeVal)
+    public function addUserType($typeDes, $typeVal)
     {
         $e = $this->findOneBy(array("typeVal" => $typeVal));
         if (is_null($e)) {

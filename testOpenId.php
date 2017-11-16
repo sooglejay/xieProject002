@@ -10,7 +10,7 @@ ini_set('date.timezone', 'Asia/Shanghai');
 require_once dirname(__FILE__) . "/bootstrap.php";
 require_once dirname(__FILE__) . "/model/User.php";
 require_once dirname(__FILE__) . "/model/Shop.php";
-require_once dirname(__FILE__) . "/wx/ReceiveWXinCode.php";
+//require_once dirname(__FILE__) . "/wx/ReceiveWXinCode.php";
 
 class testOpenId extends App
 {
@@ -22,9 +22,6 @@ class testOpenId extends App
     {
         parent::__construct();
         echo "come ...";
-        echo json_decode($_SESSION, true);
+//        echo json_decode($_SESSION, true);
     }
 }
-
-
-new testOpenId();

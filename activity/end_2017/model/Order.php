@@ -1,5 +1,7 @@
 <?php
 namespace End_2017;
+require_once dirname(__FILE__) . "/../model/User.php";
+require_once dirname(__FILE__) . "/../model/ActivityType.php";
 
 use Doctrine\ORM\EntityRepository;
 

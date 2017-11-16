@@ -40,30 +40,24 @@ class MainApp extends App
                 //是目标用户
                 $userRepo = $this->entityManager->getRepository("User");
                 if ($userRepo instanceof End2017UserRepository) {
+                    // 第一类和第二类用户
                     $userType = $userRepo->getTypeByPhoneNumber($phoneNumber);
                     if (!is_null($userType)) {
-                        $type_one = "one";
-                        $type_two = "two";
-                        $type_three = "three";
                         $type = $userType->getTypeVal();
-                        $typeName = 0;
-                        switch ($type) {
-                            case 1:
-                                $typeName = $type_one;
-                                break;
-                            case 2:
-                                $typeName = $type_two;
-                                break;
-                            case 3:
-                                $typeName = $type_three;
-                                break;
+                        if ($type == 1) {
+                            $typeName = "one";
+                        } else if ($type == 2) {
+                            $typeName = "two";
+                        } else {
+                            $typeName = "error";
                         }
                         return json_encode(array("code" => 200, "type" => $typeName));
                     } else {
                         return json_encode(array("code" => 201, "message" => "找不到符合要求的活动类型"));
                     }
                 }
-
+                // 第三类用户
+                return json_encode(array("code" => 200, "type" => "three"));
             }
         }
         return json_encode(array("code" => 201, "message" => "对不起\n您输入的号码不满足本次活动要求"));
