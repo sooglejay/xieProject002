@@ -5,11 +5,16 @@
 function checkPhoneNumber(phoneNumber) {
     $.ajax({
         url: './../controller/MainApp.php',
-        method: 'POST',
+        type: 'POST',
         data: {
             phoneNumber: phoneNumber
         },
+        dataType: 'json',
+        beforeSend: function () {
+            box.loadding('加载中...');
+        },
         success: function (res) {
+            layer.closeAll();
             if (res.code == 200) {
                 window.location.href = 'html/type_' + res.type + '.html';
             } else {
@@ -18,6 +23,7 @@ function checkPhoneNumber(phoneNumber) {
             console.log(res);
         },
         error: function (res) {
+            layer.closeAll();
             console.log(res);
         }
     });
