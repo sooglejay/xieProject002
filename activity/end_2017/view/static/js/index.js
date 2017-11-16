@@ -10,6 +10,11 @@ function checkPhoneNumber(phoneNumber) {
             phoneNumber: phoneNumber
         },
         success: function (res) {
+            if (res.code == 200) {
+                window.location.href = 'html/type_' + res.type + '.html';
+            } else {
+                box.msg(res.message);
+            }
             console.log(res);
         },
         error: function (res) {
