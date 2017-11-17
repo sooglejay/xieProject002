@@ -17,6 +17,28 @@ class ActivityType
     protected $id;
 
     /**
+     * @ManyToOne(targetEntity="UserType",inversedBy="activityTypes")
+     * @JoinColumn(name="user_type_id", referencedColumnName="id")
+     */
+    protected $userType;
+
+    /**
+     * @return UserType
+     */
+    public function getUserType()
+    {
+        return $this->userType;
+    }
+
+    /**
+     * @param UserType $userType
+     */
+    public function setUserType($userType)
+    {
+        $this->userType = $userType;
+    }
+
+    /**
      * 活动的名字
      * @Column(type="string")
      * @var
@@ -75,18 +97,33 @@ class ActivityType
 
 class End2017ActivityTypeRepository extends EntityRepository
 {
-    protected function saveActivityType($activityCode, $activityName)
+    public function saveActivityType($userTypeVal, $activityCode, $activityName)
     {
         $e = $this->findOneBy(array("activityCode" => $activityCode));
         if (is_null($e)) {
-            $e = new ActivityType();
-            $e->setActivityCode($activityCode);
-            $e->setActivityName($activityName);
-            $this->_em->persist($e);
-            $this->_em->flush();
-            return array("message" => "添加活动类型成功！", "code" => 200);
+            $userTypeRepo = $this->_em->getRepository('End_2017\UserType');
+            if ($userTypeRepo instanceof End2017UserTypeRepository) {
+                $userTypeEntity = $userTypeRepo->findOneBy(array("typeVal" => $userTypeVal));
+                if ($userTypeEntity instanceof UserType) {
+                    $e = new ActivityType();
+                    $e->setActivityCode($activityCode);
+                    $e->setActivityName($activityName);
+                    $e->setUserType($userTypeEntity);
+                    $userTypeEntity->addActivityTypes($e);
+                    $this->_em->persist($e);
+                    $this->_em->persist($userTypeEntity);
+                    $this->_em->flush();
+                    return array("message" => "添加活动类型成功！", "code" => 200);
+                } else {
+                    return array("message" => "目标用户类型不存在！", "code" => 201);
+                }
+            }
         }
         return array("message" => "您已经添加过该活动类型！", "code" => 201);
     }
 
+    public function getEntityByActivityCode($activityCode)
+    {
+        return $this->findOneBy(array("activityCode" => $activityCode));
+    }
 }

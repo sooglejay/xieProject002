@@ -99,15 +99,12 @@ class End2017OrderRepository extends EntityRepository
      * @param ActivityType $activityTypeEntity
      * @return array
      */
-    protected function saveOrder($userEntity, $activityTypeEntity)
+    public function saveOrder($userEntity, $activityTypeEntity)
     {
         if ($userEntity instanceof User && $activityTypeEntity instanceof ActivityType) {
-            if (!is_null($userEntity->getOrder())) {
-                return array("message" => "您已经参与过活动，请勿重复参与！", "code" => 201);
-            }
             $order = new Order();
             $order->setUser($userEntity);
-            $userEntity->setOrder($order);
+            $userEntity->addOrder($order);
             $order->setActivityType($activityTypeEntity);
             $this->_em->persist($userEntity);
             $this->_em->persist($order);

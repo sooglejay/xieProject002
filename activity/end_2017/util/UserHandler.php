@@ -30,11 +30,22 @@ class UserHandler extends App
 
     public function initUserType()
     {
-        $userTypeRepo = $this->entityManager->getRepository("End_2017\\UserType");
+        $userTypeRepo = $this->entityManager->getRepository('End_2017\UserType');
+        $activityTypeRepo = $this->entityManager->getRepository('End_2017\ActivityType');
         if ($userTypeRepo instanceof End2017UserTypeRepository) {
-            $userTypeRepo->addUserType("目标用户一", 1);
-            $userTypeRepo->addUserType("目标用户二", 2);
-            $userTypeRepo->addUserType("目标用户三", 3);
+
+            if ($activityTypeRepo instanceof End2017ActivityTypeRepository) {
+                $userTypeRepo->addUserType("目标用户一", 1);
+                $userTypeRepo->addUserType("目标用户二", 2);
+                $userTypeRepo->addUserType("目标用户三", 3);
+
+                $activityTypeRepo->saveActivityType(1, 'DLLZS', '超低流量客户免费送');
+                $activityTypeRepo->saveActivityType(2, 'LLCX5', '低流量客户优惠月促销包');
+                $activityTypeRepo->saveActivityType(2, 'LLBN20', '低流量客户优惠半年促销包');
+                $activityTypeRepo->saveActivityType(3, 'LLZS20', '15元1.5G');
+                $activityTypeRepo->saveActivityType(3, 'LLZS30', '30元2G+30G视频流量');
+                $activityTypeRepo->saveActivityType(3, 'LLJB50', '50元6G');
+            }
         }
     }
 

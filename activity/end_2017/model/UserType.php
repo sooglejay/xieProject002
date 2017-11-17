@@ -24,6 +24,12 @@ class UserType
     protected $users;
 
     /**
+     * One UserType has Many Users.
+     * @OneToMany(targetEntity="ActivityType", mappedBy="userType")
+     */
+    protected $activityTypes;
+
+    /**
      * 类型的值
      * @Column(type="integer")
      * @var
@@ -40,6 +46,7 @@ class UserType
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->activityTypes = new ArrayCollection();
     }
 
     /**
@@ -73,6 +80,15 @@ class UserType
     {
         $this->typeDes = $typeDes;
     }
+
+    /**
+     * @param  ActivityType $activityType
+     */
+    public function addActivityTypes($activityType)
+    {
+        $this->activityTypes[] = $activityType;
+    }
+
 
     /**
      * @return mixed

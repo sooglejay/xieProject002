@@ -74,6 +74,9 @@ class End2017AllPhoneSegmentsRepository extends EntityRepository
     public function checkExist($phoneSeg)
     {
         $e = $this->findOneBy(array("phoneNumberSeg" => $phoneSeg));
-        return !is_null($e);
+        if ($e instanceof AllPhoneSegments) {
+            return true;
+        }
+        return false;
     }
 }

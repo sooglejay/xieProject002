@@ -3,6 +3,7 @@ namespace End_2017;
 require_once dirname(__FILE__) . "/../model/Order.php";
 require_once dirname(__FILE__) . "/../model/UserType.php";
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -27,16 +28,24 @@ class User
 
     /**
      * One User has one Order
-     * @OneToOne(targetEntity="Order", mappedBy="user")
+     * @OneToMany(targetEntity="Order", mappedBy="user")
      */
-    protected $order;
+    protected $orders;
 
     /**
-     * @return Order
+     * User constructor.
      */
-    public function getOrder()
+    public function __construct()
     {
-        return $this->order;
+        $this->orders = new ArrayCollection();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
     }
 
     /**
@@ -88,9 +97,9 @@ class User
     /**
      * @param Order $order
      */
-    public function setOrder($order)
+    public function addOrder($order)
     {
-        $this->order = $order;
+        $this->orders[] = $order;
     }
 
 }
@@ -105,13 +114,13 @@ class End2017UserRepository extends EntityRepository
      */
     public function saveUser($phoneNumber, $typeVal)
     {
-        $userTypeRepo = $this->_em->getRepository("UserType");
-        $userRepo = $this->_em->getRepository("User");
-        $e = $userRepo->findOneBy(array("phoneNumber" => $phoneNumber));
+        $userTypeRepo = $this->_em->getRepository('End_2017\UserType');
+        $userRepo = $this->_em->getRepository('End_2017\User');
+        $e = $userRepo->findOneBy(array('phoneNumber' => $phoneNumber));
         if (!is_null($e)) {
-            return array("message" => "您已经添加过此用户", "code" => 201);
+            return array('message' => '您已经添加过此用户', 'code' => 201);
         }
-        $userTypeEntity = $userTypeRepo->findOneBy(array("typeVal" => $typeVal));
+        $userTypeEntity = $userTypeRepo->findOneBy(array('typeVal' => $typeVal));
         if ($userTypeEntity instanceof UserType) {
             $userEntity = new User();
             $userEntity->setPhoneNumber($phoneNumber);
@@ -120,14 +129,14 @@ class End2017UserRepository extends EntityRepository
             $this->_em->persist($userEntity);
             $this->_em->persist($userTypeEntity);
             $this->_em->flush();
-            return array("message" => "添加成功！", "code" => 200);
+            return array('message' => '添加成功！', 'code' => 200);
         }
-        return array("message" => "找不到实例，请联系管理员！", "code" => 201);
+        return array('message' => '找不到实例，请联系管理员！', 'code' => 201);
     }
 
     public function getTypeByPhoneNumber($phoneNumber)
     {
-        $e = $this->findOneBy(array("phoneNumber" => $phoneNumber));
+        $e = $this->findOneBy(array('phoneNumber' => $phoneNumber));
         if ($e instanceof User) {
             return $e->getUserType();
         }

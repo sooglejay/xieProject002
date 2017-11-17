@@ -107,21 +107,24 @@ class ImportDataFromExcel extends App
         echo "=" . count($dataArray) . "\n";
         $firstItem = true;
         $len = 0;
-        $allSegmentsRepo = $this->entityManager->getRepository("AllPhoneSegments");
-        if ($allSegmentsRepo instanceof End2017AllPhoneSegmentsRepository) {
-            foreach ($dataArray as $index => $row) {
-                if ($firstItem) {
-                    $firstItem = false;
-                    continue;
-                }
-                $allSegmentsRepo->savePhoneSegment(isset($row['A']) ? $row['A'] : "");
-                $len++;
-                if ($len % 10000 == 0) {
-                    echo "\n size = " . $len . "\n";
-                }
+        foreach ($dataArray as $index => $row) {
+            if ($firstItem) {
+                $firstItem = false;
+                continue;
             }
-            echo "\n total size = " . $len . "\n";
+            $seg = isset($row['A']) ? $row['A'] : "";
+            $e = new AllPhoneSegments();
+            $e->setPhoneNumberSeg($seg);
+            $this->entityManager->persist($e);
+            $len++;
+            if ($len % 10000 == 0) {
+                $this->entityManager->flush();
+                echo "\n size = " . $len . "\n";
+            }
         }
+        $this->entityManager->flush();
+        echo "\n total size = " . $len . "\n";
+
     }
 
     public function saveUserDiffByType($path, $xlsSheetName, $typeVal)
@@ -131,23 +134,33 @@ class ImportDataFromExcel extends App
         echo $typeVal . "=" . count($dataArray) . "\n";
         $firstItem = true;
         $len = 0;
-        $userRepo = $this->entityManager->getRepository("User");
-        if ($userRepo instanceof End2017UserRepository) {
+        $userTypeRepo = $this->entityManager->getRepository('End_2017\UserType');
+        $userTypeEntity = $userTypeRepo->findOneBy(array('typeVal' => $typeVal));
+        if ($userTypeEntity instanceof UserType) {
             foreach ($dataArray as $index => $row) {
                 if ($firstItem) {
                     $firstItem = false;
                     continue;
                 }
-                $userRepo->saveUser(isset($row['B']) ? $row['B'] : "", $typeVal);
+                $phoneNumber = isset($row['B']) ? $row['B'] : "";
+                $userEntity = new User();
+                $userEntity->setPhoneNumber($phoneNumber);
+                $userEntity->setUserType($userTypeEntity);
+                $userTypeEntity->addUser($userEntity);
+                $this->entityManager->persist($userEntity);
+                $this->entityManager->persist($userTypeEntity);
                 $len++;
                 if ($len % 10000 == 0) {
+                    $this->entityManager->flush();
                     echo "\n size = " . $len . "\n";
                 }
             }
+            $this->entityManager->flush();
             echo "\n total size = " . $len . "\n";
         }
     }
 }
+
 new ImportDataFromExcel();
 
 
