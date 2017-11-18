@@ -26,13 +26,13 @@ function submit(activityCode) {
         },
         success: function (res) {
             layer.closeAll();
-            if (res.code == 200) {
-                $('#myModal').modal('show');
-                $(".modal-body").html('办理成功！');
-            } else {
-                $('#myModal').modal('show');
-                $(".modal-body").html(res.message);
-            }
+            // if (res.code == 200) {
+            //     $('#myModal').modal('show');
+            //     $(".modal-body").html('请根据网页提示发送对应短信代码');
+            // } else {
+            //     $('#myModal').modal('show');
+            //     $(".modal-body").html(res.message);
+            // }
             console.log(res);
         },
         error: function (res) {

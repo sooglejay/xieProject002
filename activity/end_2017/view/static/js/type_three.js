@@ -25,13 +25,13 @@ function submit(activityCode) {
         },
         success: function (res) {
             layer.closeAll();
-            if (res.code == 200) {
-                $('#myModal').modal('show');
-                $(".modal-body").html('办理成功！');
-            } else if (res.message) {
-                $('#myModal').modal('show');
-                $(".modal-body").html(res.message);
-            }
+            // if (res.code == 200) {
+            //     $('#myModal').modal('show');
+            //     $(".modal-body").html('办理成功！');
+            // } else if (res.message) {
+            //     $('#myModal').modal('show');
+            //     $(".modal-body").html(res.message);
+            // }
             console.log(res);
         },
         error: function (res) {
