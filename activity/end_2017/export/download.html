@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>资阳移动</title>
+    <link rel="stylesheet" href="./../../css/layer.css">
+    <link href="./../../css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./../../js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="./../../js/layer.js"></script>
+    <script>
+        function doDownload() {
+            $.ajax({
+                type: 'GET',
+                url: 'doExcelHandler.php',
+                success: function (res) {
+                    if (res == 1) {
+                        layer.closeAll();
+                        window.location.href = "ExcelHandler.xls";
+                    } else {
+                        setTimeout(doDownload, 4000);
+                    }
+                },
+                error: function (e) {
+                    layer.closeAll();
+                    console.log(e);
+                }
+            });
+        }
+        $(function () {
+            box.loadding('正在导出，请稍后...');
+            doDownload();
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
