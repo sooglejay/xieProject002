@@ -5,31 +5,28 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
     <title>岁末感恩，流量大回馈</title>
     <link rel="stylesheet" href="../../../../css/layer.css">
-    <link rel="stylesheet" href="../../../../css/layer2.css">
     <link rel="stylesheet"
           href="../../../../js/jquery.mobile-1.4.5/demos/css/themes/default/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="../../../../js/jquery.mobile-1.4.5/demos/_assets/css/jqm-demos.css">
-    <link rel="shortcut icon" href="../../../../js/jquery.mobile-1.4.5/demos/favicon.ico">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <link href="../../../../js/bootstrap_3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <style>
         .box {
-            margin-top: 180px;
-            margin-left: 20px;
-            margin-right: 20px;
-            padding: 10px 10px 15px;
+            margin-left: 40px;
+            margin-right: 40px;
             background-color: white;
             border-radius: 8px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         .box_2 {
-            margin-top: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-            padding: 10px 10px 15px;
+            margin-top: 10px;
+            margin-left: 40px;
+            margin-right: 40px;
             background-color: white;
             border-radius: 8px;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         .modal.in .modal-dialog {
@@ -56,44 +53,48 @@
         }
     </style>
     <script src="../../../../js/jquery.mobile-1.4.5/demos/js/jquery.js"></script>
-    <script src="../../../../js/jquery.mobile-1.4.5/demos/_assets/js/index.js"></script>
     <script src="../../../../js/jquery.mobile-1.4.5/demos/js/jquery.mobile-1.4.5.min.js"></script>
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
 </head>
 <body>
-<div data-role="page" class="jqm-demos" data-quicklinks="true"
-     style="background: url('../image/type_one_two/type_one_two_bg.jpg') no-repeat center;background-size: 100% 100%">
-    <div role="main" class="ui-content jqm-content" align="center">
-        <div class="box">
-            <label style="color: red;font-size:1.5em;margin-bottom: 10px">5元1G省内流量促销包</label>
-            <label>每月5元可获1G流量</label>
-            <label>流量有效期6个月</label>
-            <a id="btnSubmitTypeTwo_a" href="sms:10086?body=LLCX5"> <img src="../image/type_one_two/submit.png"
-                                                                         style="height: 50px;margin-top: 10px;"/></a>
-        </div>
-        <div class="box_2">
-            <label style="color: red;font-size:1.5em;margin-bottom: 10px">20元5G省内流量促销半年包</label>
-            <label>流量有效期6个月</label>
-            <a id="btnSubmitTypeTwo_b" href="sms:10086?body=LLBN20"><img src="../image/type_one_two/submit.png"
-                                                                         style="height: 50px;margin-top: 10px;"/></a>
-        </div>
+<div data-role="page" style="background-color: #b82e21" align="center">
+    <div data-role="header" style="border-style: initial;">
+        <img src="../image/type_three/img_header.jpg" alt="岁末感恩－流量大回馈" class="img-responsive">
+    </div>
+    <div class="box">
+        <label style="color: red;font-size:1.5em;margin-bottom: 8px">5元1G省内流量促销包</label>
+        <label>每月5元可获1G流量</label>
+        <label>流量有效期6个月</label>
+        <a id="btnSubmitTypeTwo_a" href="sms:10086?body=LLCX5"> <img src="../image/type_one_two/submit.png"
+                                                                     style="height: 40px;margin-top: 10px;"/></a>
+    </div>
+    <div class="box_2">
+        <label style="color: red;font-size:1.5em;margin-bottom: 8px">20元5G省内流量促销半年包</label>
+        <label>流量有效期6个月</label>
+        <a id="btnSubmitTypeTwo_b" href="sms:10086?body=LLBN20"><img src="../image/type_one_two/submit.png"
+                                                                     style="height: 40px;margin-top: 10px;"/></a>
+    </div>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" hidden
-             data-backdrop="static">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body" style="margin-top: 10px">
-                    </div>
-                    <img class="dismissImg" src="../image/login/submit.png"/>
-                </div>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="true" style="border-style: initial;">
+        <img class="img-responsive" src="../image/type_three/img_footer.jpg">
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" align="center" aria-hidden="true" hidden
+     data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="margin-top: 10px">
             </div>
+            <img class="dismissImg" src="../image/login/submit.png"/>
         </div>
     </div>
 </div>
 
+
 <script src="../../../../js/bootstrap_3.3.7/js/bootstrap.min.js"></script>
 <script src="./../../../../js/layer.js" type="text/javascript"></script>
 <script src="../static/js/type_two.js" type="text/javascript"></script>
+<script src="../static/js/weixin.js" type="text/javascript"></script>
 <script src="../static/js/wx.js" type="text/javascript"></script>
 </body>
 </html>
