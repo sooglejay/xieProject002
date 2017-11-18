@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="../../../../css/layer.css">
     <link rel="stylesheet" href="../../../../css/layer2.css">
     <link rel="stylesheet"
-          href="../../../../js/jquery.mobile-1.4.5/demos/css/themes/default/jquery.mobile-1.4.5.min.css">
+          href="../../../../js/jquery.mobile-1.4.5/demos/css/themes/default/jquery.mobile-1.4.5_custom.min.css">
     <link rel="stylesheet" href="../../../../js/jquery.mobile-1.4.5/demos/_assets/css/jqm-demos.css">
     <link rel="shortcut icon" href="../../../../js/jquery.mobile-1.4.5/demos/favicon.ico">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <link href="../../../../js/bootstrap_3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <script src="../../../../js/jquery.mobile-1.4.5/demos/js/jquery.js"></script>
+    <script src="../../../../js/jquery.mobile-1.4.5/demos/_assets/js/index.js"></script>
+    <script src="../../../../js/jquery.mobile-1.4.5/demos/js/jquery.mobile-1.4.5.min.js"></script>
 
     <style>
         .table-box {
@@ -40,10 +44,18 @@
             margin-top: 8px;
             margin-bottom: 20px
         }
+
+        .typeThreeDes {
+            text-align: left;
+        }
+
+        .textDes {
+            font-size: x-small;
+            font-weight: lighter;
+            color: white;
+        }
     </style>
-    <script src="../../../../js/jquery.mobile-1.4.5/demos/js/jquery.js"></script>
-    <script src="../../../../js/jquery.mobile-1.4.5/demos/_assets/js/index.js"></script>
-    <script src="../../../../js/jquery.mobile-1.4.5/demos/js/jquery.mobile-1.4.5.min.js"></script>
+
 </head>
 <body>
 <div data-role="page" class="jqm-demos" data-quicklinks="true"
@@ -83,7 +95,10 @@
                 </td>
             </tr>
         </table>
-        <div style="color: white;font-weight: normal;font-size:x-small;text-align: left">
+        <div class="typeThreeDes">
+            <span class="textDes">
+
+
             业务规则：<br/>
             1、未办理流量包的用户，办理后流量包立即生效，首月月租费按天计费；已办理流量包的用户，新流量包次月生效，次月起按新套餐月租扣费。<br/>
             2、20元档次5元话费赠送费用有效期两个月，赠费不能抵扣合作型业务和小额支付费用。<br/>
@@ -91,6 +106,7 @@
             4、赠送流量当月有效，限省内使用。<br/>
             5、50元档次活动与感恩三千万9.9元系列活动互斥。<br/>
             该流量特惠活动仅限目标客户办理。<br/>
+            </span>
         </div>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" hidden
              data-backdrop="static">
