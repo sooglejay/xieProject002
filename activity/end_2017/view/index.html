@@ -4,20 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
     <title>岁末感恩，流量大回馈</title>
-    <script>
-        function getQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
-        }
-        var from = getQueryString("from");
-        if (from == null || from.length < 1) {
-            // do nothing!
-        } else {
-            window.location.href = "http://test.sighub.com/ziyan/activity/end_2017/view";
-        }
-    </script>
     <link rel="stylesheet" href="../../../css/layer.css">
     <link rel="stylesheet" href="../../../css/layer2.css">
     <link rel="stylesheet" href="../../../js/jquery.mobile-1.4.5/demos/css/themes/default/jquery.mobile-1.4.5.min.css">
@@ -92,7 +78,13 @@
 
     </div>
 </div>
-
+<script>
+    var _reg_ = new RegExp("(^|&)from=([^&]*)(&|$)", "i");
+    var _r_ = window.location.search.substr(1).match(_reg_);
+    if (_r_ != null && unescape(_r_[2])) {
+        window.location.href = "http://test.sighub.com/ziyan/activity/end_2017/view";
+    }
+</script>
 <script src="../../../js/bootstrap_3.3.7/js/bootstrap.min.js"></script>
 <script src="./../../../js/layer.js" type="text/javascript"></script>
 <script src="static/js/index.js" type="text/javascript"></script>

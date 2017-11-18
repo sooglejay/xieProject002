@@ -21,8 +21,8 @@ class ShowAllActivityTypes extends App
     public function __construct()
     {
         parent::__construct();
-        $aR = $this->entityManager->getRepository('End_2017\ActivityType');
-        if ($aR instanceof End2017UserTypeRepository) {
+        $aR = $this->entityManager->getRepository('End_2017\User');
+        if ($aR instanceof End2017UserRepository) {
             $es = $aR->findAll();
             foreach ($es as $e) {
                 if ($e instanceof ActivityType) {
