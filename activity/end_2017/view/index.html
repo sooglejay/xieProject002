@@ -4,6 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
     <title>资阳岁末感恩－流量大回馈</title>
+    <script>
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+        var from = getQueryString("from");
+        if (from == null || from.length < 1) {
+            // do nothing!
+        } else {
+            window.location.href = "http://test.sighub.com/ziyan/activity/end_2017/view";
+        }
+    </script>
     <link rel="stylesheet" href="../../../css/layer.css">
     <link rel="stylesheet" href="../../../css/layer2.css">
     <link rel="stylesheet" href="../../../js/jquery.mobile-1.4.5/demos/css/themes/default/jquery.mobile-1.4.5.min.css">
