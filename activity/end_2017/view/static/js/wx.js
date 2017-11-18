@@ -54,8 +54,8 @@ function wxConfig(res) {
      * =============================================================================================================
      */
     var wxData = {
-        title: '资阳移动微生活',
-        desc: '资阳感恩－岁末流量大回馈',
+        title: '岁末感恩，流量大回馈',
+        desc: '资阳移动微生活“岁末感恩，流量大回馈”活动正在火热进行中',
         link: "http://test.sighub.com/ziyan/activity/end_2017/view/",
         imgUrl: "http://test.sighub.com/ziyan/activity/end_2017/view/image/share.jpg"
     };
