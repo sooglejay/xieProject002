@@ -23,12 +23,26 @@ class ShowAllActivityTypes extends App
         parent::__construct();
         $aR = $this->entityManager->getRepository('End_2017\User');
         if ($aR instanceof End2017UserRepository) {
-            $es = $aR->findAll();
+            $es = $aR->findBy(array('phoneNumber' => '15928359999'));
             foreach ($es as $e) {
-                if ($e instanceof ActivityType) {
-                    echo $e->getActivityCode() . " : " . $e->getActivityName() . "\n";
+                if ($e instanceof User) {
+                    $orders = $e->getOrders();
+                    foreach ($orders as $or) {
+                        if ($or instanceof Order) {
+                            $this->entityManager->remove($or);
+                            $this->entityManager->flush();
+                            echo "1\n";
+                        }
+                    }
+                    $this->entityManager->remove($e);
+                    $this->entityManager->flush();
+                    echo "2\n";
+                } else {
+                    echo "nasas\n";
                 }
             }
+        } else {
+            echo "noe\n";
         }
     }
 }
