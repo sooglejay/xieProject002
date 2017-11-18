@@ -40,21 +40,21 @@ function submit(activityCode) {
         }
     });
 }
+function sendSMS(obj, code, to) { // 发送短信给指定号码
+    var u = navigator.userAgent, mobile = '';
+    if (u.indexOf('iPhone') > -1) mobile = 'iphone';
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) mobile = 'Android';
+    if (mobile == 'Android') {
+        $(obj).attr('href', 'sms:' + to + '?body=' + code);
+    }
+    if (mobile == 'iphone') {
+        $(obj).attr('href', 'sms:' + to + '&body=' + code);
+    }
+    submit(code);
+}
 
 $(function () {
     $(".dismissImg").click(function () {
         $('#myModal').modal('hide');
     });
-
-    $('#btnSubmitThree_a').click(function () {
-        submit('LLZS20');
-    });
-
-    $('#btnSubmitThree_b').click(function () {
-        submit('LLZS30');
-    });
-    $('#btnSubmitThree_c').click(function () {
-        submit('LLJB50');
-    });
-
 });
