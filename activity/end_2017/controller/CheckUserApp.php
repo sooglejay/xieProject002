@@ -6,7 +6,9 @@ use App;
 require_once dirname(__FILE__) . '/../../../bootstrap.php';
 require_once dirname(__FILE__) . '/../model/User.php';
 require_once dirname(__FILE__) . '/../model/AllPhoneSegments.php';
+require_once dirname(__FILE__) . '/../model/Order.php';
 require_once dirname(__FILE__) . '/../model/UserType.php';
+require_once dirname(__FILE__) . '/../model/ActivityType.php';
 
 /**
  * Created by PhpStorm.
@@ -40,13 +42,15 @@ class CheckUserApp extends App
                 $userRepo = $this->entityManager->getRepository('End_2017\User');
                 if ($userRepo instanceof End2017UserRepository) {
                     $userType = $userRepo->getTypeByPhoneNumber($phoneNumber);
+                    // 第一类和第二类用户
                     if ($userType instanceof UserType) {
-                        // 第一类和第二类用户
                         $type = $userType->getTypeVal();
                         if ($type == 1) {
                             $typeName = 'ao_60_ne';
                         } else if ($type == 2) {
                             $typeName = 'tb_xyz_wo';
+                        } else if ($type == 3) {
+                            $typeName = 'th_c_ree';
                         } else {
                             $typeName = 'error';
                         }

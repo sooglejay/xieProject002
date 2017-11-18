@@ -6,6 +6,11 @@ function getURLParameter(name) {
 }
 function submit(activityCode) {
     var phoneNumber = getURLParameter('phoneNumber');
+    if (phoneNumber == undefined || phoneNumber.length != 11) {
+        $('#myModal').modal('show');
+        $(".modal-body").html('请输入正确的手机号码！');
+        return;
+    }
     $.ajax({
         url: './../../controller/OrderApp.php',
         type: 'GET',
@@ -23,7 +28,7 @@ function submit(activityCode) {
             if (res.code == 200) {
                 $('#myModal').modal('show');
                 $(".modal-body").html('办理成功！');
-            } else {
+            } else if (res.message) {
                 $('#myModal').modal('show');
                 $(".modal-body").html(res.message);
             }

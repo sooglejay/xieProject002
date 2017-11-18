@@ -7,7 +7,7 @@ function checkPhoneNumber(phoneNumber) {
         url: '../controller/CheckUserApp.php',
         type: 'POST',
         data: {
-            phoneNumber: phoneNumber
+            'phoneNumber': phoneNumber
         },
         dataType: 'json',
         beforeSend: function () {
@@ -16,7 +16,7 @@ function checkPhoneNumber(phoneNumber) {
         success: function (res) {
             layer.closeAll();
             if (res.code == 200) {
-                window.location.href = 'html/type_' + res.type + '.html?phoneNumber='.phoneNumber;
+                window.location.href = 'html/type_' + res.type + '.html?phoneNumber=' + phoneNumber;
             } else {
                 $('#myModal').modal('show');
                 $(".modal-body").html(res.message);

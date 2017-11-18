@@ -13,6 +13,11 @@ function getURLParameter(name) {
 }
 function submit() {
     var phoneNumber = getURLParameter('phoneNumber');
+    if (phoneNumber == undefined || phoneNumber.length != 11) {
+        $('#myModal').modal('show');
+        $(".modal-body").html('请输入正确的手机号码！');
+        return;
+    }
     $.ajax({
         url: './../../controller/OrderApp.php',
         type: 'GET',

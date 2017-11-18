@@ -19,7 +19,7 @@ class Order
     protected $id;
 
     /**
-     * @OneToOne(targetEntity="User", inversedBy="order")
+     * @ManyToOne(targetEntity="User", inversedBy="order")
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
@@ -105,9 +105,11 @@ class End2017OrderRepository extends EntityRepository
             $order = new Order();
             $order->setUser($userEntity);
             $userEntity->addOrder($order);
+            $activityTypeEntity->addOrders($order);
             $order->setActivityType($activityTypeEntity);
             $this->_em->persist($userEntity);
             $this->_em->persist($order);
+            $this->_em->persist($activityTypeEntity);
             $this->_em->flush();
             return array("message" => "办理成功！", "code" => 200);
         }

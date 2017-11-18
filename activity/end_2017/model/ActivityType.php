@@ -1,6 +1,7 @@
 <?php
 namespace End_2017;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -23,11 +24,41 @@ class ActivityType
     protected $userType;
 
     /**
+     * One User has one Order
+     * @OneToMany(targetEntity="Order", mappedBy="user")
+     */
+    protected $orders;
+
+    /**
+     * ActivityType constructor.
+     */
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
+
+    /**
      * @return UserType
      */
     public function getUserType()
     {
         return $this->userType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param mixed $orders
+     */
+    public function addOrders($orders)
+    {
+        $this->orders[] = $orders;
     }
 
     /**
