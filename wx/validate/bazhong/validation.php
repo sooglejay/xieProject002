@@ -11,7 +11,7 @@ class ValidationApp
         $timestamp = $_GET['timestamp']; //时间戳
         $nonce = $_GET['nonce']; //随机数
         $echostr = $_GET['echostr']; //随机字符串
-        $token = "ZiYanWeiXinGongZhongHaoToken";
+        $token = "2Lmm5cxiMMKSoJHb5r4P";
         $tempArr = array($token, $timestamp, $nonce);
         sort($tempArr);
         if ($signature == sha1(implode($tempArr))) {
