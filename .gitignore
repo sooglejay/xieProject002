@@ -35,3 +35,6 @@ wx/file_cache/*
 
 
 *.txt
+
+!signature.txt
+!bazhong_input.txt
