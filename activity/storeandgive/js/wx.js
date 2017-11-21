@@ -44,16 +44,8 @@ function wxConfig(res) {
         nonceStr: res.noncestr,
         signature: res.signature,
         jsApiList: [
-            'checkJsApi',
             'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'hideAllNonBaseMenuItem',
-            'hideMenuItems',
-            'showMenuItems',
-            'hideOptionMenu',
-            'showOptionMenu',
-            'openLocation',
-            'getLocation'
+            'onMenuShareAppMessage'
         ]
     });
     /**
