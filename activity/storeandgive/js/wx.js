@@ -73,39 +73,9 @@ function wxConfig(res) {
      * =============================================================================================================
      */
     wx.ready(function () {
-        //分享给朋友
-        wx.onMenuShareAppMessage(wxData);
-        //分享到朋友圈
+        // 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
         wx.onMenuShareTimeline(wxData);
-        wx.checkJsApi({
-            jsApiList: [
-                'getLocation'
-            ],
-            success: function (res) {
-                // alert(JSON.stringify(res));
-                // alert(JSON.stringify(res.checkResult.getLocation));
-                if (res.checkResult.getLocation == false) {
-                    alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
-                    return;
-                } else {
-                    wx.getLocation({
-                        success: function (res) {
-                            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                            var speed = res.speed; // 速度，以米/每秒计
-                            var accuracy = res.accuracy; // 位置精度
-                            LocationApp.lng = longitude;
-                            LocationApp.lat = latitude;
-                        },
-                        cancel: function (res) {
-                            alert('用户拒绝授权获取地理位置');
-                        }
-                    });
-                }
-            }
-        });
-
+        // 获取“分享给朋友”按钮点击状态及自定义分享内容接口
+        wx.onMenuShareAppMessage(wxData);
     });
-
-
 }
