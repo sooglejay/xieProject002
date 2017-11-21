@@ -74,19 +74,9 @@ function wxConfig(res) {
      */
     wx.ready(function () {
         //分享给朋友
-        wx.onMenuShareAppMessage({
-            title: wxData.title,
-            desc: wxData.desc,
-            imgUrl: wxData.imgUrl,
-            link: wxData.link
-        });
+        wx.onMenuShareAppMessage(wxData);
         //分享到朋友圈
-        wx.onMenuShareTimeline({
-            title: wxData.title,
-            desc: wxData.desc,
-            imgUrl: wxData.imgUrl,
-            link: wxData.link
-        });
+        wx.onMenuShareTimeline(wxData);
         wx.checkJsApi({
             jsApiList: [
                 'getLocation'
