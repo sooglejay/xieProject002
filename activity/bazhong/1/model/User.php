@@ -22,6 +22,9 @@ class User
     /** @Column(type="string") * */
     protected $phoneNumber;
 
+    /** @Column(type="string") * */
+    protected $openId;
+
     /** @OneToMany(targetEntity="Sign",mappedBy="user") * */
     protected $signList;
 
@@ -71,6 +74,22 @@ class User
     public function addSignList($sign)
     {
         $this->signList[] = $sign;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOpenId()
+    {
+        return $this->openId;
+    }
+
+    /**
+     * @param mixed $openId
+     */
+    public function setOpenId($openId)
+    {
+        $this->openId = $openId;
     }
 
 

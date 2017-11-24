@@ -23,9 +23,7 @@ class Sign
      * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
-
-
-    /**  @Column(type="string") @GeneratedValue * */
+    /**  @Column(type="datetime", nullable=false) * */
     protected $time;
 
     /**
@@ -33,9 +31,48 @@ class Sign
      */
     public function __construct()
     {
-        $this->time = date("Y-m-d H:i:s");
+        $this->time = new \DateTime("now");
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param mixed $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
 
 }
 

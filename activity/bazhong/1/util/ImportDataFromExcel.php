@@ -8,7 +8,6 @@ namespace BaZhong;
  * Time: 12:36
  */
 
-
 use App;
 use Exception;
 use PHPExcel_IOFactory;
