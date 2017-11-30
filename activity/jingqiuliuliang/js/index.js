@@ -12,37 +12,24 @@ function sendSMS(phoneNumber, obj, code, to) {
     if (mobile == 'iphone') {
         $(obj).attr('href', 'sms:' + to + '&body=' + code);
     }
-    submit(code, phoneNumber);
+    submit(phoneNumber);
 }
 
-function submit(code, phoneNumber) {
+function submit(phoneNumber) {
     $.ajax({
-        url: './../../controller/OrderApp.php',
-        type: 'GET',
+        type: 'POST',
+        url: 'Home.php',
         data: {
-            type: 1,
-            phoneNumber: phoneNumber,
-            activityCode: code
+            doBuy: 'doBuy',
+            mobileNumber: phoneNumber
         },
         dataType: 'json',
-        beforeSend: function () {
-            box.loadding("正在办理,请稍后...");
-        },
         success: function (res) {
-            layer.closeAll();
-            // if (res.code == 200) {
-            //     order();
-            //     $('#myModal').modal('show');
-            //     $(".modal-body").html('办理成功！');
-            // } else {
-            //     $('#myModal').modal('show');
-            //     $(".modal-body").html(res.message);
-            // }
             console.log(res);
         },
-        error: function (res) {
+        error: function (e) {
+            console.log(e);
             layer.closeAll();
-            console.log(res);
         }
     });
 }

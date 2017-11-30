@@ -14,7 +14,6 @@ if (isset($_REQUEST['checkUser'])) {
 }
 if (isset($_REQUEST['doBuy'])) {
     $mobileNumber = $_REQUEST['mobileNumber'];
-    $address = $_REQUEST['address'];
-    $type = $handler->doBuy($mobileNumber, $address);
+    $type = $handler->doBuy($mobileNumber, '未填写地址');
     echo json_encode($type);
 }
