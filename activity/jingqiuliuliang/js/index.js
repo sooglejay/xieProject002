@@ -1,11 +1,52 @@
 /**
  * Created by sooglejay on 17/11/5.
  */
-
-function doBuy() {
-    var mobileNumber = $("#phoneNumber").val();
-    window.location.href = "order.html?mobileNumber=" + mobileNumber;
+function sendSMS(phoneNumber, obj, code, to) {
+    // 发送短信给指定号码
+    var u = navigator.userAgent, mobile = '';
+    if (u.indexOf('iPhone') > -1) mobile = 'iphone';
+    if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) mobile = 'Android';
+    if (mobile == 'Android') {
+        $(obj).attr('href', 'sms:' + to + '?body=' + code);
+    }
+    if (mobile == 'iphone') {
+        $(obj).attr('href', 'sms:' + to + '&body=' + code);
+    }
+    submit(code, phoneNumber);
 }
+
+function submit(code, phoneNumber) {
+    $.ajax({
+        url: './../../controller/OrderApp.php',
+        type: 'GET',
+        data: {
+            type: 1,
+            phoneNumber: phoneNumber,
+            activityCode: code
+        },
+        dataType: 'json',
+        beforeSend: function () {
+            box.loadding("正在办理,请稍后...");
+        },
+        success: function (res) {
+            layer.closeAll();
+            // if (res.code == 200) {
+            //     order();
+            //     $('#myModal').modal('show');
+            //     $(".modal-body").html('办理成功！');
+            // } else {
+            //     $('#myModal').modal('show');
+            //     $(".modal-body").html(res.message);
+            // }
+            console.log(res);
+        },
+        error: function (res) {
+            layer.closeAll();
+            console.log(res);
+        }
+    });
+}
+
 function doSearch() {
     var mobileNumber = $("#phoneNumber").val();
     if (mobileNumber == undefined || mobileNumber.length < 11) {
@@ -31,10 +72,10 @@ function doSearch() {
                     $('.modal-body').html('抱歉，您不是本次活动的目标客户');
                     $("#footer").hide();
                 } else {
-                    $('#doBuy').show();
                     $('#btnClose').hide();
                     $('#footer').removeClass("modal-footer").addClass("new-modal-footer").show();
                     var text = -1;
+                    var code = 'KTSF' + res;
                     switch (res) {
                         case 28:
                             text = '凉山移动诚邀您参加“金秋流量敞开用”28元档活动，您本月参加可享受话费赠送56元（办理当天送费28元，2017年11月30日送费28元），赠送话费今年内有效。承诺每月消费28元至2018年6月30日。';
@@ -56,6 +97,9 @@ function doSearch() {
                             break;
                     }
                     $('.modal-body').html(text);
+                    $('#doBuy').click(function () {
+                        sendSMS(mobileNumber, this, code, '10086');
+                    }).show();
                 }
                 console.log(res);
             },
@@ -67,7 +111,7 @@ function doSearch() {
     }
 }
 $(function () {
-    $('#doBuy').click(doBuy).hide();
+    $('#doBuy').hide();
     $("#search").click(doSearch);
     $('#myModal').on('hide.bs.modal', function () {
         $('#footer').removeClass("new-modal-footer").addClass("modal-footer").show();
