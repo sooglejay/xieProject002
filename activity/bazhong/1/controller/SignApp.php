@@ -7,7 +7,6 @@ require_once dirname(__FILE__) . '/../../../../bootstrap.php';
 require_once dirname(__FILE__) . '/../model/User.php';
 require_once dirname(__FILE__) . '/../model/Sign.php';
 require_once dirname(__FILE__) . '/../model/AllPhoneSegments.php';
-require dirname(__FILE__) . '/../../../../phpspider/core/init.php';
 
 /**
  * Created by PhpStorm.

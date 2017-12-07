@@ -2,12 +2,19 @@
  * Created by sooglejay on 17/11/16.
  */
 
+
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+}
+
 function checkPhoneNumber(phoneNumber) {
+    var sessionId = getURLParameter('sessionId');
     $.ajax({
-        url: '../controller/CheckUserApp.php',
+        url: 'http://wx.xj169.com/KASHI/bzyd/signIn/register.do',
         type: 'POST',
         data: {
-            'phoneNumber': phoneNumber
+            phone: phoneNumber,
+            sessionId:sessionId
         },
         dataType: 'json',
         beforeSend: function () {
@@ -15,11 +22,16 @@ function checkPhoneNumber(phoneNumber) {
         },
         success: function (res) {
             layer.closeAll();
-            if (res.code == 200) {
-                window.location.href = '' + phoneNumber;
-            } else {
-                $('#myModal').modal('show');
-                $("#des").html(res.message);
+            var status = res.status;
+            switch (status){
+                case 200:
+                    window.location.href = 'test.sighub.com/ziyan/activity/bazhong/1/view/html/page.html?phone=' + phoneNumber;
+                    break;
+                case 403:
+                case 400:
+                    $('#myModal').modal('show');
+                    $("#des").html(res.msg);
+                    break;
             }
             console.log(res);
         },
