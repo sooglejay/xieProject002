@@ -22,15 +22,12 @@ function checkPhoneNumber(phoneNumber) {
         },
         success: function (res) {
             layer.closeAll();
-            $('#myModal').modal('show');
-            $("#des").html("success");
             var status = res.status;
             switch (status){
                 case 200:
                     window.location.href = 'http://test.sighub.com/ziyan/activity/bazhong/1/view/html/page.html?sessionId=' + sessionId;
                     break;
-                case 403:
-                case 400:
+                default:
                     $('#myModal').modal('show');
                     $("#des").html(res.msg);
                     break;
