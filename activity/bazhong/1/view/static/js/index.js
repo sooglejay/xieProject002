@@ -14,7 +14,7 @@ function checkPhoneNumber(phoneNumber) {
         type: 'POST',
         data: {
             phone: phoneNumber,
-            sessionId:sessionId
+            sessionId: sessionId
         },
         dataType: 'json',
         beforeSend: function () {
@@ -23,9 +23,13 @@ function checkPhoneNumber(phoneNumber) {
         success: function (res) {
             layer.closeAll();
             var status = res.status;
-            switch (status){
+            switch (status) {
                 case 200:
-                    window.location.href = 'http://test.sighub.com/ziyan/activity/bazhong/1/view/html/page.html?sessionId=' + sessionId;
+                    $('#myModal').modal('show');
+                    $("#des").html("注册成功！已经送您50M流量，请注意查收！<br/><br/> 签到满5次再送您50M,快去签到吧！");
+                    $('#myModal').on('hide.bs.modal', function () {
+                        window.location.href = 'http://test.sighub.com/ziyan/activity/bazhong/1/view/html/page.html?sessionId=' + sessionId;
+                    });
                     break;
                 default:
                     $('#myModal').modal('show');
@@ -58,5 +62,6 @@ $(function () {
     });
     $(".dismissImg").click(function () {
         $('#myModal').modal('hide');
-    })
+    });
+
 });
