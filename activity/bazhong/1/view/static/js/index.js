@@ -25,7 +25,7 @@ function checkPhoneNumber(phoneNumber) {
             var status = res.status;
             switch (status){
                 case 200:
-                    window.location.href = 'test.sighub.com/ziyan/activity/bazhong/1/view/html/page.html?phone=' + phoneNumber;
+                    window.location.href = 'http://test.sighub.com/ziyan/activity/bazhong/1/view/html/page.html?sessionId=' + sessionId;
                     break;
                 case 403:
                 case 400:

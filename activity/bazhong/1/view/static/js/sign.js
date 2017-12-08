@@ -16,7 +16,7 @@ function submit() {
         },
         dataType: 'json',
         beforeSend: function () {
-            box.loadding("正在办理,请稍后...");
+            box.loadding("正在签到,请稍后...");
         },
         success: function (res) {
             layer.closeAll();
@@ -39,27 +39,52 @@ function check() {
         data: {
             sessionId: sessionId
         },
-        dataType: 'json',
         beforeSend: function () {
-            box.loadding("正在办理,请稍后...");
+            box.loadding("正在签到,请稍后...");
         },
+        dataType: 'json',
         success: function (res) {
             layer.closeAll();
             var count = res.count;
             var status = res.status;
             var i;
-            for(i=1;i<=count;i++){
-                $("#img_"+i).attr('src','../image/p2s_1.png')
+            for (i = 1; i <= count; i++) {
+                $("#img_" + i).attr('src', '../image/p2s_1.png')
             }
-            while(i<=5){
-                $("#img_"+i).attr('src','../image/p2s_2.png')
+            while (i <= 5) {
+                $("#img_" + i).attr('src', '../image/p2s_2.png')
             }
-            if(count>=1){
-                if(status==2){
-
+            if (count >= 5) {
+                if (status == 2) {
+                    $('#myModal').modal('show');
+                    $("#des").html("您已累计签到5次，可点击下方按钮，领取流量哟！");
+                    $('#btnSign').click(getLiuLiang).html('领取流量');
+                } else {
+                    $('#btnSign').attr('disabled', 'disabled').html('您已领取');
                 }
+            }else{
+                $('#btnSign').click(submit);
             }
+            console.log(res);
+        },
+        error: function (res) {
+            layer.closeAll();
+            console.log(res);
+        }
+    });
+}
 
+function getLiuLiang() {
+    var sessionId = getURLParameter('sessionId');
+    $.ajax({
+        url: 'http://wx.xj169.com/KASHI/bzyd/signIn/exchange.do',
+        type: 'POST',
+        data: {
+            sessionId: sessionId
+        },
+        dataType: 'json',
+        success: function (res) {
+            layer.closeAll();
             $('#myModal').modal('show');
             $("#des").html(res.msg);
             console.log(res);
@@ -70,9 +95,9 @@ function check() {
         }
     });
 }
-
 $(function () {
     $(".dismissImg").click(function () {
         $('#myModal').modal('hide');
     });
+    check();
 });
