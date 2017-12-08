@@ -54,10 +54,10 @@ function wxConfig(res) {
      * =============================================================================================================
      */
     var wxData = {
-        title: '岁末感恩，流量大回馈',
-        desc: '资阳移动微生活“岁末感恩，流量大回馈”活动正在火热进行中',
-        link: "http://test.sighub.com/ziyan/activity/end_2017/view/",
-        imgUrl: "http://test.sighub.com/ziyan/activity/end_2017/view/image/type_three/img_header.jpg"
+        title: '巴中移动关注有礼 签到翻倍',
+        desc: '巴中移动“关注有礼 签到翻倍”火热进行中',
+        link: "http://test.sighub.com/ziyan/activity/bazhong/1/view/image/share.jpg",
+        imgUrl: "http://test.sighub.com/ziyan/activity/bazhong/1/view/image/face.png"
     };
     /**
      * =============================================================================================================
