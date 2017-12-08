@@ -6,7 +6,7 @@ function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
 }
 
-function submit() {
+function submit(originCount) {
     var sessionId = getURLParameter('sessionId');
     $.ajax({
         url: 'http://wx.xj169.com/KASHI/bzyd/signIn/addsign.do',
@@ -23,6 +23,8 @@ function submit() {
             $('#myModal').modal('show');
             $("#des").html(res.msg);
             console.log(res);
+            check();
+            originCount(originCount + 1);
         },
         error: function (res) {
             layer.closeAll();
@@ -31,6 +33,16 @@ function submit() {
     });
 }
 
+function changeImage(count) {
+    var i;
+    for (i = 1; i <= count; i++) {
+        $("#img_" + i).attr('src', '../image/p2s_1.png')
+    }
+    while (i <= 5) {
+        $("#img_" + i).attr('src', '../image/p2s_2.png');
+        i++;
+    }
+}
 function check() {
     var sessionId = getURLParameter('sessionId');
     $.ajax({
@@ -39,22 +51,12 @@ function check() {
         data: {
             sessionId: sessionId
         },
-        beforeSend: function () {
-            box.loadding("正在签到,请稍后...");
-        },
         dataType: 'json',
         success: function (res) {
             layer.closeAll();
             var count = res.count;
             var status = res.status;
-            var i;
-            for (i = 1; i <= count; i++) {
-                $("#img_" + i).attr('src', '../image/p2s_1.png')
-            }
-            while (i <= 5) {
-                $("#img_" + i).attr('src', '../image/p2s_2.png');
-                i++;
-            }
+            changeImage(count);
             if (count >= 5) {
                 if (status == 2) {
                     $('#myModal').modal('show');
@@ -63,8 +65,10 @@ function check() {
                 } else {
                     $('#btnSign').attr('disabled', 'disabled').html('您已领取');
                 }
-            }else{
-                $('#btnSign').click(submit);
+            } else {
+                $('#btnSign').click(function () {
+                    submit(count);
+                });
             }
             console.log(res);
         },

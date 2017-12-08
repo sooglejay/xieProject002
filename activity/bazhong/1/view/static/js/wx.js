@@ -56,7 +56,7 @@ function wxConfig(res) {
     var wxData = {
         title: '巴中移动关注有礼 签到翻倍',
         desc: '巴中移动“关注有礼 签到翻倍”火热进行中',
-        link: "http://test.sighub.com/ziyan/activity/bazhong/1/view/image/share.jpg",
+        link: "http://test.sighub.com/ziyan/activity/bazhong/1/view/html/sharePage.html",
         imgUrl: "http://test.sighub.com/ziyan/activity/bazhong/1/view/image/face.png"
     };
     /**
