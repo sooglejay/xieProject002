@@ -23,8 +23,10 @@ function submit(originCount) {
             $('#myModal').modal('show');
             $("#des").html(res.msg);
             console.log(res);
-            check();
-            originCount(originCount + 1);
+            if(res.status==200){
+                check();
+                changeImage(originCount+1);
+            }
         },
         error: function (res) {
             layer.closeAll();
@@ -54,23 +56,29 @@ function check() {
         dataType: 'json',
         success: function (res) {
             layer.closeAll();
-            var count = res.count;
-            var status = res.status;
-            changeImage(count);
-            if (count >= 5) {
-                if (status == 2) {
-                    $('#myModal').modal('show');
-                    $("#des").html("您已累计签到5次，可点击下方按钮，领取流量哟！");
-                    $('#btnSign').click(getLiuLiang).html('领取流量');
+            if (res.status == 200) {
+                var data = res.data;
+                var count = data.count;
+                var status = data.status;
+                changeImage(count);
+                if (count >= 5) {
+                    if (status == 2) {
+                        $('#myModal').modal('show');
+                        $("#des").html("您已累计签到5次，可点击下方按钮，领取流量哟！");
+                        $('#btnSign').click(getLiuLiang).html('领取流量');
+                    } else if (status == 1) {
+                        $('#btnSign').attr('disabled', 'disabled').html('您已领取');
+                    }
                 } else {
-                    $('#btnSign').attr('disabled', 'disabled').html('您已领取');
+                    $('#btnSign').click(function () {
+                        submit(count);
+                    });
                 }
+                console.log(res);
             } else {
-                $('#btnSign').click(function () {
-                    submit(count);
-                });
+                $('#myModal').modal('show');
+                $("#des").html(res.msg);
             }
-            console.log(res);
         },
         error: function (res) {
             layer.closeAll();
