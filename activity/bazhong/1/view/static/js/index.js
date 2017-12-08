@@ -22,6 +22,8 @@ function checkPhoneNumber(phoneNumber) {
         },
         success: function (res) {
             layer.closeAll();
+            $('#myModal').modal('show');
+            $("#des").html("success");
             var status = res.status;
             switch (status){
                 case 200:
@@ -38,6 +40,8 @@ function checkPhoneNumber(phoneNumber) {
         error: function (res) {
             layer.closeAll();
             console.log(res);
+            $('#myModal').modal('show');
+            $("#des").html("error");
         }
     });
 }
