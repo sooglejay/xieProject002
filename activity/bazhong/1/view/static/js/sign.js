@@ -52,7 +52,8 @@ function check() {
                 $("#img_" + i).attr('src', '../image/p2s_1.png')
             }
             while (i <= 5) {
-                $("#img_" + i).attr('src', '../image/p2s_2.png')
+                $("#img_" + i).attr('src', '../image/p2s_2.png');
+                i++;
             }
             if (count >= 5) {
                 if (status == 2) {
