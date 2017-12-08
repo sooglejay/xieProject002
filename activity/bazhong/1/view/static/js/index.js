@@ -38,7 +38,7 @@ function checkPhoneNumber(phoneNumber) {
             layer.closeAll();
             console.log(res);
             $('#myModal').modal('show');
-            $("#des").html("error");
+            $("#des").html(JSON.stringify(res));
         }
     });
 }
